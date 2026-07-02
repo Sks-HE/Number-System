@@ -4,12 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Number System-Calculator</title>
-
-    <!-- FAVICON -->
-    <link rel="icon" type="https://i.pinimg.com/1200x/5f/03/aa/5f03aa94b44b3f86a86567460c39c793.jpg">
-    <link rel="apple-touch-icon" href="https://i.pinimg.com/1200x/5f/03/aa/5f03aa94b44b3f86a86567460c39c793.jpg">
-
-    
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="https://i.pinimg.com/1200x/5f/03/aa/5f03aa94b44b3f86a86567460c39c793.jpg">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
@@ -69,14 +65,175 @@
             background: var(--btn-base);
             border-radius: 4px;
         }
+
+        /* Celebration Overlay Styles */
+        .celebration-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            pointer-events: none;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        .celebration-overlay.active {
+            display: flex;
+            pointer-events: auto;
+            animation: celebFadeIn 0.5s ease-out;
+        }
+        @keyframes celebFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes celebFadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        .celebration-backdrop {
+            position: absolute;
+            inset: 0;
+            backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.6);
+        }
+        .celebration-card {
+            position: relative;
+            z-index: 2;
+            padding: 2.5rem 3rem;
+            border-radius: 2rem;
+            text-align: center;
+            animation: celebCardPop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            max-width: 90vw;
+        }
+        @keyframes celebCardPop {
+            0% { transform: scale(0.3) rotate(-15deg); opacity: 0; }
+            60% { transform: scale(1.1) rotate(3deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0); opacity: 1; }
+        }
+        .celebration-emoji {
+            font-size: 5rem;
+            display: inline-block;
+            animation: celebEmojiBounce 1.2s ease-in-out infinite;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+        }
+        @keyframes celebEmojiBounce {
+            0%, 100% { transform: translateY(0) rotate(-5deg) scale(1); }
+            50% { transform: translateY(-20px) rotate(5deg) scale(1.15); }
+        }
+        .celebration-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-top: 1rem;
+            background: linear-gradient(to right, #fff, #fef08a, #fff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.05em;
+            text-shadow: 0 4px 20px rgba(255,255,255,0.2);
+        }
+        .celebration-subtitle {
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            color: rgba(255,255,255,0.9);
+            font-weight: 500;
+        }
+        .celebration-score {
+            font-size: 1.5rem;
+            margin-top: 1rem;
+            font-weight: 700;
+            font-family: 'Fira Code', monospace;
+        }
+
+        /* Confetti Pieces */
+        .confetti-piece {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            top: -20px;
+            opacity: 0;
+            animation: confettiFall linear forwards;
+        }
+        @keyframes confettiFall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Firework burst */
+        .firework {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: fireworkBurst 1.2s ease-out forwards;
+        }
+        @keyframes fireworkBurst {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+        }
+
+        /* Sparkle effect */
+        .sparkle {
+            position: absolute;
+            color: #fef08a;
+            font-size: 1.5rem;
+            animation: sparkleFade 1.5s ease-out forwards;
+            pointer-events: none;
+        }
+        @keyframes sparkleFade {
+            0% { transform: scale(0) rotate(0deg); opacity: 1; }
+            50% { transform: scale(1.5) rotate(180deg); opacity: 1; }
+            100% { transform: scale(0.5) rotate(360deg); opacity: 0; }
+        }
+
+        /* Ribbon banner */
+        .celebration-ribbon {
+            display: inline-block;
+            padding: 0.25rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-top: 1rem;
+            border: 2px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.1);
+            color: white;
+            animation: ribbonPulse 2s ease-in-out infinite;
+        }
+        @keyframes ribbonPulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(255,255,255,0.2); }
+            50% { box-shadow: 0 0 40px rgba(255,255,255,0.5); }
+        }
+
+        /* Score badge pulse on milestone */
+        .score-milestone-pulse {
+            animation: scorePulse 0.8s ease-out;
+        }
+        @keyframes scorePulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); box-shadow: 0 0 30px currentColor; }
+            100% { transform: scale(1); }
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
 
+    <!-- Celebration Overlay -->
+    <div id="celebration-overlay" class="celebration-overlay">
+        <div class="celebration-backdrop" onclick="closeCelebrATION()"></div>
+        <div id="celebration-card" class="celebration-card">
+            <div id="celebration-emoji" class="celebration-emoji">🎉</div>
+            <div id="celebration-title" class="celebration-title">MILESTONE!</div>
+            <div id="celebration-subtitle" class="celebration-subtitle">You reached a new level!</div>
+            <div id="celebration-score" class="celebration-score">100 Points</div>
+            <div id="celebration-ribbon" class="celebration-ribbon">KEEP GOING!</div>
+        </div>
+    </div>
+
     <!-- Header Area -->
     <header class="border-b border-slate-800 bg-slate-950/60 backdrop-blur sticky top-0 z-50 px-4 md:px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-4 custom-card">
         <div class="flex items-center gap-3">
-            <div class="bg-gradient-to-tr from-indigo-600 to-violet-500 p-2.5 rounded-xl text-white shadow-lg shadow-indigo-500/20">
+            <div onclick="location.reload()" class="bg-gradient-to-tr from-indigo-600 to-violet-500 p-2.5 rounded-xl text-white shadow-lg shadow-indigo-500/20 cursor-pointer hover:scale-110 transition-transform duration-200" title="Click to refresh">
                 <i data-lucide="activity" class="w-6 h-6 animate-pulse"></i>
             </div>
             <div>
@@ -1603,6 +1760,171 @@
         // ==================== QUIZ CHALLENGE ENGINE ====================
         let quizScore = 0;
         let currentQuestion = null;
+        let lastCelebrationMilestone = 0; // Track last milestone celebrated
+
+        // Format score as K, M, T for 1000+
+        function formatScore(n) {
+            if (n >= 1000000000000) return (n / 1000000000000).toFixed(1).replace(/\.0$/, '') + 'T';
+            if (n >= 1000000000) return (n / 1000000000).toFixed(1).replace(/\.0$/, '') + 'B';
+            if (n >= 1000000) return (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+            if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+            return n.toString();
+        }
+
+        function updateScoreDisplay() {
+            document.getElementById('quiz-score').innerText = formatScore(quizScore);
+        }
+
+        // Celebration themes for every 100 milestone
+        const celebrationThemes = [
+            // 100 - Bronze
+            { emoji: '🎉', title: 'BRONZE MILESTONE!', subtitle: 'You hit 100 points!', gradient: 'linear-gradient(135deg, #cd7f32 0%, #8b4513 100%)', ribbon: 'KEEP GOING!', confettiColors: ['#cd7f32', '#daa520', '#b8860b', '#ffd700'] },
+            // 200 - Silver
+            { emoji: '🎊', title: 'SILVER ACHIEVEMENT!', subtitle: 'Amazing 200 points!', gradient: 'linear-gradient(135deg, #c0c0c0 0%, #808080 100%)', ribbon: 'UNSTOPPABLE!', confettiColors: ['#c0c0c0', '#a8a8a8', '#d4d4d4', '#e8e8e8'] },
+            // 300 - Gold
+            { emoji: '🏆', title: 'GOLDEN VICTORY!', subtitle: '300 points conquered!', gradient: 'linear-gradient(135deg, #ffd700 0%, #ff8c00 100%)', ribbon: 'CHAMPION!', confettiColors: ['#ffd700', '#ffed4e', '#ffb700', '#ffa500'] },
+            // 400 - Diamond
+            { emoji: '💎', title: 'DIAMOND STATUS!', subtitle: '400 points of brilliance!', gradient: 'linear-gradient(135deg, #b9f2ff 0%, #00bfff 100%)', ribbon: 'RARE GEM!', confettiColors: ['#b9f2ff', '#00bfff', '#87ceeb', '#e0ffff'] },
+            // 500 - Star
+            { emoji: '⭐', title: 'SUPERSTAR RISING!', subtitle: '500 points of greatness!', gradient: 'linear-gradient(135deg, #ffeb3b 0%, #ff9800 100%)', ribbon: 'LEGENDARY!', confettiColors: ['#ffeb3b', '#ffc107', '#ff9800', '#ff5722'] },
+            // 600 - Fire
+            { emoji: '🔥', title: 'ON FIRE!', subtitle: '600 points burning bright!', gradient: 'linear-gradient(135deg, #ff4500 0%, #dc143c 100%)', ribbon: 'UNSTOPPABLE!', confettiColors: ['#ff4500', '#ff6347', '#dc143c', '#ff1493'] },
+            // 700 - Rocket
+            { emoji: '🚀', title: 'ROCKET LAUNCH!', subtitle: '700 points to the moon!', gradient: 'linear-gradient(135deg, #6a11cb 0%, #2575fc 100%)', ribbon: 'TO THE MOON!', confettiColors: ['#6a11cb', '#2575fc', '#a855f7', '#3b82f6'] },
+            // 800 - Crown
+            { emoji: '👑', title: 'ROYALTY UNLOCKED!', subtitle: '800 points of majesty!', gradient: 'linear-gradient(135deg, #f59e0b 0%, #dc2626 100%)', ribbon: 'KING/QUEEN!', confettiColors: ['#f59e0b', '#dc2626', '#fbbf24', '#ef4444'] },
+            // 900 - Lightning
+            { emoji: '⚡', title: 'ELECTRIFYING!', subtitle: '900 points of power!', gradient: 'linear-gradient(135deg, #fde047 0%, #84cc16 100%)', ribbon: 'SHOCKING!', confettiColors: ['#fde047', '#84cc16', '#facc15', '#a3e635'] },
+            // 1000 - GRAND (Special)
+            { emoji: '🎆', title: '🌟 GRAND MILESTONE! 🌟', subtitle: '1000 POINTS ACHIEVED!', gradient: 'linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #3b82f6 100%)', ribbon: '✨ GRAND MASTER ✨', confettiColors: ['#ec4899', '#8b5cf6', '#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#fde047'] }
+        ];
+
+        function getCelebrationTheme(milestone) {
+            // Every 100 points, cycle through themes. 1000 gets special treatment.
+            if (milestone === 1000) return celebrationThemes[9];
+            const index = Math.floor((milestone / 100) - 1) % celebrationThemes.length;
+            // After 1000, continue cycling but with varied effects
+            return celebrationThemes[index];
+        }
+
+        function triggerCelebration(milestone) {
+            const theme = getCelebrationTheme(milestone);
+            const overlay = document.getElementById('celebration-overlay');
+            const card = document.getElementById('celebration-card');
+            const emojiEl = document.getElementById('celebration-emoji');
+            const titleEl = document.getElementById('celebration-title');
+            const subtitleEl = document.getElementById('celebration-subtitle');
+            const scoreEl = document.getElementById('celebration-score');
+            const ribbonEl = document.getElementById('celebration-ribbon');
+
+            // Set content
+            emojiEl.innerText = theme.emoji;
+            titleEl.innerText = theme.title;
+            subtitleEl.innerText = theme.subtitle;
+            scoreEl.innerText = formatScore(milestone) + ' Points';
+            ribbonEl.innerText = theme.ribbon;
+            card.style.background = theme.gradient;
+
+            // Pulse the score badge
+            const scoreBadge = document.getElementById('quiz-score').parentElement;
+            scoreBadge.classList.remove('score-milestone-pulse');
+            void scoreBadge.offsetWidth;
+            scoreBadge.classList.add('score-milestone-pulse');
+
+            // Clear old confetti
+            overlay.querySelectorAll('.confetti-piece, .firework, .sparkle').forEach(el => el.remove());
+
+            // Generate confetti
+            const confettiCount = milestone === 1000 ? 150 : (milestone >= 500 ? 80 : 50);
+            for (let i = 0; i < confettiCount; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'confetti-piece';
+                const color = theme.confettiColors[Math.floor(Math.random() * theme.confettiColors.length)];
+                const shapes = ['square', 'circle'];
+                const shape = shapes[Math.floor(Math.random() * shapes.length)];
+                piece.style.left = Math.random() * 100 + '%';
+                piece.style.background = color;
+                piece.style.borderRadius = shape === 'circle' ? '50%' : '2px';
+                piece.style.width = (Math.random() * 10 + 6) + 'px';
+                piece.style.height = (Math.random() * 10 + 6) + 'px';
+                piece.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                piece.style.animationDelay = (Math.random() * 1.5) + 's';
+                overlay.appendChild(piece);
+            }
+
+            // Generate fireworks for 1000+ milestones
+            if (milestone >= 1000) {
+                for (let burst = 0; burst < 5; burst++) {
+                    setTimeout(() => {
+                        const centerX = Math.random() * 80 + 10;
+                        const centerY = Math.random() * 60 + 20;
+                        for (let i = 0; i < 20; i++) {
+                            const fw = document.createElement('div');
+                            fw.className = 'firework';
+                            const angle = (i / 20) * Math.PI * 2;
+                            const distance = Math.random() * 150 + 80;
+                            fw.style.left = centerX + '%';
+                            fw.style.top = centerY + '%';
+                            fw.style.background = theme.confettiColors[Math.floor(Math.random() * theme.confettiColors.length)];
+                            fw.style.setProperty('--tx', Math.cos(angle) * distance + 'px');
+                            fw.style.setProperty('--ty', Math.sin(angle) * distance + 'px');
+                            fw.style.boxShadow = `0 0 10px ${fw.style.background}`;
+                            overlay.appendChild(fw);
+                            setTimeout(() => fw.remove(), 1500);
+                        }
+                    }, burst * 400);
+                }
+            }
+
+            // Generate sparkles
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const sparkle = document.createElement('div');
+                    sparkle.className = 'sparkle';
+                    sparkle.innerText = ['✨', '⭐', '💫', '🌟'][Math.floor(Math.random() * 4)];
+                    sparkle.style.left = Math.random() * 100 + '%';
+                    sparkle.style.top = Math.random() * 100 + '%';
+                    overlay.appendChild(sparkle);
+                    setTimeout(() => sparkle.remove(), 1500);
+                }, Math.random() * 2000);
+            }
+
+            // Play celebration sound sequence
+            playTone(523, 'sine', 0.15);
+            setTimeout(() => playTone(659, 'sine', 0.15), 150);
+            setTimeout(() => playTone(784, 'sine', 0.15), 300);
+            setTimeout(() => playTone(1047, 'sine', 0.3), 450);
+            if (milestone >= 1000) {
+                setTimeout(() => playTone(1319, 'sine', 0.4), 650);
+            }
+
+            // Show overlay
+            overlay.classList.add('active');
+
+            // Auto close after delay
+            const displayTime = milestone === 1000 ? 5000 : (milestone >= 500 ? 4000 : 3000);
+            setTimeout(() => {
+                closeCelebrATION();
+            }, displayTime);
+        }
+
+        function closeCelebrATION() {
+            const overlay = document.getElementById('celebration-overlay');
+            overlay.style.animation = 'celebFadeOut 0.4s ease-out forwards';
+            setTimeout(() => {
+                overlay.classList.remove('active');
+                overlay.style.animation = '';
+                overlay.querySelectorAll('.confetti-piece, .firework, .sparkle').forEach(el => el.remove());
+            }, 400);
+        }
+
+        function checkMilestone() {
+            const currentMilestone = Math.floor(quizScore / 100) * 100;
+            if (currentMilestone > lastCelebrationMilestone && currentMilestone > 0) {
+                lastCelebrationMilestone = currentMilestone;
+                triggerCelebration(currentMilestone);
+            }
+        }
 
         function getRandomInt(min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -1701,10 +2023,13 @@
                 playTone(900, 'sine', 0.1);
                 setTimeout(() => playTone(1200, 'sine', 0.15), 100);
                 quizScore += 10;
-                document.getElementById('quiz-score').innerText = quizScore;
+                updateScoreDisplay();
                 
                 feedbackEl.className = "mt-4 p-3 rounded-lg text-xs font-semibold text-center bg-emerald-500/10 border border-emerald-500/20 text-emerald-400";
                 feedbackEl.innerText = currentLang === 'en' ? "Excellent! Correct Answer! (+10 points)" : "চমৎকার হয়েছে! সঠিক উত্তর! (+১০ পয়েন্ট)";
+
+                // Check for milestone celebration
+                checkMilestone();
             } else {
                 playTone(180, 'sawtooth', 0.25);
                 selectedButton.className = "quiz-opt-btn w-full bg-rose-950 border border-rose-500 text-rose-400 py-3 px-5 rounded-xl text-sm font-semibold font-mono transition-all duration-150 text-left truncate";
@@ -1728,6 +2053,7 @@
             generateNewQuiz();
             triggerWaveformDrawing();
             showDefaultSolutionNote();
+            updateScoreDisplay();
             lucide.createIcons();
         };
     </script>
