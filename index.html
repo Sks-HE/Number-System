@@ -1,0 +1,1701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number System-Calculator</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --bg-primary: #030712;
+            --bg-secondary: rgba(17, 24, 39, 0.6);
+            --border-color: #1f2937;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --card-bg: #0b0f19;
+            --input-bg: #020617;
+            --btn-base: #1f2937;
+            --accent-glow: rgba(79, 70, 229, 0.15);
+        }
+
+        .theme-light {
+            --bg-primary: #f3f4f6;
+            --bg-secondary: rgba(255, 255, 255, 0.8);
+            --border-color: #e5e7eb;
+            --text-primary: #111827;
+            --text-secondary: #4b5563;
+            --card-bg: #ffffff;
+            --input-bg: #f9fafb;
+            --btn-base: #e5e7eb;
+            --accent-glow: rgba(79, 70, 229, 0.05);
+        }
+
+        body {
+            font-family: 'Inter', 'Hind Siliguri', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .custom-card {
+            background-color: var(--bg-secondary);
+            border-color: var(--border-color);
+        }
+
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+
+        /* Custom scrollbars */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--btn-base);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
+
+    <!-- Header Area -->
+    <header class="border-b border-slate-800 bg-slate-950/60 backdrop-blur sticky top-0 z-50 px-4 md:px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-4 custom-card">
+        <div class="flex items-center gap-3">
+            <div class="bg-gradient-to-tr from-indigo-600 to-violet-500 p-2.5 rounded-xl text-white shadow-lg shadow-indigo-500/20">
+                <i data-lucide="activity" class="w-6 h-6 animate-pulse"></i>
+            </div>
+            <div>
+                <h1 id="header-title" class="text-xl md:text-2xl font-bold bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    Number System
+                </h1>
+                <p id="header-subtitle" class="text-xs text-slate-400">Decimal conversion, live digital wave & multi-operand math engine</p>
+            </div>
+        </div>
+        
+        <!-- Controls: Language, Theme & Tab Navigation Menu -->
+        <div class="flex flex-wrap items-center gap-3">
+            <!-- Language Switcher -->
+            <button onclick="toggleLanguage()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold border border-slate-700 bg-slate-900/60 hover:bg-slate-800 text-slate-200 transition-all">
+                <i data-lucide="languages" class="w-4 h-4 text-indigo-400"></i>
+                <span id="lang-btn-text">বাংলা</span>
+            </button>
+
+            <!-- Theme Toggle -->
+            <button onclick="toggleTheme()" class="flex items-center justify-center p-2 rounded-lg border border-slate-700 bg-slate-900/60 hover:bg-slate-800 text-slate-200 transition-all" id="theme-btn">
+                <i data-lucide="sun" class="w-4 h-4 text-amber-400" id="theme-icon"></i>
+            </button>
+
+            <!-- Tab Buttons -->
+            <div class="flex items-center gap-1 bg-slate-900 p-1 rounded-xl border border-slate-800">
+                <button onclick="switchTab('converter-tab')" id="tab-btn-converter" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white flex items-center gap-1.5">
+                    <i data-lucide="shuffle" class="w-3.5 h-3.5"></i> <span data-key="tab_converter">Converter & Waves</span>
+                </button>
+                <button onclick="switchTab('calculator-tab')" id="tab-btn-calculator" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-slate-200 flex items-center gap-1.5">
+                    <i data-lucide="calculator" class="w-3.5 h-3.5"></i> <span data-key="tab_calculator">Multi-Calculator</span>
+                </button>
+                <button onclick="switchTab('quiz-tab')" id="tab-btn-quiz" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-slate-200 flex items-center gap-1.5">
+                    <i data-lucide="gamepad-2" class="w-3.5 h-3.5"></i> <span data-key="tab_quiz">Quiz Arena</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Workspace Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6">
+        
+        <!-- Dynamic Premium Toast Alerts -->
+        <div id="toast-success" class="hidden fixed bottom-6 right-6 z-50 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl p-4 flex items-center gap-3 text-emerald-400 text-sm shadow-xl shadow-emerald-950/20 max-w-sm transition-all duration-300">
+            <i data-lucide="check-circle" class="w-5 h-5 shrink-0 animate-bounce"></i>
+            <span id="toast-success-msg">Copied successfully!</span>
+        </div>
+
+        <div id="toast-error" class="hidden fixed bottom-6 right-6 z-50 bg-rose-500/10 border border-rose-500/30 rounded-2xl p-4 flex items-center gap-3 text-rose-400 text-sm shadow-xl shadow-rose-950/20 max-w-sm transition-all duration-300">
+            <i data-lucide="alert-triangle" class="w-5 h-5 shrink-0 animate-pulse"></i>
+            <span id="toast-error-msg">Invalid input characters entered!</span>
+        </div>
+
+        <!-- ==================== TAB 1: CONVERTER & WAVEFORM WORKSPACE ==================== -->
+        <div id="tab-converter" class="tab-content grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            <!-- LEFT PANEL: Interactive Register & Live Multi-Converter (5 Columns) -->
+            <section class="lg:col-span-5 flex flex-col gap-6">
+                
+                <!-- Bit Board Playfield -->
+                <div class="custom-card border rounded-2xl p-5 shadow-xl relative overflow-hidden group">
+                    <div class="absolute -right-12 -top-12 w-24 h-24 bg-indigo-500/10 rounded-full blur-2xl group-hover:bg-indigo-500/20 transition-all"></div>
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-sm font-semibold text-slate-300 uppercase tracking-wider flex items-center gap-2">
+                            <i data-lucide="cpu" class="w-4 h-4 text-emerald-400"></i> <span data-key="bit_board_title">8-Bit Register</span>
+                        </h3>
+                        <button id="btn-reset-bits" class="text-xs text-slate-400 hover:text-white flex items-center gap-1 transition-colors">
+                            <i data-lucide="refresh-cw" class="w-3 h-3"></i> <span data-key="reset_bits">Reset Bits</span>
+                        </button>
+                    </div>
+                    
+                    <p class="text-xs text-slate-400 mb-4 leading-relaxed" data-key="bit_board_desc">
+                        Toggle bits below to change state. Fractional decimals should be entered in the Converter below.
+                    </p>
+
+                    <!-- 8 Interactive Bits UI -->
+                    <div class="grid grid-cols-8 gap-2 bg-slate-950 p-4 rounded-xl border border-slate-800/80 mb-4">
+                        <div class="flex flex-col items-center gap-1">
+                            <span class="text-[10px] text-slate-500 code-font">128</span>
+                            <button onclick="toggleBit(7)" id="bit-7" class="w-full aspect-square bg-slate-800 border border-slate-700 hover:border-indigo-500 rounded-lg flex items-center justify-center font-bold text-lg code-font text-slate-400 transition-all duration-150 shadow">0</button>
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <span class="text-[10px] text-slate-500 code-font">64</span>
+                            <button onclick="toggleBit(6)" id="bit-6" class="w-full aspect-square bg-slate-800 border border-slate-700 hover:border-indigo-500 rounded-lg flex items-center justify-center font-bold text-lg code-font text-slate-400 transition-all duration-150 shadow">0</button>
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <span class="text-[10px] text-slate-500 code-font">32</span>
+                            <button onclick="toggleBit(5)" id="bit-5" class="w-full aspect-square bg-slate-800 border border-slate-700 hover:border-indigo-500 rounded-lg flex items-center justify-center font-bold text-lg code-font text-slate-400 transition-all duration-150 shadow">0</button>
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <span class="text-[10px] text-slate-500 code-font">16</span>
+                            <button onclick="toggleBit(4)" id="bit-4" class="w-full aspect-square bg-slate-800 border border-slate-700 hover:border-indigo-500 rounded-lg flex items-center justify-center font-bold text-lg code-font text-slate-400 transition-all duration-150 shadow">0</button>
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <span class="text-[10px] text-slate-500 code-font">8</span>
+                            <button onclick="toggleBit(3)" id="bit-3" class="w-full aspect-square bg-slate-800 border border-slate-700 hover:border-indigo-500 rounded-lg flex items-center justify-center font-bold text-lg code-font text-slate-400 transition-all duration-150 shadow">0</button>
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <span class="text-[10px] text-slate-500 code-font">4</span>
+                            <button onclick="toggleBit(2)" id="bit-2" class="w-full aspect-square bg-slate-800 border border-slate-700 hover:border-indigo-500 rounded-lg flex items-center justify-center font-bold text-lg code-font text-slate-400 transition-all duration-150 shadow">0</button>
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <span class="text-[10px] text-slate-500 code-font">2</span>
+                            <button onclick="toggleBit(1)" id="bit-1" class="w-full aspect-square bg-slate-800 border border-slate-700 hover:border-indigo-500 rounded-lg flex items-center justify-center font-bold text-lg code-font text-slate-400 transition-all duration-150 shadow">0</button>
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <span class="text-[10px] text-slate-500 code-font">1</span>
+                            <button onclick="toggleBit(0)" id="bit-0" class="w-full aspect-square bg-slate-800 border border-slate-700 hover:border-indigo-500 rounded-lg flex items-center justify-center font-bold text-lg code-font text-slate-400 transition-all duration-150 shadow">0</button>
+                        </div>
+                    </div>
+
+                    <!-- Bitboard Fast Info Cards -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                        <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 text-center">
+                            <div class="text-[10px] text-slate-400" data-key="dec_label">Decimal</div>
+                            <div id="bit-dec-val" class="font-bold text-lg text-emerald-400 code-font">0</div>
+                        </div>
+                        <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 text-center">
+                            <div class="text-[10px] text-slate-400" data-key="oct_label">Octal</div>
+                            <div id="bit-oct-val" class="font-bold text-lg text-indigo-400 code-font">0</div>
+                        </div>
+                        <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 text-center">
+                            <div class="text-[10px] text-slate-400" data-key="hex_label">Hexadecimal</div>
+                            <div id="bit-hex-val" class="font-bold text-lg text-violet-400 code-font">00</div>
+                        </div>
+                        <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 text-center">
+                            <div class="text-[10px] text-slate-400">ASCII</div>
+                            <div id="bit-ascii-val" class="font-bold text-sm text-pink-400 code-font py-0.5">[Null]</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- The Converter Input Workspace -->
+                <div class="custom-card border rounded-2xl p-6 shadow-xl flex flex-col gap-5">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-sm font-semibold text-slate-300 uppercase tracking-wider flex items-center gap-2">
+                            <i data-lucide="calculator" class="w-4.5 h-4.5 text-indigo-400"></i> <span data-key="conversion_wizard">Conversion Wizard</span>
+                        </h3>
+                        <span class="text-[10px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/20 font-bold uppercase" data-key="fraction_supported">Fraction Supported</span>
+                    </div>
+
+                    <!-- Source Base Selector -->
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-400 mb-2 uppercase tracking-wider" data-key="input_system">Input System (From)</label>
+                        <div class="grid grid-cols-4 gap-2">
+                            <button onclick="setSourceBase(10)" id="src-base-10" class="base-btn-src px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-bold transition-all border border-indigo-500 shadow-md">DEC</button>
+                            <button onclick="setSourceBase(2)" id="src-base-2" class="base-btn-src px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-bold transition-all border border-slate-700">BIN</button>
+                            <button onclick="setSourceBase(8)" id="src-base-8" class="base-btn-src px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-bold transition-all border border-slate-700">OCT</button>
+                            <button onclick="setSourceBase(16)" id="src-base-16" class="base-btn-src px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-bold transition-all border border-slate-700">HEX</button>
+                        </div>
+                    </div>
+
+                    <!-- Input Field with live validator helper -->
+                    <div>
+                        <div class="flex justify-between items-center mb-1.5">
+                            <label for="main-input" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider" data-key="enter_number">Enter Your Number</label>
+                            <span id="validation-tip" class="text-[10px] text-slate-500 font-mono">Allowed: 0-9 and .</span>
+                        </div>
+                        <div class="relative">
+                            <input id="main-input" type="text" placeholder="Decimal Number... (e.g. 45.625)" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-lg font-bold text-white tracking-widest focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all code-font uppercase" />
+                            <button id="btn-clear" class="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-slate-500 hover:text-slate-300 transition-colors" title="Clear">
+                                <i data-lucide="x-circle" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Target Base Selector -->
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-400 mb-2 uppercase tracking-wider" data-key="target_system">Target System (To)</label>
+                        <div class="grid grid-cols-4 gap-2">
+                            <button onclick="setTargetBase(2)" id="trg-base-2" class="base-btn-trg px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-bold transition-all border border-indigo-500 shadow-md">BIN</button>
+                            <button onclick="setTargetBase(10)" id="trg-base-10" class="base-btn-trg px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-bold transition-all border border-slate-700">DEC</button>
+                            <button onclick="setTargetBase(8)" id="trg-base-8" class="base-btn-trg px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-bold transition-all border border-slate-700">OCT</button>
+                            <button onclick="setTargetBase(16)" id="trg-base-16" class="base-btn-trg px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-bold transition-all border border-slate-700">HEX</button>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- RIGHT PANEL: Multi-Base Output, Waveform, & Step Breakdown (7 Columns) -->
+            <section class="lg:col-span-7 flex flex-col gap-6">
+
+                <!-- Real-Time Multi-Base Display Panel -->
+                <div class="custom-card border rounded-2xl p-6 shadow-xl">
+                    <h3 class="text-sm font-semibold text-slate-300 uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <i data-lucide="layout-grid" class="w-4.5 h-4.5 text-pink-400"></i> <span data-key="live_output">Live Output Grid (Fractional Supported)</span>
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Decimal Box -->
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex items-center justify-between group hover:border-emerald-500/30 transition-all">
+                            <div class="min-w-0 flex-1">
+                                <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider" data-key="dec_label">Decimal</span>
+                                <div id="out-dec" class="text-xl font-bold font-mono tracking-wide text-slate-200 truncate pr-2">0</div>
+                            </div>
+                            <button onclick="copyToClipboard('out-dec')" class="p-2 bg-slate-900 border border-slate-800 hover:border-slate-700 hover:text-white rounded-lg text-slate-400 transition-all flex items-center justify-center shrink-0" title="Copy">
+                                <i data-lucide="copy" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+
+                        <!-- Binary Box -->
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex items-center justify-between group hover:border-indigo-500/30 transition-all">
+                            <div class="min-w-0 flex-1">
+                                <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-wider" data-key="bin_label">Binary</span>
+                                <div id="out-bin" class="text-xl font-bold font-mono tracking-wide text-slate-200 truncate pr-2">0</div>
+                            </div>
+                            <button onclick="copyToClipboard('out-bin')" class="p-2 bg-slate-900 border border-slate-800 hover:border-slate-700 hover:text-white rounded-lg text-slate-400 transition-all flex items-center justify-center shrink-0" title="Copy">
+                                <i data-lucide="copy" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+
+                        <!-- Octal Box -->
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex items-center justify-between group hover:border-violet-500/30 transition-all">
+                            <div class="min-w-0 flex-1">
+                                <span class="text-[10px] font-bold text-violet-400 uppercase tracking-wider" data-key="oct_label">Octal</span>
+                                <div id="out-oct" class="text-xl font-bold font-mono tracking-wide text-slate-200 truncate pr-2">0</div>
+                            </div>
+                            <button onclick="copyToClipboard('out-oct')" class="p-2 bg-slate-900 border border-slate-800 hover:border-slate-700 hover:text-white rounded-lg text-slate-400 transition-all flex items-center justify-center shrink-0" title="Copy">
+                                <i data-lucide="copy" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+
+                        <!-- Hexadecimal Box -->
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex items-center justify-between group hover:border-pink-500/30 transition-all">
+                            <div class="min-w-0 flex-1">
+                                <span class="text-[10px] font-bold text-pink-400 uppercase tracking-wider" data-key="hex_label">Hexadecimal</span>
+                                <div id="out-hex" class="text-xl font-bold font-mono tracking-wide text-slate-200 truncate pr-2">0</div>
+                            </div>
+                            <button onclick="copyToClipboard('out-hex')" class="p-2 bg-slate-900 border border-slate-800 hover:border-slate-700 hover:text-white rounded-lg text-slate-400 transition-all flex items-center justify-center shrink-0" title="Copy">
+                                <i data-lucide="copy" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Digital Signal Oscilloscope -->
+                <div class="custom-card border rounded-2xl p-6 shadow-xl relative overflow-hidden">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-slate-800 pb-3 mb-4">
+                        <div>
+                            <h3 class="text-sm font-semibold text-slate-200 uppercase tracking-wider flex items-center gap-2">
+                                <i data-lucide="waves" class="w-5 h-5 text-indigo-400"></i> <span data-key="oscilloscope_title">Digital Signal Oscilloscope (Live Waveform)</span>
+                            </h3>
+                            <p class="text-xs text-slate-400" data-key="oscilloscope_desc">Real-time waveform of binary value and transition pulses</p>
+                        </div>
+                        <!-- Encoding Switcher -->
+                        <div class="flex items-center gap-2 bg-slate-950 p-1.5 rounded-lg border border-slate-800">
+                            <button onclick="setSignalType('nrz')" id="btn-nrz" class="px-2.5 py-1 text-[10px] font-bold uppercase rounded bg-indigo-600 text-white transition-all">NRZ-L</button>
+                            <button onclick="setSignalType('manchester')" id="btn-manchester" class="px-2.5 py-1 text-[10px] font-bold uppercase rounded text-slate-400 hover:text-white transition-all">Manchester</button>
+                        </div>
+                    </div>
+
+                    <!-- Signal Canvas Area -->
+                    <div class="bg-slate-950/80 rounded-xl p-4 border border-slate-800/80 relative">
+                        <div class="absolute top-2 left-4 text-[9px] text-slate-500 font-mono tracking-widest z-10 flex gap-4">
+                            <span>VOLTS: 5V/div</span>
+                            <span>TIME: 1ms/div</span>
+                            <span id="wave-mode-badge" class="text-indigo-400 font-bold uppercase">MODE: NRZ-L</span>
+                        </div>
+                        <canvas id="waveform-canvas" class="w-full h-32 block rounded-lg"></canvas>
+                    </div>
+                    <div class="mt-2 flex justify-between text-[10px] text-slate-500 font-mono px-1">
+                        <span>(0V) LOW = 0</span>
+                        <span class="text-center text-slate-400" data-key="oscilloscope_hint">Wave pauses temporarily on decimal dots (.)</span>
+                        <span>(5V) HIGH = 1</span>
+                    </div>
+                </div>
+
+                <!-- Step-By-Step Solution Breakdown Panel -->
+                <div class="custom-card border rounded-2xl p-6 shadow-xl flex-1 flex flex-col">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-slate-800 pb-4 mb-4">
+                        <div>
+                            <h3 class="text-sm font-semibold text-slate-200 uppercase tracking-wider flex items-center gap-2">
+                                <i data-lucide="graduation-cap" class="w-5 h-5 text-indigo-400"></i> <span data-key="solution_title">Mathematical Breakdown & Assistant Notes</span>
+                            </h3>
+                            <p class="text-xs text-slate-400" data-key="solution_desc">Detailed steps containing floating point and base logic</p>
+                        </div>
+                        <div class="px-3 py-1 bg-indigo-950 text-indigo-300 border border-indigo-800 rounded-lg text-xs font-mono font-bold shrink-0">
+                            <span id="current-conversion-title">Decimal ➜ Binary</span>
+                        </div>
+                    </div>
+
+                    <!-- Explanation container content -->
+                    <div id="solution-container" class="flex-1 text-slate-300 text-sm leading-relaxed space-y-4 overflow-y-auto max-h-[420px] pr-2">
+                        <!-- Initial assistant block will be injected here -->
+                    </div>
+                </div>
+
+            </section>
+        </div>
+
+
+        <!-- ==================== TAB 2: MULTI-OPERAND DYNAMIC CALCULATOR ==================== -->
+        <div id="tab-calculator" class="tab-content hidden grid grid-cols-1 lg:grid-cols-12 gap-6 animate-fadeIn">
+            
+            <!-- LEFT COLUMN: Dynamic Calculator Inputs -->
+            <section class="lg:col-span-6 flex flex-col gap-6">
+                <div class="custom-card border rounded-2xl p-6 shadow-xl flex flex-col gap-5">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                        <h3 class="text-sm font-semibold text-slate-300 uppercase tracking-wider flex items-center gap-2">
+                            <i data-lucide="calculator" class="w-4.5 h-4.5 text-pink-400"></i> <span data-key="calc_title">Multi-Operand Calculator</span>
+                        </h3>
+                        <span class="text-[10px] bg-pink-500/10 text-pink-400 px-2 py-0.5 rounded border border-pink-500/20 font-bold uppercase" data-key="calc_unlimited">Unlimited Operands</span>
+                    </div>
+
+                    <p class="text-xs text-slate-400 leading-relaxed" data-key="calc_desc">
+                        Add as many numbers as you want with different base systems, then apply arithmetic operations sequentially!
+                    </p>
+
+                    <!-- Dynamic Operands Rows Container -->
+                    <div id="operands-container" class="space-y-4 max-h-[450px] overflow-y-auto pr-2">
+                        <!-- Dynamic Operand Rows injected here -->
+                    </div>
+
+                    <!-- Add Operand Button -->
+                    <button onclick="addCalculatorRow()" class="py-2.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2">
+                        <i data-lucide="plus-circle" class="w-4 h-4 text-emerald-400"></i>
+                        <span data-key="add_number">Add Another Number</span>
+                    </button>
+
+                    <!-- Action Buttons -->
+                    <div class="grid grid-cols-3 gap-2 pt-3 border-t border-slate-800">
+                        <button onclick="resetCalculator()" class="py-3 bg-slate-950 hover:bg-slate-900 text-slate-400 hover:text-slate-200 text-xs font-bold rounded-xl transition-all border border-slate-800 flex items-center justify-center gap-1.5">
+                            <i data-lucide="refresh-cw" class="w-4 h-4"></i> <span data-key="reset">Reset</span>
+                        </button>
+                        <button onclick="runArithmetic()" class="col-span-2 py-3 bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-700 hover:to-teal-600 text-white text-sm font-bold rounded-xl shadow-lg shadow-emerald-500/10 transition-all flex items-center justify-center gap-2">
+                            <i data-lucide="equal" class="w-4 h-4"></i> <span data-key="calculate_result">Calculate Result</span>
+                        </button>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- RIGHT COLUMN: Calculator Outputs and Math Breakdown -->
+            <section class="lg:col-span-6 flex flex-col gap-6">
+                <!-- Result Dashboard -->
+                <div class="custom-card border rounded-2xl p-6 shadow-xl">
+                    <h3 class="text-sm font-semibold text-slate-300 uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <i data-lucide="info" class="w-4.5 h-4.5 text-emerald-400"></i> <span data-key="calc_output_title">Cumulative Result (All Bases)</span>
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] font-bold text-emerald-400 uppercase" data-key="dec_label">Decimal</span>
+                                <div id="calc-out-dec" class="text-lg font-bold font-mono tracking-wide text-slate-200 truncate">0</div>
+                            </div>
+                            <button onclick="copyToClipboard('calc-out-dec')" class="p-1.5 bg-slate-900 border border-slate-800 text-slate-400 hover:text-white rounded-lg"><i data-lucide="copy" class="w-3.5 h-3.5"></i></button>
+                        </div>
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] font-bold text-indigo-400 uppercase" data-key="bin_label">Binary</span>
+                                <div id="calc-out-bin" class="text-lg font-bold font-mono tracking-wide text-slate-200 truncate">0</div>
+                            </div>
+                            <button onclick="copyToClipboard('calc-out-bin')" class="p-1.5 bg-slate-900 border border-slate-800 text-slate-400 hover:text-white rounded-lg"><i data-lucide="copy" class="w-3.5 h-3.5"></i></button>
+                        </div>
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] font-bold text-violet-400 uppercase" data-key="oct_label">Octal</span>
+                                <div id="calc-out-oct" class="text-lg font-bold font-mono tracking-wide text-slate-200 truncate">0</div>
+                            </div>
+                            <button onclick="copyToClipboard('calc-out-oct')" class="p-1.5 bg-slate-900 border border-slate-800 text-slate-400 hover:text-white rounded-lg"><i data-lucide="copy" class="w-3.5 h-3.5"></i></button>
+                        </div>
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] font-bold text-pink-400 uppercase" data-key="hex_label">Hexadecimal</span>
+                                <div id="calc-out-hex" class="text-lg font-bold font-mono tracking-wide text-slate-200 truncate">0</div>
+                            </div>
+                            <button onclick="copyToClipboard('calc-out-hex')" class="p-1.5 bg-slate-900 border border-slate-800 text-slate-400 hover:text-white rounded-lg"><i data-lucide="copy" class="w-3.5 h-3.5"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Math Steps Container -->
+                <div class="custom-card border rounded-2xl p-6 shadow-xl flex-1 flex flex-col">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-4">
+                        <div>
+                            <h3 class="text-sm font-semibold text-slate-200 uppercase tracking-wider flex items-center gap-2">
+                                <i data-lucide="list-ordered" class="w-5 h-5 text-indigo-400"></i> <span data-key="calc_steps_title">Step-By-Step Solution History</span>
+                            </h3>
+                            <p class="text-xs text-slate-400" data-key="calc_steps_desc">Evaluations translated sequentially through a central decimal bridge</p>
+                        </div>
+                    </div>
+
+                    <div id="calc-steps-container" class="flex-1 text-slate-300 text-sm leading-relaxed space-y-4 overflow-y-auto max-h-[350px] pr-2">
+                        <!-- Dynamic calculation steps go here -->
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+        <!-- ==================== TAB 3: QUIZ & CHALLENGE WORKSPACE ==================== -->
+        <div id="tab-quiz" class="tab-content hidden max-w-2xl mx-auto flex flex-col gap-6 animate-fadeIn">
+            
+            <div class="custom-card border rounded-2xl p-6 shadow-xl">
+                <div class="flex justify-between items-center mb-4 border-b border-slate-800 pb-3">
+                    <h3 class="text-sm font-semibold text-slate-200 uppercase tracking-wider flex items-center gap-2">
+                        <i data-lucide="gamepad-2" class="w-5 h-5 text-violet-400"></i> <span data-key="tab_quiz">Quiz Corner</span>
+                    </h3>
+                    <div class="bg-violet-950 text-violet-300 border border-violet-800 rounded-full px-4 py-1 text-xs font-bold font-mono">
+                        <span data-key="score_label">Score</span>: <span id="quiz-score">0</span>
+                    </div>
+                </div>
+
+                <div id="quiz-card" class="bg-slate-950 p-6 rounded-xl border border-slate-800/80">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-xs text-indigo-400 font-semibold" id="quiz-q-num">Question #1</span>
+                        <button onclick="generateNewQuiz()" class="text-xs text-slate-400 hover:text-white flex items-center gap-1 transition-colors">
+                            <i data-lucide="skip-forward" class="w-3.5 h-3.5"></i> <span data-key="skip_question">Skip Question</span>
+                        </button>
+                    </div>
+                    <p id="quiz-question" class="text-md font-semibold text-slate-100 mb-6">Loading quiz question...</p>
+                    
+                    <div class="grid grid-cols-1 gap-3" id="quiz-options">
+                        <!-- Options injected dynamically -->
+                    </div>
+
+                    <!-- Custom Interactive Feedback Alert -->
+                    <div id="quiz-feedback" class="hidden mt-4 p-3 rounded-lg text-xs font-semibold text-center transition-all">
+                        Excellent! Correct Answer!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Rules / Tips -->
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex gap-3 text-xs text-slate-400">
+                <i data-lucide="award" class="w-5 h-5 text-amber-400 shrink-0"></i>
+                <p data-key="quiz_rule_text">Get 10 points for every correct answer. Incorrect answers reveal the correct output automatically. Improve your binary base logic rapidly!</p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 bg-slate-950/80 py-4 mt-6 text-center text-xs text-slate-500 custom-card">
+        © 2026 Number System Wave-Master. Dynamic Conversion, Unlimited Calculation & live Signal Oscilloscope.
+    </footer>
+
+    <script>
+        // Core Web Audio API Sound Generator
+        let audioCtx = null;
+        function playTone(freq, type, duration) {
+            try {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch (e) {
+                console.warn("Audio Context blocked:", e);
+            }
+        }
+
+        // Language Translation System
+        let currentLang = 'en'; // default English
+        const translations = {
+            en: {
+                tab_converter: "Converter & Waves",
+                tab_calculator: "Multi-Calculator",
+                tab_quiz: "Quiz Arena",
+                bit_board_title: "8-Bit Register",
+                reset_bits: "Reset Bits",
+                bit_board_desc: "Toggle bits below to change state. Fractional decimals should be entered in the Converter below.",
+                dec_label: "Decimal",
+                bin_label: "Binary",
+                oct_label: "Octal",
+                hex_label: "Hexadecimal",
+                conversion_wizard: "Conversion Wizard",
+                fraction_supported: "Fraction Supported",
+                input_system: "Input System (From)",
+                enter_number: "Enter Your Number",
+                target_system: "Target System (To)",
+                live_output: "Live Output Grid (Fractional Supported)",
+                oscilloscope_title: "Digital Signal Oscilloscope (Live Waveform)",
+                oscilloscope_desc: "Real-time waveform of binary value and transition pulses",
+                oscilloscope_hint: "Wave pauses temporarily on decimal dots (.)",
+                solution_title: "Mathematical Breakdown & Assistant Notes",
+                solution_desc: "Detailed steps containing floating point and base logic",
+                calc_title: "Multi-Operand Calculator",
+                calc_unlimited: "Unlimited Operands",
+                calc_desc: "Add as many numbers as you want with different base systems, then apply arithmetic operations sequentially!",
+                add_number: "Add Another Number",
+                reset: "Reset",
+                calculate_result: "Calculate Result",
+                calc_output_title: "Cumulative Result (All Bases)",
+                calc_steps_title: "Step-By-Step Solution History",
+                calc_steps_desc: "Evaluations translated sequentially through a central decimal bridge",
+                score_label: "Score",
+                skip_question: "Skip Question",
+                quiz_rule_text: "Get 10 points for every correct answer. Incorrect answers reveal the correct output automatically. Improve your binary base logic rapidly!",
+                copied_toast: "Copied successfully to clipboard!",
+                invalid_toast: "Warning: Invalid base character typed!",
+                no_input_note: "No inputs detected. Start typing decimals or binaries in the left panel to generate step-by-step conversions instantly.",
+                calc_assistant_ready: "Multi-Base Calculator Active. Click 'Add Another Number' to build any custom base expression. Tap 'Calculate Result' to process equations step-by-step."
+            },
+            bn: {
+                tab_converter: "রূপান্তর ও তরঙ্গ",
+                tab_calculator: "গাণিতিক ক্যালকুলেটর",
+                tab_quiz: "কুইজ কর্নার",
+                bit_board_title: "৮-বিট রেজিস্টার (পূর্ণসংখ্যা)",
+                reset_bits: "রিসেট বিটস",
+                bit_board_desc: "নিচের বিটগুলো অন/অফ করুন। দশমিক (Fractional) সংখ্যার জন্য নিচের 'রূপান্তর উইজার্ড' ব্যবহার করুন।",
+                dec_label: "ডেসিমাল",
+                bin_label: "বাইনারি",
+                oct_label: "অক্টাল",
+                hex_label: "হেক্সাডেসিমাল",
+                conversion_wizard: "সংখ্যা রূপান্তর উইজার্ড",
+                fraction_supported: "দশমিক বিন্দু সমর্থিত",
+                input_system: "ইনপুট সংখ্যা পদ্ধতি (From)",
+                enter_number: "আপনার সংখ্যাটি লিখুন",
+                target_system: "গন্তব্য সংখ্যা পদ্ধতি (To)",
+                live_output: "লাইভ আউটপুট গ্রিড (ভগ্নাংশ সহ)",
+                oscilloscope_title: "ডিজিটাল সিগন্যাল অসিলোস্কোপ (Live Waveform)",
+                oscilloscope_desc: "বাইনারি মানের রিয়েল-টাইম তরঙ্গ ও ট্রানজিশন পালস",
+                oscilloscope_hint: "বিন্দু (.) সংকেতে তরঙ্গ ক্ষণস্থায়ী বিরতি নেয়",
+                solution_title: "গাণিতিক সমাধান ও অ্যাসিস্ট্যান্ট নোট",
+                solution_desc: "দশমিক ও ভগ্নাংশের সূক্ষ্ম হিসেব সহ সম্পূর্ণ বিবরণ",
+                calc_title: "বহু-সংখ্যা পদ্ধতি ক্যালকুলেটর",
+                calc_unlimited: "আনলিমিটেড সংখ্যা সাপোর্ট",
+                calc_desc: "যত খুশি তত সংখ্যা ভিন্ন ভিন্ন সংখ্যা পদ্ধতিতে যুক্ত করে একনাগাড়ে গাণিতিক হিসেব সম্পাদন করুন!",
+                add_number: "নতুন সংখ্যা যোগ করুন",
+                reset: "রিসেট",
+                calculate_result: "ফলাফল দেখুন",
+                calc_output_title: "গাণিতিক হিসাবের ফলাফল (All Bases)",
+                calc_steps_title: "গাণিতিক প্রক্রিয়ার বিশ্লেষণ (Math Steps)",
+                calc_steps_desc: "উভয় সংখ্যাকে ডেসিমাল ব্রিজের মাধ্যমে ধাপে ধাপে রূপান্তর করে হিসাব সম্পাদন",
+                score_label: "স্কোর",
+                skip_question: "অন্য প্রশ্ন দিন",
+                quiz_rule_text: "প্রতিটি সঠিক উত্তরের জন্য ১০ পয়েন্ট পাবেন। ভুল উত্তর দিলে সঠিক উত্তরটি চিহ্নিত হয়ে যাবে। সংখ্যা পদ্ধতির দক্ষতা বাড়ানোর চমৎকার মাধ্যম!",
+                copied_toast: "ক্লিপবোর্ডে সফলভাবে কপি করা হয়েছে!",
+                invalid_toast: "সতর্কতা: সংখ্যা পদ্ধতিতে ভুল সংকেত টাইপ করা হয়েছে!",
+                no_input_note: "কোনো ইনপুট নেই। বামে যেকোনো পূর্ণ বা ভগ্নাংশ সংখ্যা টাইপ করলেই আমরা লাইভ গাণিতিক সমাধান বের করে প্রতিটি কদম বুঝিয়ে দেব।",
+                calc_assistant_ready: "ক্যালকুলেটর প্রস্তুত। 'নতুন সংখ্যা যোগ করুন' বাটনে চাপ দিয়ে যেকোনো সমীকরণ সাজিয়ে 'ফলাফল দেখুন' এ ক্লিক করুন।"
+            }
+        };
+
+        function toggleLanguage() {
+            playTone(450, 'sine', 0.08);
+            currentLang = currentLang === 'en' ? 'bn' : 'en';
+            document.getElementById('lang-btn-text').innerText = currentLang === 'en' ? 'বাংলা' : 'English';
+            
+            // Translate all static nodes with data-key
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (translations[currentLang][key]) {
+                    el.innerText = translations[currentLang][key];
+                }
+            });
+
+            // Update placeholders
+            const inputField = document.getElementById('main-input');
+            if (currentLang === 'en') {
+                inputField.placeholder = "Decimal Number... (e.g. 45.625)";
+            } else {
+                inputField.placeholder = "ডেসিমাল সংখ্যা... (যেমন: 45.625)";
+            }
+
+            // Refresh dynamic areas
+            validateAndCalculate();
+            renderCalculatorRows();
+            generateNewQuiz();
+        }
+
+        // Premium Theme Switcher System
+        let isDarkMode = true;
+        function toggleTheme() {
+            playTone(600, 'sine', 0.05);
+            isDarkMode = !isDarkMode;
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+            
+            if (isDarkMode) {
+                body.classList.remove('theme-light');
+                themeIcon.setAttribute('data-lucide', 'sun');
+                themeIcon.className = "w-4 h-4 text-amber-400";
+            } else {
+                body.classList.add('theme-light');
+                themeIcon.setAttribute('data-lucide', 'moon');
+                themeIcon.className = "w-4 h-4 text-indigo-600";
+            }
+            lucide.createIcons();
+            triggerWaveformDrawing();
+        }
+
+        // Tab Navigation Engine
+        function switchTab(tabId) {
+            playTone(450, 'sine', 0.08);
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.className = "tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-slate-200 flex items-center gap-1.5";
+            });
+
+            if (tabId === 'converter-tab') {
+                document.getElementById('tab-converter').classList.remove('hidden');
+                document.getElementById('tab-btn-converter').className = "tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white flex items-center gap-1.5";
+                setTimeout(triggerWaveformDrawing, 100);
+            } else if (tabId === 'calculator-tab') {
+                document.getElementById('tab-calculator').classList.remove('hidden');
+                document.getElementById('tab-btn-calculator').className = "tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white flex items-center gap-1.5";
+            } else if (tabId === 'quiz-tab') {
+                document.getElementById('tab-quiz').classList.remove('hidden');
+                document.getElementById('tab-btn-quiz').className = "tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white flex items-center gap-1.5";
+            }
+        }
+
+        // Toasts trigger logic
+        function triggerSuccessToast(msgKey) {
+            playTone(880, 'sine', 0.1);
+            const msg = translations[currentLang][msgKey] || msgKey;
+            const toast = document.getElementById('toast-success');
+            document.getElementById('toast-success-msg').innerText = msg;
+            toast.classList.remove('hidden');
+            setTimeout(() => toast.classList.add('hidden'), 2500);
+        }
+
+        function triggerErrorToast(msgKey) {
+            playTone(220, 'sawtooth', 0.25);
+            const msg = translations[currentLang][msgKey] || msgKey;
+            const toast = document.getElementById('toast-error');
+            document.getElementById('toast-error-msg').innerText = msg;
+            toast.classList.remove('hidden');
+            setTimeout(() => toast.classList.add('hidden'), 2500);
+        }
+
+        // State variables
+        let sourceBase = 10;
+        let targetBase = 2;
+        let bits = [0,0,0,0,0,0,0,0]; // 8-bit register
+        let signalEncoding = 'nrz';
+
+        // Helper Validation Guidelines
+        const baseTips = {
+            2: "Allowed: 0, 1 and dot (.)",
+            8: "Allowed: 0 to 7 and dot (.)",
+            10: "Allowed: 0 to 9 and dot (.)",
+            16: "Allowed: 0-9, A-F and dot (.)"
+        };
+
+        const baseRegex = {
+            2: /^[01]*\.?[01]*$/,
+            8: /^[0-7]*\.?[0-7]*$/,
+            10: /^[0-9]*\.?[0-9]*$/,
+            16: /^[0-9A-Fa-f]*\.?[0-9A-Fa-f]*$/
+        };
+
+        // Converts fractional and integers from any base to base 10
+        function baseToDecimalFractional(numStr, base) {
+            if (!numStr.includes('.')) {
+                return parseInt(numStr, base) || 0;
+            }
+            const parts = numStr.split('.');
+            const intPart = parts[0];
+            const fracPart = parts[1];
+            
+            let decimalVal = parseInt(intPart, base) || 0;
+            
+            for (let i = 0; i < fracPart.length; i++) {
+                const digit = parseInt(fracPart[i], base);
+                if (isNaN(digit)) continue;
+                decimalVal += digit * Math.pow(base, -(i + 1));
+            }
+            return decimalVal;
+        }
+
+        // Converts decimal floating point to any base system
+        function decimalToBaseFractional(decVal, base, precision = 6) {
+            if (isNaN(decVal)) return "0";
+            
+            const intPart = Math.floor(decVal);
+            let fracPart = decVal - intPart;
+            
+            let result = intPart.toString(base).toUpperCase();
+            
+            if (fracPart > 0) {
+                result += '.';
+                let stepsCount = 0;
+                while (fracPart > 0 && stepsCount < precision) {
+                    fracPart *= base;
+                    const digit = Math.floor(fracPart);
+                    result += digit.toString(base).toUpperCase();
+                    fracPart -= digit;
+                    stepsCount++;
+                }
+            }
+            return result;
+        }
+
+        // Set Base handlers
+        function setSourceBase(base) {
+            playTone(400, 'sine', 0.08);
+            sourceBase = base;
+            
+            document.querySelectorAll('.base-btn-src').forEach(btn => {
+                btn.className = "base-btn-src px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-bold transition-all border border-slate-700";
+            });
+            const activeBtn = document.getElementById(`src-base-${base}`);
+            if (activeBtn) {
+                activeBtn.className = "base-btn-src px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-bold transition-all border border-indigo-500 shadow-md shadow-indigo-500/10";
+            }
+
+            document.getElementById('validation-tip').innerText = baseTips[base];
+            validateAndCalculate();
+        }
+
+        function setTargetBase(base) {
+            playTone(440, 'sine', 0.08);
+            targetBase = base;
+
+            document.querySelectorAll('.base-btn-trg').forEach(btn => {
+                btn.className = "base-btn-trg px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-bold transition-all border border-slate-700";
+            });
+            const activeBtn = document.getElementById(`trg-base-${base}`);
+            if (activeBtn) {
+                activeBtn.className = "base-btn-trg px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-bold transition-all border border-indigo-500 shadow-md shadow-indigo-500/10";
+            }
+
+            validateAndCalculate();
+        }
+
+        function setSignalType(type) {
+            playTone(500, 'sine', 0.05);
+            signalEncoding = type;
+            document.getElementById('wave-mode-badge').innerText = `MODE: ${type.toUpperCase()}`;
+            
+            const btnNrz = document.getElementById('btn-nrz');
+            const btnManchester = document.getElementById('btn-manchester');
+            if (type === 'nrz') {
+                btnNrz.className = "px-2.5 py-1 text-[10px] font-bold uppercase rounded bg-indigo-600 text-white transition-all";
+                btnManchester.className = "px-2.5 py-1 text-[10px] font-bold uppercase rounded text-slate-400 hover:text-white transition-all";
+            } else {
+                btnManchester.className = "px-2.5 py-1 text-[10px] font-bold uppercase rounded bg-indigo-600 text-white transition-all";
+                btnNrz.className = "px-2.5 py-1 text-[10px] font-bold uppercase rounded text-slate-400 hover:text-white transition-all";
+            }
+            triggerWaveformDrawing();
+        }
+
+        // Main converter validation
+        function validateAndCalculate() {
+            const inputField = document.getElementById('main-input');
+            let inputRaw = inputField.value.trim().toUpperCase();
+            
+            if (inputRaw === "") {
+                clearOutputs();
+                showDefaultSolutionNote();
+                triggerWaveformDrawing();
+                return;
+            }
+
+            // Verify with base regex. If invalid, trigger error toast and sanitize!
+            if (!baseRegex[sourceBase].test(inputRaw)) {
+                triggerErrorToast('invalid_toast');
+                
+                // Sanitize input
+                const allowedSymbols = sourceBase === 2 ? '01.' : sourceBase === 8 ? '0-7.' : sourceBase === 10 ? '0-9.' : '0-9A-Fa-f.';
+                inputRaw = inputRaw.replace(new RegExp(`[^${allowedSymbols}]`, 'g'), '');
+                const dotCount = (inputRaw.match(/\./g) || []).length;
+                if (dotCount > 1) {
+                    inputRaw = inputRaw.slice(0, inputRaw.lastIndexOf('.'));
+                }
+                inputField.value = inputRaw;
+                if (inputRaw === "") {
+                    clearOutputs();
+                    return;
+                }
+            }
+
+            const dVal = baseToDecimalFractional(inputRaw, sourceBase);
+
+            // Update Outputs
+            document.getElementById('out-dec').innerText = decimalToBaseFractional(dVal, 10);
+            document.getElementById('out-bin').innerText = decimalToBaseFractional(dVal, 2);
+            document.getElementById('out-oct').innerText = decimalToBaseFractional(dVal, 8);
+            document.getElementById('out-hex').innerText = decimalToBaseFractional(dVal, 16);
+
+            // Update 8-bit registers (Integers only)
+            const integerPortion = Math.floor(dVal);
+            updateBitBoardFromDecimal(integerPortion);
+
+            // Draw wave
+            triggerWaveformDrawing();
+
+            // Step explanation
+            generateVisualBreakdown(inputRaw, dVal);
+        }
+
+        function clearOutputs() {
+            document.getElementById('out-dec').innerText = "0";
+            document.getElementById('out-bin').innerText = "0";
+            document.getElementById('out-oct').innerText = "0";
+            document.getElementById('out-hex').innerText = "0";
+        }
+
+        function showDefaultSolutionNote() {
+            document.getElementById('solution-container').innerHTML = `
+                <div class="bg-slate-950/50 border border-slate-800/80 p-4 rounded-xl flex gap-3">
+                    <div class="p-2 bg-indigo-500/10 text-indigo-400 rounded-lg self-start">
+                        <i data-lucide="info" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-slate-200 mb-1" data-key="solution_title">Explanation Notes</p>
+                        <p class="text-slate-400 text-xs" data-key="no_input_note">${translations[currentLang].no_input_note}</p>
+                    </div>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        // Register Board interaction
+        function toggleBit(index) {
+            playTone(600 + index * 40, 'triangle', 0.1);
+            bits[index] = bits[index] === 0 ? 1 : 0;
+            updateBitBoardUI();
+            
+            let decSum = 0;
+            for (let i = 0; i < 8; i++) {
+                decSum += bits[i] * Math.pow(2, i);
+            }
+
+            const inputField = document.getElementById('main-input');
+            if (sourceBase === 2) {
+                let binStr = bits.slice().reverse().join("").replace(/^0+/, "");
+                inputField.value = binStr || "0";
+            } else if (sourceBase === 10) {
+                inputField.value = decSum;
+            } else if (sourceBase === 8) {
+                inputField.value = decSum.toString(8);
+            } else if (sourceBase === 16) {
+                inputField.value = decSum.toString(16).toUpperCase();
+            }
+
+            validateAndCalculate();
+        }
+
+        function updateBitBoardUI() {
+            for (let i = 0; i < 8; i++) {
+                const btn = document.getElementById(`bit-${i}`);
+                if (bits[i] === 1) {
+                    btn.innerText = "1";
+                    btn.className = "w-full aspect-square bg-indigo-600 border border-indigo-400 hover:border-indigo-300 rounded-lg flex items-center justify-center font-bold text-lg code-font text-white transition-all duration-150 shadow shadow-indigo-500/50 scale-105";
+                } else {
+                    btn.innerText = "0";
+                    btn.className = "w-full aspect-square bg-slate-800 border border-slate-700 hover:border-indigo-500 rounded-lg flex items-center justify-center font-bold text-lg code-font text-slate-400 transition-all duration-150 shadow";
+                }
+            }
+
+            let decSum = 0;
+            for (let i = 0; i < 8; i++) {
+                decSum += bits[i] * Math.pow(2, i);
+            }
+
+            document.getElementById('bit-dec-val').innerText = decSum;
+            document.getElementById('bit-oct-val').innerText = decSum.toString(8);
+            document.getElementById('bit-hex-val').innerText = decSum.toString(16).toUpperCase().padStart(2, '0');
+            
+            if (decSum >= 32 && decSum <= 126) {
+                document.getElementById('bit-ascii-val').innerText = `'${String.fromCharCode(decSum)}'`;
+            } else {
+                document.getElementById('bit-ascii-val').innerText = currentLang === 'en' ? "[Non-Printable]" : "[নন-প্রিন্ট]";
+            }
+        }
+
+        function updateBitBoardFromDecimal(decValue) {
+            let safeVal = Math.min(Math.max(0, Math.floor(decValue)), 255);
+            let binStr = safeVal.toString(2).padStart(8, '0');
+            for (let i = 0; i < 8; i++) {
+                bits[i] = parseInt(binStr[7 - i], 10);
+            }
+            updateBitBoardUI();
+        }
+
+        document.getElementById('btn-reset-bits').addEventListener('click', () => {
+            playTone(200, 'sine', 0.15);
+            bits = [0,0,0,0,0,0,0,0];
+            updateBitBoardUI();
+            document.getElementById('main-input').value = "0";
+            validateAndCalculate();
+        });
+
+        // Waveform Visualizer
+        function triggerWaveformDrawing() {
+            const canvas = document.getElementById('waveform-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            
+            const dpr = window.devicePixelRatio || 1;
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            ctx.scale(dpr, dpr);
+
+            const width = rect.width;
+            const height = rect.height;
+
+            // Oscilloscope grids
+            ctx.fillStyle = isDarkMode ? '#05070f' : '#f8fafc';
+            ctx.fillRect(0, 0, width, height);
+
+            ctx.strokeStyle = isDarkMode ? '#0f172a' : '#e2e8f0';
+            ctx.lineWidth = 1;
+            
+            for (let x = 0; x < width; x += 30) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, height);
+                ctx.stroke();
+            }
+            for (let y = 0; y < height; y += 20) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(width, y);
+                ctx.stroke();
+            }
+
+            const binString = document.getElementById('out-bin').innerText.trim();
+            if (binString === "0" || binString === "") {
+                ctx.strokeStyle = '#4f46e5';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(10, height / 2 + 20);
+                ctx.lineTo(width - 10, height / 2 + 20);
+                ctx.stroke();
+                return;
+            }
+
+            const chars = binString.split('');
+            const pulseWidth = Math.max(15, Math.min(60, (width - 40) / chars.length));
+            const startX = 20;
+            const highY = 25;
+            const lowY = height - 25;
+            const midY = (highY + lowY) / 2;
+
+            ctx.strokeStyle = '#22c55e';
+            ctx.shadowBlur = isDarkMode ? 8 : 0;
+            ctx.shadowColor = '#22c55e';
+            ctx.lineWidth = 3;
+
+            ctx.beginPath();
+            let currentX = startX;
+            let lastState = null;
+
+            chars.forEach((char) => {
+                if (char === '.') {
+                    ctx.lineTo(currentX, lastState === 'high' ? highY : lowY);
+                    currentX += pulseWidth / 2;
+                    ctx.lineTo(currentX, midY);
+                    currentX += pulseWidth / 2;
+                    lastState = 'mid';
+                    return;
+                }
+
+                const val = parseInt(char, 2);
+
+                if (signalEncoding === 'nrz') {
+                    const targetY = (val === 1) ? highY : lowY;
+                    const stateStr = (val === 1) ? 'high' : 'low';
+
+                    if (lastState !== null) {
+                        if (lastState !== stateStr) {
+                            ctx.lineTo(currentX, targetY);
+                        }
+                    } else {
+                        ctx.moveTo(currentX, targetY);
+                    }
+
+                    ctx.lineTo(currentX + pulseWidth, targetY);
+                    lastState = stateStr;
+                } else {
+                    if (val === 1) {
+                        if (lastState === 'high' || lastState === null) ctx.lineTo(currentX, lowY);
+                        ctx.lineTo(currentX + pulseWidth / 2, lowY);
+                        ctx.lineTo(currentX + pulseWidth / 2, highY);
+                        ctx.lineTo(currentX + pulseWidth, highY);
+                        lastState = 'high';
+                    } else {
+                        if (lastState === 'low' || lastState === null) ctx.lineTo(currentX, highY);
+                        ctx.lineTo(currentX + pulseWidth / 2, highY);
+                        ctx.lineTo(currentX + pulseWidth / 2, lowY);
+                        ctx.lineTo(currentX + pulseWidth, lowY);
+                        lastState = 'low';
+                    }
+                }
+                currentX += pulseWidth;
+            });
+
+            ctx.stroke();
+
+            // Labels above wave
+            ctx.shadowBlur = 0;
+            ctx.fillStyle = isDarkMode ? '#94a3b8' : '#475569';
+            ctx.font = '10px "Fira Code", monospace';
+            
+            currentX = startX;
+            chars.forEach((char) => {
+                ctx.fillText(char, currentX + (char === '.' ? pulseWidth/4 : pulseWidth/2) - 3, 14);
+                currentX += pulseWidth;
+            });
+        }
+
+        // Dynamic step generator including fractional conversions
+        function generateVisualBreakdown(rawVal, decValue) {
+            const baseNames = {
+                2: currentLang === 'en' ? "Binary" : "বাইনারি",
+                8: currentLang === 'en' ? "Octal" : "অক্টাল",
+                10: currentLang === 'en' ? "Decimal" : "ডেসিমাল",
+                16: currentLang === 'en' ? "Hexadecimal" : "হেক্সাডেসিমাল"
+            };
+
+            document.getElementById('current-conversion-title').innerText = `${baseNames[sourceBase]} ➜ ${baseNames[targetBase]}`;
+
+            if (sourceBase === targetBase) {
+                document.getElementById('solution-container').innerHTML = `
+                    <div class="bg-indigo-950/20 border border-indigo-900/40 p-4 rounded-xl text-slate-300">
+                        <p class="font-bold text-indigo-400 mb-1">Same Bases Selected!</p>
+                        <p class="text-xs">You chose the same base for target conversion. Switch base values to generate breakdown steps.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = "";
+            if (targetBase === 10) {
+                html = generateToDecimalStepsFractional(rawVal, sourceBase, decValue);
+            } else if (sourceBase === 10) {
+                html = generateFromDecimalStepsFractional(decValue, targetBase);
+            } else {
+                html = generateBridgeStepsFractional(rawVal, sourceBase, targetBase, decValue);
+            }
+
+            document.getElementById('solution-container').innerHTML = html;
+        }
+
+        function generateToDecimalStepsFractional(rawVal, base, decValue) {
+            const parts = rawVal.split('.');
+            const intDigits = parts[0].split('');
+            const fracDigits = parts[1] ? parts[1].split('') : [];
+
+            let expansionParts = [];
+            let expansionTerms = [];
+
+            for (let i = 0; i < intDigits.length; i++) {
+                let p = intDigits.length - 1 - i;
+                let digitChar = intDigits[i];
+                expansionParts.push(`(${digitChar} × ${base}<sup>${p}</sup>)`);
+                expansionTerms.push(`${parseInt(digitChar, base) * Math.pow(base, p)}`);
+            }
+
+            for (let i = 0; i < fracDigits.length; i++) {
+                let p = -(i + 1);
+                let digitChar = fracDigits[i];
+                expansionParts.push(`(${digitChar} × ${base}<sup>${p}</sup>)`);
+                expansionTerms.push(`${parseInt(digitChar, base) * Math.pow(base, p)}`);
+            }
+
+            return `
+                <div class="space-y-4">
+                    <p class="text-xs text-slate-400">
+                        ${currentLang === 'en' ? 'Sum elements raised by positional power values. Positive exponents correspond to integer digits from right-to-left. Negative exponents correspond to fractions from left-to-right.' : 'সংখ্যা পদ্ধতি থেকে ডেসিমালে রূপান্তরের জন্য স্থানিক ঘাত পূর্ণসংখ্যার অংশের ক্ষেত্রে ধনাত্মক এবং ভগ্নাংশের ক্ষেত্রে ঋণাত্মক পাওয়ার দিয়ে গুণ সমষ্টি নেওয়া হয়।'}
+                    </p>
+                    
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 overflow-x-auto">
+                        <div class="text-[10px] text-slate-500 mb-2 font-mono">Mathematical Expression:</div>
+                        <div class="text-xs sm:text-sm font-semibold text-slate-200 code-font leading-relaxed whitespace-nowrap">
+                            (${rawVal})<sub>${base}</sub> = ${expansionParts.join(" + ")}
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                        <span class="text-xs text-emerald-400 font-semibold uppercase tracking-wider block mb-2">Step-1: Calculate values</span>
+                        <div class="text-sm code-font text-slate-300">
+                            = ${expansionTerms.join(" + ")}
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                        <span class="text-xs text-indigo-400 font-semibold uppercase tracking-wider block mb-2">Step-2: Cumulative Sum</span>
+                        <div class="text-sm code-font text-slate-200 font-bold">
+                            = ${decValue}<sub>10</sub>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateFromDecimalStepsFractional(decValue, targetBase) {
+            const intPart = Math.floor(decValue);
+            let fracPart = decValue - intPart;
+
+            let tempDec = intPart;
+            let divRows = [];
+            while (tempDec > 0) {
+                let quotient = Math.floor(tempDec / targetBase);
+                let remainder = tempDec % targetBase;
+                let remainderChar = remainder.toString(targetBase).toUpperCase();
+                divRows.push({ dividend: tempDec, quotient, remainderChar });
+                tempDec = quotient;
+            }
+            if (divRows.length === 0) {
+                divRows.push({ dividend: 0, quotient: 0, remainderChar: "0" });
+            }
+            const intResult = divRows.map(r => r.remainderChar).reverse().join("");
+
+            let multRows = [];
+            let tempFrac = fracPart;
+            let precision = 6;
+            let fracResult = "";
+
+            if (tempFrac > 0) {
+                let steps = 0;
+                while (tempFrac > 0 && steps < precision) {
+                    let prevFrac = tempFrac;
+                    let product = tempFrac * targetBase;
+                    let carry = Math.floor(product);
+                    let carryChar = carry.toString(targetBase).toUpperCase();
+                    
+                    multRows.push({
+                        multiplicand: prevFrac.toFixed(4),
+                        base: targetBase,
+                        product: product.toFixed(4),
+                        carry: carryChar
+                    });
+
+                    fracResult += carryChar;
+                    tempFrac = product - carry;
+                    steps++;
+                }
+            }
+
+            const totalConverted = fracResult ? `${intResult}.${fracResult}` : intResult;
+
+            let divTableRows = divRows.map((r) => `
+                <tr class="border-b border-slate-900 code-font text-xs">
+                    <td class="px-3 py-1.5 text-slate-400">${r.dividend} &divide; ${targetBase}</td>
+                    <td class="px-3 py-1.5 text-slate-400">Quotient = ${r.quotient}</td>
+                    <td class="px-3 py-1.5 text-rose-400 font-bold">Remainder = ${r.remainderChar}</td>
+                </tr>
+            `).join('');
+
+            let multTableRows = multRows.map((r) => `
+                <tr class="border-b border-slate-900 code-font text-xs">
+                    <td class="px-3 py-1.5 text-slate-400">${r.multiplicand} &times; ${r.base}</td>
+                    <td class="px-3 py-1.5 text-slate-400">Product = ${r.product}</td>
+                    <td class="px-3 py-1.5 text-emerald-400 font-bold">Integer Part = ${r.carry}</td>
+                </tr>
+            `).join('');
+
+            let html = `
+                <div class="space-y-4">
+                    <div class="bg-slate-950/40 p-4 rounded-xl border border-slate-800">
+                        <span class="text-xs text-indigo-400 font-bold uppercase tracking-wider block mb-2">1. Integer Part (${intPart}<sub>10</sub>): Successive Division</span>
+                        <table class="w-full text-left border-collapse">
+                            <tbody>${divTableRows}</tbody>
+                        </table>
+                        <div class="mt-2 text-xs text-slate-400">Remainders gathered from bottom-to-top: <b>${intResult}</b></div>
+                    </div>
+            `;
+
+            if (multRows.length > 0) {
+                html += `
+                    <div class="bg-slate-950/40 p-4 rounded-xl border border-slate-800">
+                        <span class="text-xs text-emerald-400 font-bold uppercase tracking-wider block mb-2">2. Fractional Part (${fracPart.toFixed(4)}<sub>10</sub>): Successive Multiplication</span>
+                        <table class="w-full text-left border-collapse">
+                            <tbody>${multTableRows}</tbody>
+                        </table>
+                        <div class="mt-2 text-xs text-slate-400">Integers gathered from top-to-bottom: <b>.${fracResult}</b></div>
+                    </div>
+                `;
+            }
+
+            html += `
+                    <div class="bg-indigo-500/10 border border-indigo-500/20 rounded-xl p-3">
+                        <p class="text-xs text-indigo-300">
+                            Cumulative Result Value: <strong>(${totalConverted})<sub>${targetBase}</sub></strong>
+                        </p>
+                    </div>
+                </div>
+            `;
+
+            return html;
+        }
+
+        function generateBridgeStepsFractional(rawVal, srcBase, trgBase, decValue) {
+            const destVal = decimalToBaseFractional(decValue, trgBase);
+            return `
+                <div class="space-y-4">
+                    <p class="text-xs text-slate-400">
+                        ${currentLang === 'en' ? 'Conversion bridges through Decimal base system to guarantee pristine floating-point conversions.' : 'সংযোগ সেতু হিসেবে ডেসিমাল বেসকে ব্যবহার করে নিখুঁত গাণিতিক সমাধান করা হয়েছে।'}
+                    </p>
+
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800/80">
+                        <div class="flex items-center gap-2 mb-2 text-indigo-400">
+                            <span class="w-5 h-5 rounded-full bg-indigo-500/20 text-indigo-300 flex items-center justify-center font-bold text-xs">1</span>
+                            <span class="text-xs font-bold uppercase tracking-wider">Step 1: Convert (${rawVal})<sub>${srcBase}</sub> to Decimal</span>
+                        </div>
+                        <div class="text-sm font-semibold text-slate-200 code-font">
+                            = ${decValue}<sub>10</sub>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800/80">
+                        <div class="flex items-center gap-2 mb-2 text-violet-400">
+                            <span class="w-5 h-5 rounded-full bg-violet-500/20 text-violet-300 flex items-center justify-center font-bold text-xs">2</span>
+                            <span class="text-xs font-bold uppercase tracking-wider">Step 2: Convert Decimal ${decValue}<sub>10</sub> to Target Base (${trgBase})</span>
+                        </div>
+                        <div class="text-sm font-semibold text-slate-200 code-font">
+                            = (${destVal})<sub>${trgBase}</sub>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Copy Clipboard trigger
+        function copyToClipboard(elementId) {
+            const val = document.getElementById(elementId).innerText;
+            const tempInput = document.createElement("input");
+            tempInput.value = val;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+
+            triggerSuccessToast('copied_toast');
+        }
+
+        document.getElementById('btn-clear').addEventListener('click', () => {
+            playTone(150, 'sine', 0.1);
+            document.getElementById('main-input').value = "";
+            validateAndCalculate();
+        });
+
+        document.getElementById('main-input').addEventListener('input', validateAndCalculate);
+
+        // Bind Enter key inside input to trigger invalid warning if needed
+        document.getElementById('main-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const raw = e.target.value.trim();
+                if (raw !== "" && !baseRegex[sourceBase].test(raw)) {
+                    triggerErrorToast('invalid_toast');
+                }
+            }
+        });
+
+
+        // ==================== MULTI-OPERAND DYNAMIC CALCULATOR ====================
+        // Default contains 2 rows (at least 2 numbers needed for arithmetic)
+        let calculatorRows = [
+            { value: '', base: 10, operator: '+' },
+            { value: '', base: 10, operator: '+' }
+        ];
+
+        function renderCalculatorRows() {
+            const container = document.getElementById('operands-container');
+            container.innerHTML = "";
+
+            calculatorRows.forEach((row, index) => {
+                const div = document.createElement('div');
+                div.className = "flex flex-col gap-2 p-4 bg-slate-950/60 border border-slate-800 rounded-xl relative group transition-all";
+
+                let operatorSelector = '';
+                // First row doesn't need a mathematical operator selector
+                if (index > 0) {
+                    operatorSelector = `
+                        <div class="absolute -top-3.5 left-6 z-10 bg-slate-950 px-2 py-0.5 border border-slate-800 rounded-lg flex items-center gap-1">
+                            <select onchange="updateCalcOperator(${index}, this.value)" class="bg-transparent text-xs font-bold text-pink-400 focus:outline-none cursor-pointer">
+                                <option value="+" ${row.operator === '+' ? 'selected' : ''} class="bg-slate-950 text-slate-200">+</option>
+                                <option value="-" ${row.operator === '-' ? 'selected' : ''} class="bg-slate-950 text-slate-200">-</option>
+                                <option value="*" ${row.operator === '*' ? 'selected' : ''} class="bg-slate-950 text-slate-200">×</option>
+                                <option value="/" ${row.operator === '/' ? 'selected' : ''} class="bg-slate-950 text-slate-200">÷</option>
+                            </select>
+                        </div>
+                    `;
+                }
+
+                let deleteBtn = '';
+                // Only allow deletion if there are more than 2 items in calculatorRows
+                if (calculatorRows.length > 2) {
+                    deleteBtn = `
+                        <button onclick="removeCalculatorRow(${index})" class="p-2 text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition-all absolute right-4 top-4" title="Delete">
+                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        </button>
+                    `;
+                }
+
+                div.innerHTML = `
+                    ${operatorSelector}
+                    ${deleteBtn}
+                    
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-2">
+                        <!-- Base Selector Buttons -->
+                        <div class="flex items-center gap-1">
+                            <span class="text-[9px] text-slate-500 uppercase font-bold mr-1">${currentLang === 'en' ? 'Base' : 'বেস'}:</span>
+                            <div class="grid grid-cols-4 gap-1 bg-slate-900/60 p-0.5 border border-slate-800 rounded-lg">
+                                <button onclick="updateRowBase(${index}, 10)" class="px-2 py-1 text-[10px] rounded font-bold transition-all ${row.base === 10 ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-slate-200'}">DEC</button>
+                                <button onclick="updateRowBase(${index}, 2)" class="px-2 py-1 text-[10px] rounded font-bold transition-all ${row.base === 2 ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-slate-200'}">BIN</button>
+                                <button onclick="updateRowBase(${index}, 8)" class="px-2 py-1 text-[10px] rounded font-bold transition-all ${row.base === 8 ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-slate-200'}">OCT</button>
+                                <button onclick="updateRowBase(${index}, 16)" class="px-2 py-1 text-[10px] rounded font-bold transition-all ${row.base === 16 ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-slate-200'}">HEX</button>
+                            </div>
+                        </div>
+                        <span class="text-[9px] text-slate-500 font-mono">${baseTips[row.base]}</span>
+                    </div>
+
+                    <!-- Input Box -->
+                    <div class="relative mt-1">
+                        <input oninput="updateRowValue(${index}, this.value)" type="text" value="${row.value}" placeholder="${row.base === 10 ? 'Decimal number...' : row.base === 2 ? 'Binary bits...' : row.base === 8 ? 'Octal value...' : 'Hex string...'}" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 tracking-wider code-font uppercase" />
+                    </div>
+                `;
+
+                container.appendChild(div);
+            });
+
+            lucide.createIcons();
+        }
+
+        // Row Updates
+        function updateRowBase(index, base) {
+            playTone(400, 'sine', 0.05);
+            calculatorRows[index].base = base;
+            renderCalculatorRows();
+        }
+
+        function updateRowValue(index, val) {
+            calculatorRows[index].value = val.trim();
+        }
+
+        function updateCalcOperator(index, op) {
+            playTone(500, 'sine', 0.05);
+            calculatorRows[index].operator = op;
+        }
+
+        function addCalculatorRow() {
+            playTone(600, 'sine', 0.06);
+            calculatorRows.push({ value: '', base: 10, operator: '+' });
+            renderCalculatorRows();
+        }
+
+        function removeCalculatorRow(index) {
+            playTone(200, 'sawtooth', 0.08);
+            calculatorRows.splice(index, 1);
+            renderCalculatorRows();
+        }
+
+        function resetCalculator() {
+            playTone(250, 'sine', 0.15);
+            calculatorRows = [
+                { value: '', base: 10, operator: '+' },
+                { value: '', base: 10, operator: '+' }
+            ];
+            renderCalculatorRows();
+
+            document.getElementById('calc-out-dec').innerText = '0';
+            document.getElementById('calc-out-bin').innerText = '0';
+            document.getElementById('calc-out-oct').innerText = '0';
+            document.getElementById('calc-out-hex').innerText = '0';
+            
+            document.getElementById('calc-steps-container').innerHTML = `
+                <div class="bg-slate-950/50 border border-slate-800/80 p-4 rounded-xl flex gap-3">
+                    <div class="p-2 bg-indigo-500/10 text-indigo-400 rounded-lg self-start">
+                        <i data-lucide="info" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-slate-200 mb-1" data-key="solution_title">Calculator Notes</p>
+                        <p class="text-slate-400 text-xs" data-key="calc_assistant_ready">${translations[currentLang].calc_assistant_ready}</p>
+                    </div>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        // Cumulative calculation evaluation
+        function runArithmetic() {
+            // Check if any fields are empty or invalid
+            let hasError = false;
+            let firstEmpty = false;
+
+            calculatorRows.forEach((row, i) => {
+                if (row.value === "") {
+                    firstEmpty = true;
+                    return;
+                }
+                if (!baseRegex[row.base].test(row.value)) {
+                    hasError = true;
+                }
+            });
+
+            if (firstEmpty) {
+                triggerErrorToast(currentLang === 'en' ? "Please fill all numbers!" : "দয়া করে প্রতিটি সংখ্যা ফিল্ড পূরণ করুন!");
+                return;
+            }
+
+            if (hasError) {
+                triggerErrorToast('invalid_toast');
+                return;
+            }
+
+            playTone(650, 'sine', 0.12);
+
+            // Step explanation generation starts
+            let stepsHtml = `<div class="space-y-4">
+                <p class="text-xs text-slate-400">
+                    ${currentLang === 'en' ? 'To perform dynamic multi-operand arithmetic operations reliably, every number in the expression is converted into the standard Decimal system. Operations are processed sequentially, and the cumulative output is converted back into all representation bases.' : 'আনলিমিটেড বহু-সংখ্যার হিসাব সম্পন্ন করার সবচেয়ে নির্ভুল ও বৈজ্ঞানিক পদ্ধতি হলো প্রত্যেকটি পদকে প্রথমে ডেসিমাল সংখ্যা পদ্ধতিতে রূপান্তর করা, পর্যায়ক্রমে সমীকরণ সমাধান করা এবং প্রাপ্ত ফলাফলকে পুনরায় রূপান্তর করা।'}
+                </p>
+            `;
+
+            let currentDecResult = 0;
+            let equationExpression = "";
+
+            calculatorRows.forEach((row, index) => {
+                const decVal = baseToDecimalFractional(row.value, row.base);
+                
+                stepsHtml += `
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                        <span class="text-xs text-indigo-400 font-bold block mb-1">Row #${index + 1} System Translation</span>
+                        <div class="text-xs code-font text-slate-300">
+                            (${row.value})<sub>${row.base}</sub> ➜ <b>${decVal}</b><sub>10</sub>
+                        </div>
+                    </div>
+                `;
+
+                if (index === 0) {
+                    currentDecResult = decVal;
+                    equationExpression += `${decVal}`;
+                } else {
+                    const op = row.operator;
+                    equationExpression += ` ${op} ${decVal}`;
+                    
+                    if (op === '+') currentDecResult += decVal;
+                    else if (op === '-') currentDecResult -= decVal;
+                    else if (op === '*') currentDecResult *= decVal;
+                    else if (op === '/') {
+                        if (decVal === 0) {
+                            triggerErrorToast(currentLang === 'en' ? "Math error: Divide by zero!" : "গাণিতিক ত্রুটি: শূন্য দ্বারা ভাগ অসম্ভব!");
+                            return;
+                        }
+                        currentDecResult /= decVal;
+                    }
+                }
+            });
+
+            // Update UI
+            document.getElementById('calc-out-dec').innerText = decimalToBaseFractional(currentDecResult, 10);
+            document.getElementById('calc-out-bin').innerText = decimalToBaseFractional(currentDecResult, 2);
+            document.getElementById('calc-out-oct').innerText = decimalToBaseFractional(currentDecResult, 8);
+            document.getElementById('calc-out-hex').innerText = decimalToBaseFractional(currentDecResult, 16);
+
+            stepsHtml += `
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                    <span class="text-xs text-emerald-400 font-bold block mb-1">${currentLang === 'en' ? 'Sequential Evaluation' : 'পর্যায়ক্রমিক গাণিতিক সমাধান'}</span>
+                    <div class="text-sm font-semibold code-font text-slate-200">
+                        ${equationExpression} = <span class="text-emerald-400 font-bold">${currentDecResult}</span>
+                    </div>
+                </div>
+
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                    <span class="text-xs text-pink-400 font-bold block mb-2">${currentLang === 'en' ? 'Final Output Conversion values' : 'চূড়ান্ত ডেসিমাল মানের রূপান্তর ছক'}</span>
+                    <table class="w-full text-xs text-left border-collapse">
+                        <thead>
+                            <tr class="border-b border-slate-800 text-slate-500 font-mono">
+                                <th class="py-1">System Base</th>
+                                <th class="py-1 text-right">Value Output</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-slate-900 font-mono">
+                                <td class="py-1.5 text-slate-400">Decimal (10)</td>
+                                <td class="py-1.5 text-right font-bold text-slate-200">${decimalToBaseFractional(currentDecResult, 10)}<sub>10</sub></td>
+                            </tr>
+                            <tr class="border-b border-slate-900 font-mono">
+                                <td class="py-1.5 text-slate-400">Binary (2)</td>
+                                <td class="py-1.5 text-right font-bold text-indigo-400">${decimalToBaseFractional(currentDecResult, 2)}<sub>2</sub></td>
+                            </tr>
+                            <tr class="border-b border-slate-900 font-mono">
+                                <td class="py-1.5 text-slate-400">Octal (8)</td>
+                                <td class="py-1.5 text-right font-bold text-violet-400">${decimalToBaseFractional(currentDecResult, 8)}<sub>8</sub></td>
+                            </tr>
+                            <tr class="border-b border-slate-900 font-mono">
+                                <td class="py-1.5 text-slate-400">Hexadecimal (16)</td>
+                                <td class="py-1.5 text-right font-bold text-pink-400">${decimalToBaseFractional(currentDecResult, 16)}<sub>16</sub></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>`;
+
+            document.getElementById('calc-steps-container').innerHTML = stepsHtml;
+            lucide.createIcons();
+        }
+
+
+        // ==================== QUIZ CHALLENGE ENGINE ====================
+        let quizScore = 0;
+        let currentQuestion = null;
+
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function generateNewQuiz() {
+            const questionTypes = ["dec_to_bin", "bin_to_dec", "dec_to_oct", "oct_to_bin"];
+            const selectedType = questionTypes[getRandomInt(0, questionTypes.length - 1)];
+            let questionText = "";
+            let correctAnswer = "";
+            let options = [];
+
+            const feedbackEl = document.getElementById('quiz-feedback');
+            feedbackEl.classList.add('hidden');
+
+            if (selectedType === "dec_to_bin") {
+                let dec = getRandomInt(10, 80);
+                questionText = currentLang === 'en' ? 
+                    `What is the equivalent Binary of Decimal <strong>${dec}</strong>?` : 
+                    `ডেসিমাল সংখ্যা <strong>${dec}</strong>-এর সমতুল্য বাইনারি মান কত?`;
+                correctAnswer = dec.toString(2);
+                
+                options.push(correctAnswer);
+                while (options.length < 4) {
+                    let d = (dec + getRandomInt(-15, 15)).toString(2);
+                    if (d !== correctAnswer && !options.includes(d) && d.length > 0) options.push(d);
+                }
+            } else if (selectedType === "bin_to_dec") {
+                let dec = getRandomInt(8, 63);
+                let bin = dec.toString(2);
+                questionText = currentLang === 'en' ? 
+                    `What is the equivalent Decimal of Binary <strong>${bin}</strong>?` : 
+                    `বাইনারি সংখ্যা <strong>${bin}</strong>-এর সমতুল্য ডেসিমাল মান কত?`;
+                correctAnswer = dec.toString();
+
+                options.push(correctAnswer);
+                while (options.length < 4) {
+                    let d = (dec + getRandomInt(-10, 10)).toString();
+                    if (d !== correctAnswer && !options.includes(d)) options.push(d);
+                }
+            } else if (selectedType === "dec_to_oct") {
+                let dec = getRandomInt(20, 150);
+                questionText = currentLang === 'en' ? 
+                    `What is the equivalent Octal representation of Decimal <strong>${dec}</strong>?` : 
+                    `ডেসিমাল সংখ্যা <strong>${dec}</strong>-এর সমতুল্য অক্টাল মান কত?`;
+                correctAnswer = dec.toString(8);
+
+                options.push(correctAnswer);
+                while (options.length < 4) {
+                    let d = (dec + getRandomInt(-20, 20)).toString(8);
+                    if (d !== correctAnswer && !options.includes(d) && !d.includes('8') && !d.includes('9')) {
+                        options.push(d);
+                    }
+                }
+            } else if (selectedType === "oct_to_bin") {
+                let dec = getRandomInt(10, 50);
+                let oct = dec.toString(8);
+                questionText = currentLang === 'en' ? 
+                    `What is the equivalent Binary of Octal <strong>${oct}</strong>?` : 
+                    `অক্টাল সংখ্যা <strong>${oct}</strong>-কে বাইনারিতে রূপান্তর করলে কত হবে?`;
+                correctAnswer = dec.toString(2);
+
+                options.push(correctAnswer);
+                while (options.length < 4) {
+                    let d = (dec + getRandomInt(-12, 12)).toString(2);
+                    if (d !== correctAnswer && !options.includes(d) && d.length > 0) options.push(d);
+                }
+            }
+
+            options.sort(() => Math.random() - 0.5);
+            currentQuestion = { questionText, correctAnswer, options };
+
+            document.getElementById('quiz-question').innerHTML = questionText;
+            const optContainer = document.getElementById('quiz-options');
+            optContainer.innerHTML = "";
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = "quiz-opt-btn w-full bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-slate-200 py-3 px-5 rounded-xl text-xs sm:text-sm font-semibold font-mono transition-all duration-150 text-left truncate";
+                btn.innerText = opt;
+                btn.onclick = () => checkQuizAnswer(opt, btn);
+                optContainer.appendChild(btn);
+            });
+        }
+
+        function checkQuizAnswer(selected, selectedButton) {
+            const feedbackEl = document.getElementById('quiz-feedback');
+            
+            document.querySelectorAll('.quiz-opt-btn').forEach(btn => {
+                btn.disabled = true;
+                if (btn.innerText === currentQuestion.correctAnswer) {
+                    btn.className = "quiz-opt-btn w-full bg-emerald-950 border border-emerald-500 text-emerald-400 py-3 px-5 rounded-xl text-sm font-semibold font-mono transition-all duration-150 text-left truncate";
+                }
+            });
+
+            if (selected === currentQuestion.correctAnswer) {
+                playTone(900, 'sine', 0.1);
+                setTimeout(() => playTone(1200, 'sine', 0.15), 100);
+                quizScore += 10;
+                document.getElementById('quiz-score').innerText = quizScore;
+                
+                feedbackEl.className = "mt-4 p-3 rounded-lg text-xs font-semibold text-center bg-emerald-500/10 border border-emerald-500/20 text-emerald-400";
+                feedbackEl.innerText = currentLang === 'en' ? "Excellent! Correct Answer! (+10 points)" : "চমৎকার হয়েছে! সঠিক উত্তর! (+১০ পয়েন্ট)";
+            } else {
+                playTone(180, 'sawtooth', 0.25);
+                selectedButton.className = "quiz-opt-btn w-full bg-rose-950 border border-rose-500 text-rose-400 py-3 px-5 rounded-xl text-sm font-semibold font-mono transition-all duration-150 text-left truncate";
+                
+                feedbackEl.className = "mt-4 p-3 rounded-lg text-xs font-semibold text-center bg-rose-500/10 border border-rose-500/20 text-rose-400";
+                feedbackEl.innerText = currentLang === 'en' ? `Incorrect! The correct answer was: ${currentQuestion.correctAnswer}` : `ভুল উত্তর! সঠিক উত্তরটি ছিলো: ${currentQuestion.correctAnswer}`;
+            }
+
+            feedbackEl.classList.remove('hidden');
+            setTimeout(generateNewQuiz, 3500);
+        }
+
+        window.addEventListener('resize', triggerWaveformDrawing);
+
+        window.onload = function() {
+            setSourceBase(10);
+            setTargetBase(2);
+            updateBitBoardUI();
+            renderCalculatorRows();
+            resetCalculator();
+            generateNewQuiz();
+            triggerWaveformDrawing();
+            showDefaultSolutionNote();
+            lucide.createIcons();
+        };
+    </script>
+</body>
+</html>
