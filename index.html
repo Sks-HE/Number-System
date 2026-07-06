@@ -214,6 +214,66 @@
             50% { transform: scale(1.3); box-shadow: 0 0 30px currentColor; }
             100% { transform: scale(1); }
         }
+
+        /* Graph Edit Modal */
+        .graph-edit-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        .graph-edit-modal.active {
+            display: flex;
+            animation: celebFadeIn 0.3s ease-out;
+        }
+        .graph-edit-backdrop {
+            position: absolute;
+            inset: 0;
+            backdrop-filter: blur(6px);
+            background: rgba(0, 0, 0, 0.7);
+        }
+        .graph-edit-card {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 500px;
+            padding: 1.75rem;
+            border-radius: 1.5rem;
+            background: linear-gradient(135deg, #0b0f19 0%, #1e1b4b 100%);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(99, 102, 241, 0.15);
+            animation: celebCardPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .theme-light .graph-edit-card {
+            background: linear-gradient(135deg, #ffffff 0%, #eef2ff 100%);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+        .graph-edit-validation {
+            margin-top: 0.75rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .graph-edit-validation.active {
+            display: flex;
+        }
+        .graph-edit-validation.error {
+            background: rgba(244, 63, 94, 0.1);
+            border: 1px solid rgba(244, 63, 94, 0.3);
+            color: #fb7185;
+        }
+        .graph-edit-validation.success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #34d399;
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
@@ -227,6 +287,40 @@
             <div id="celebration-subtitle" class="celebration-subtitle">You reached a new level!</div>
             <div id="celebration-score" class="celebration-score">100 Points</div>
             <div id="celebration-ribbon" class="celebration-ribbon">KEEP GOING!</div>
+        </div>
+    </div>
+
+    <!-- Graph Edit Modal -->
+    <div id="graph-edit-modal" class="graph-edit-modal">
+        <div class="graph-edit-backdrop" onclick="closeGraphEditModal()"></div>
+        <div class="graph-edit-card">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-sm font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2">
+                    <i data-lucide="edit-3" class="w-4 h-4 text-indigo-400"></i>
+                    <span data-key="edit_graph_title">Edit Waveform</span>
+                </h3>
+                <button onclick="closeGraphEditModal()" class="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-all">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+            <p class="text-xs text-slate-400 mb-4 leading-relaxed" data-key="edit_graph_desc">
+                Enter a custom binary string (use 0, 1, and . for fractional parts). The waveform and all outputs will update instantly.
+            </p>
+            <div>
+                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5" data-key="edit_graph_label">Binary Input</label>
+                <input id="graph-edit-input" type="text" placeholder="e.g. 1010.1101" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-lg font-bold text-white tracking-widest focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all code-font uppercase" />
+            </div>
+            <div id="graph-edit-validation" class="graph-edit-validation">
+                <i data-lucide="alert-circle" class="w-4 h-4 shrink-0"></i>
+                <span id="graph-edit-validation-msg"></span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 mt-5">
+                <button onclick="closeGraphEditModal()" class="py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold rounded-xl transition-all border border-slate-700" data-key="cancel">Cancel</button>
+                <button onclick="applyGraphEdit()" class="py-2.5 bg-gradient-to-r from-indigo-600 to-violet-500 hover:from-indigo-700 hover:to-violet-600 text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-lg shadow-indigo-500/20">
+                    <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                    <span data-key="apply">Apply</span>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -255,6 +349,12 @@
             <!-- Theme Toggle -->
             <button onclick="toggleTheme()" class="flex items-center justify-center p-2 rounded-lg border border-slate-700 bg-slate-900/60 hover:bg-slate-800 text-slate-200 transition-all" id="theme-btn">
                 <i data-lucide="sun" class="w-4 h-4 text-amber-400" id="theme-icon"></i>
+            </button>
+
+            <!-- Share Button -->
+            <button onclick="shareWebsite()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold border border-slate-700 bg-slate-900/60 hover:bg-slate-800 text-slate-200 transition-all" title="Share Website">
+                <i data-lucide="share-2" class="w-4 h-4 text-pink-400"></i>
+                <span data-key="share_btn" class="hidden sm:inline">Share</span>
             </button>
 
             <!-- Tab Buttons -->
@@ -478,10 +578,17 @@
                             </h3>
                             <p class="text-xs text-slate-400" data-key="oscilloscope_desc">Real-time waveform of binary value and transition pulses</p>
                         </div>
-                        <!-- Encoding Switcher -->
-                        <div class="flex items-center gap-2 bg-slate-950 p-1.5 rounded-lg border border-slate-800">
-                            <button onclick="setSignalType('nrz')" id="btn-nrz" class="px-2.5 py-1 text-[10px] font-bold uppercase rounded bg-indigo-600 text-white transition-all">NRZ-L</button>
-                            <button onclick="setSignalType('manchester')" id="btn-manchester" class="px-2.5 py-1 text-[10px] font-bold uppercase rounded text-slate-400 hover:text-white transition-all">Manchester</button>
+                        <div class="flex items-center gap-2">
+                            <!-- Encoding Switcher -->
+                            <div class="flex items-center gap-2 bg-slate-950 p-1.5 rounded-lg border border-slate-800">
+                                <button onclick="setSignalType('nrz')" id="btn-nrz" class="px-2.5 py-1 text-[10px] font-bold uppercase rounded bg-indigo-600 text-white transition-all">NRZ-L</button>
+                                <button onclick="setSignalType('manchester')" id="btn-manchester" class="px-2.5 py-1 text-[10px] font-bold uppercase rounded text-slate-400 hover:text-white transition-all">Manchester</button>
+                            </div>
+                            <!-- Edit Waveform Button -->
+                            <button onclick="openGraphEditModal()" class="flex items-center gap-1 px-2.5 py-1 text-[10px] font-bold uppercase rounded bg-pink-600 hover:bg-pink-700 text-white transition-all border border-pink-500 shadow shadow-pink-500/20">
+                                <i data-lucide="edit-3" class="w-3 h-3"></i>
+                                <span data-key="edit_graph">Edit</span>
+                            </button>
                         </div>
                     </div>
 
@@ -762,7 +869,36 @@
                 copied_toast: "Copied successfully to clipboard!",
                 invalid_toast: "Warning: Invalid base character typed!",
                 no_input_note: "No inputs detected. Start typing decimals or binaries in the left panel to generate step-by-step conversions instantly.",
-                calc_assistant_ready: "Multi-Base Calculator Active. Click 'Add Another Number' to build any custom base expression. Tap 'Calculate Result' to process equations step-by-step."
+                calc_assistant_ready: "Multi-Base Calculator Active. Click 'Add Another Number' to build any custom base expression. Tap 'Calculate Result' to process equations step-by-step.",
+                share_btn: "Share",
+                share_link_copied: "Website link copied to clipboard!",
+                share_link_failed: "Failed to copy link. Please copy manually.",
+                reset_bits_toast: "Bits have been reset successfully!",
+                reset_calculator_toast: "Calculator has been reset successfully!",
+                edit_graph: "Edit",
+                edit_graph_title: "Edit Waveform",
+                edit_graph_desc: "Enter a custom binary string (use 0, 1, and . for fractional parts). The waveform and all outputs will update instantly.",
+                edit_graph_label: "Binary Input",
+                cancel: "Cancel",
+                apply: "Apply",
+                invalid_graph_edit: "Invalid input! Only 0, 1, and . (one dot) are allowed.",
+                graph_edit_applied: "Waveform updated successfully!",
+                same_base_note: "You chose the same base for target conversion. Switch base values to generate breakdown steps.",
+                bridge_intro: "Conversion bridges through Decimal base system to guarantee pristine floating-point conversions.",
+                step1_bridge: "Step 1: Convert source to Decimal",
+                step2_bridge: "Step 2: Convert Decimal to Target Base",
+                cumulative_result: "Cumulative Result Value",
+                int_part_title: "Integer Part",
+                frac_part_title: "Fractional Part",
+                successive_div: "Successive Division",
+                successive_mult: "Successive Multiplication",
+                remainder_bottom: "Remainders gathered from bottom-to-top",
+                integer_top: "Integers gathered from top-to-bottom",
+                positional_exp: "Sum elements raised by positional power values. Positive exponents correspond to integer digits from right-to-left. Negative exponents correspond to fractions from left-to-right.",
+                math_expression: "Mathematical Expression",
+                step1_calc: "Step-1: Calculate values",
+                step2_sum: "Step-2: Cumulative Sum",
+                same_bases: "Same Bases Selected!"
             },
             bn: {
                 tab_converter: "রূপান্তর ও তরঙ্গ",
@@ -801,9 +937,42 @@
                 copied_toast: "ক্লিপবোর্ডে সফলভাবে কপি করা হয়েছে!",
                 invalid_toast: "সতর্কতা: সংখ্যা পদ্ধতিতে ভুল সংকেত টাইপ করা হয়েছে!",
                 no_input_note: "কোনো ইনপুট নেই। বামে যেকোনো পূর্ণ বা ভগ্নাংশ সংখ্যা টাইপ করলেই আমরা লাইভ গাণিতিক সমাধান বের করে প্রতিটি কদম বুঝিয়ে দেব।",
-                calc_assistant_ready: "ক্যালকুলেটর প্রস্তুত। 'নতুন সংখ্যা যোগ করুন' বাটনে চাপ দিয়ে যেকোনো সমীকরণ সাজিয়ে 'ফলাফল দেখুন' এ ক্লিক করুন।"
+                calc_assistant_ready: "ক্যালকুলেটর প্রস্তুত। 'নতুন সংখ্যা যোগ করুন' বাটনে চাপ দিয়ে যেকোনো সমীকরণ সাজিয়ে 'ফলাফল দেখুন' এ ক্লিক করুন।",
+                share_btn: "শেয়ার",
+                share_link_copied: "ওয়েবসাইটের লিংক ক্লিপবোর্ডে কপি হয়েছে!",
+                share_link_failed: "লিংক কপি করা যায়নি। দয়া করে ম্যানুয়ালি কপি করুন।",
+                reset_bits_toast: "বিটস সফলভাবে রিসেট করা হয়েছে!",
+                reset_calculator_toast: "ক্যালকুলেটর সফলভাবে রিসেট করা হয়েছে!",
+                edit_graph: "এডিট",
+                edit_graph_title: "ওয়েভফর্ম এডিট করুন",
+                edit_graph_desc: "কাস্টম বাইনারি স্ট্রিং লিখুন (0, 1 এবং দশমিক অংশের জন্য . ব্যবহার করুন)। ওয়েভফর্ম এবং সব আউটপুট তাৎক্ষণিকভাবে আপডেট হবে।",
+                edit_graph_label: "বাইনারি ইনপুট",
+                cancel: "বাতিল",
+                apply: "প্রয়োগ করুন",
+                invalid_graph_edit: "ভুল ইনপুট! শুধুমাত্র 0, 1 এবং . (একটি বিন্দু) অনুমোদিত।",
+                graph_edit_applied: "ওয়েভফর্ম সফলভাবে আপডেট হয়েছে!",
+                same_base_note: "আপনি একই বেস সিলেক্ট করেছেন। বিস্তারিত সমাধান দেখতে ভিন্ন বেস সিলেক্ট করুন।",
+                bridge_intro: "সংযোগ সেতু হিসেবে ডেসিমাল বেসকে ব্যবহার করে নিখুঁত গাণিতিক সমাধান করা হয়েছে।",
+                step1_bridge: "ধাপ ১: উৎস থেকে ডেসিমালে রূপান্তর",
+                step2_bridge: "ধাপ ২: ডেসিমাল থেকে গন্তব্য বেসে রূপান্তর",
+                cumulative_result: "চূড়ান্ত সম্মিলিত ফলাফল",
+                int_part_title: "পূর্ণসংখ্যা অংশ",
+                frac_part_title: "ভগ্নাংশ অংশ",
+                successive_div: "পর্যায়ক্রমিক ভাগ",
+                successive_mult: "পর্যায়ক্রমিক গুণ",
+                remainder_bottom: "নিচ থেকে উপরে ভাগশেষ সংগ্রহ",
+                integer_top: "উপর থেকে নিচে পূর্ণসংখ্যা সংগ্রহ",
+                positional_exp: "সংখ্যা পদ্ধতি থেকে ডেসিমালে রূপান্তরের জন্য স্থানিক ঘাত পূর্ণসংখ্যার অংশের ক্ষেত্রে ধনাত্মক এবং ভগ্নাংশের ক্ষেত্রে ঋণাত্মক পাওয়ার দিয়ে গুণ সমষ্টি নেওয়া হয়।",
+                math_expression: "গাণিতিক সমীকরণ",
+                step1_calc: "ধাপ-১: মান গণনা",
+                step2_sum: "ধাপ-২: সমষ্টি",
+                same_bases: "একই বেস নির্বাচিত!"
             }
         };
+
+        function t(key) {
+            return translations[currentLang][key] || translations['en'][key] || key;
+        }
 
         function toggleLanguage() {
             playTone(450, 'sine', 0.08);
@@ -851,6 +1020,37 @@
             }
             lucide.createIcons();
             triggerWaveformDrawing();
+        }
+
+        // Share Website Function
+        function shareWebsite() {
+            playTone(700, 'sine', 0.08);
+            const url = window.location.href;
+            
+            // Try modern clipboard API first, fallback to execCommand
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(url).then(() => {
+                    triggerSuccessToast('share_link_copied');
+                }).catch(() => {
+                    fallbackCopy(url);
+                });
+            } else {
+                fallbackCopy(url);
+            }
+        }
+
+        function fallbackCopy(text) {
+            try {
+                const tempInput = document.createElement("input");
+                tempInput.value = text;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand("copy");
+                document.body.removeChild(tempInput);
+                triggerSuccessToast('share_link_copied');
+            } catch (e) {
+                triggerErrorToast('share_link_failed');
+            }
         }
 
         // Tab Navigation Engine
@@ -1145,6 +1345,7 @@
             updateBitBoardUI();
             document.getElementById('main-input').value = "0";
             validateAndCalculate();
+            triggerSuccessToast('reset_bits_toast');
         });
 
         // Waveform Visualizer
@@ -1281,8 +1482,8 @@
             if (sourceBase === targetBase) {
                 document.getElementById('solution-container').innerHTML = `
                     <div class="bg-indigo-950/20 border border-indigo-900/40 p-4 rounded-xl text-slate-300">
-                        <p class="font-bold text-indigo-400 mb-1">Same Bases Selected!</p>
-                        <p class="text-xs">You chose the same base for target conversion. Switch base values to generate breakdown steps.</p>
+                        <p class="font-bold text-indigo-400 mb-1">${t('same_bases')}</p>
+                        <p class="text-xs">${t('same_base_note')}</p>
                     </div>
                 `;
                 return;
@@ -1325,25 +1526,25 @@
             return `
                 <div class="space-y-4">
                     <p class="text-xs text-slate-400">
-                        ${currentLang === 'en' ? 'Sum elements raised by positional power values. Positive exponents correspond to integer digits from right-to-left. Negative exponents correspond to fractions from left-to-right.' : 'সংখ্যা পদ্ধতি থেকে ডেসিমালে রূপান্তরের জন্য স্থানিক ঘাত পূর্ণসংখ্যার অংশের ক্ষেত্রে ধনাত্মক এবং ভগ্নাংশের ক্ষেত্রে ঋণাত্মক পাওয়ার দিয়ে গুণ সমষ্টি নেওয়া হয়।'}
+                        ${t('positional_exp')}
                     </p>
                     
                     <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 overflow-x-auto">
-                        <div class="text-[10px] text-slate-500 mb-2 font-mono">Mathematical Expression:</div>
+                        <div class="text-[10px] text-slate-500 mb-2 font-mono">${t('math_expression')}:</div>
                         <div class="text-xs sm:text-sm font-semibold text-slate-200 code-font leading-relaxed whitespace-nowrap">
                             (${rawVal})<sub>${base}</sub> = ${expansionParts.join(" + ")}
                         </div>
                     </div>
 
                     <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                        <span class="text-xs text-emerald-400 font-semibold uppercase tracking-wider block mb-2">Step-1: Calculate values</span>
+                        <span class="text-xs text-emerald-400 font-semibold uppercase tracking-wider block mb-2">${t('step1_calc')}</span>
                         <div class="text-sm code-font text-slate-300">
                             = ${expansionTerms.join(" + ")}
                         </div>
                     </div>
 
                     <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                        <span class="text-xs text-indigo-400 font-semibold uppercase tracking-wider block mb-2">Step-2: Cumulative Sum</span>
+                        <span class="text-xs text-indigo-400 font-semibold uppercase tracking-wider block mb-2">${t('step2_sum')}</span>
                         <div class="text-sm code-font text-slate-200 font-bold">
                             = ${decValue}<sub>10</sub>
                         </div>
@@ -1417,22 +1618,22 @@
             let html = `
                 <div class="space-y-4">
                     <div class="bg-slate-950/40 p-4 rounded-xl border border-slate-800">
-                        <span class="text-xs text-indigo-400 font-bold uppercase tracking-wider block mb-2">1. Integer Part (${intPart}<sub>10</sub>): Successive Division</span>
+                        <span class="text-xs text-indigo-400 font-bold uppercase tracking-wider block mb-2">1. ${t('int_part_title')} (${intPart}<sub>10</sub>): ${t('successive_div')}</span>
                         <table class="w-full text-left border-collapse">
                             <tbody>${divTableRows}</tbody>
                         </table>
-                        <div class="mt-2 text-xs text-slate-400">Remainders gathered from bottom-to-top: <b>${intResult}</b></div>
+                        <div class="mt-2 text-xs text-slate-400">${t('remainder_bottom')}: <b>${intResult}</b></div>
                     </div>
             `;
 
             if (multRows.length > 0) {
                 html += `
                     <div class="bg-slate-950/40 p-4 rounded-xl border border-slate-800">
-                        <span class="text-xs text-emerald-400 font-bold uppercase tracking-wider block mb-2">2. Fractional Part (${fracPart.toFixed(4)}<sub>10</sub>): Successive Multiplication</span>
+                        <span class="text-xs text-emerald-400 font-bold uppercase tracking-wider block mb-2">2. ${t('frac_part_title')} (${fracPart.toFixed(4)}<sub>10</sub>): ${t('successive_mult')}</span>
                         <table class="w-full text-left border-collapse">
                             <tbody>${multTableRows}</tbody>
                         </table>
-                        <div class="mt-2 text-xs text-slate-400">Integers gathered from top-to-bottom: <b>.${fracResult}</b></div>
+                        <div class="mt-2 text-xs text-slate-400">${t('integer_top')}: <b>.${fracResult}</b></div>
                     </div>
                 `;
             }
@@ -1440,7 +1641,7 @@
             html += `
                     <div class="bg-indigo-500/10 border border-indigo-500/20 rounded-xl p-3">
                         <p class="text-xs text-indigo-300">
-                            Cumulative Result Value: <strong>(${totalConverted})<sub>${targetBase}</sub></strong>
+                            ${t('cumulative_result')}: <strong>(${totalConverted})<sub>${targetBase}</sub></strong>
                         </p>
                     </div>
                 </div>
@@ -1451,30 +1652,39 @@
 
         function generateBridgeStepsFractional(rawVal, srcBase, trgBase, decValue) {
             const destVal = decimalToBaseFractional(decValue, trgBase);
+
+            // Step 1: Source -> Decimal (detailed positional expansion)
+            const step1Html = generateToDecimalStepsFractional(rawVal, srcBase, decValue);
+
+            // Step 2: Decimal -> Target (detailed division/multiplication)
+            const step2Html = generateFromDecimalStepsFractional(decValue, trgBase);
+
             return `
                 <div class="space-y-4">
                     <p class="text-xs text-slate-400">
-                        ${currentLang === 'en' ? 'Conversion bridges through Decimal base system to guarantee pristine floating-point conversions.' : 'সংযোগ সেতু হিসেবে ডেসিমাল বেসকে ব্যবহার করে নিখুঁত গাণিতিক সমাধান করা হয়েছে।'}
+                        ${t('bridge_intro')}
                     </p>
 
                     <div class="bg-slate-950 p-4 rounded-xl border border-slate-800/80">
-                        <div class="flex items-center gap-2 mb-2 text-indigo-400">
-                            <span class="w-5 h-5 rounded-full bg-indigo-500/20 text-indigo-300 flex items-center justify-center font-bold text-xs">1</span>
-                            <span class="text-xs font-bold uppercase tracking-wider">Step 1: Convert (${rawVal})<sub>${srcBase}</sub> to Decimal</span>
+                        <div class="flex items-center gap-2 mb-3 text-indigo-400">
+                            <span class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-300 flex items-center justify-center font-bold text-xs">1</span>
+                            <span class="text-xs font-bold uppercase tracking-wider">${t('step1_bridge')}: (${rawVal})<sub>${srcBase}</sub> ➜ Decimal</span>
                         </div>
-                        <div class="text-sm font-semibold text-slate-200 code-font">
-                            = ${decValue}<sub>10</sub>
-                        </div>
+                        ${step1Html}
                     </div>
 
                     <div class="bg-slate-950 p-4 rounded-xl border border-slate-800/80">
-                        <div class="flex items-center gap-2 mb-2 text-violet-400">
-                            <span class="w-5 h-5 rounded-full bg-violet-500/20 text-violet-300 flex items-center justify-center font-bold text-xs">2</span>
-                            <span class="text-xs font-bold uppercase tracking-wider">Step 2: Convert Decimal ${decValue}<sub>10</sub> to Target Base (${trgBase})</span>
+                        <div class="flex items-center gap-2 mb-3 text-violet-400">
+                            <span class="w-6 h-6 rounded-full bg-violet-500/20 text-violet-300 flex items-center justify-center font-bold text-xs">2</span>
+                            <span class="text-xs font-bold uppercase tracking-wider">${t('step2_bridge')}: ${decValue}<sub>10</sub> ➜ (${trgBase})</span>
                         </div>
-                        <div class="text-sm font-semibold text-slate-200 code-font">
-                            = (${destVal})<sub>${trgBase}</sub>
-                        </div>
+                        ${step2Html}
+                    </div>
+
+                    <div class="bg-gradient-to-r from-indigo-500/10 to-violet-500/10 border border-indigo-500/30 rounded-xl p-4">
+                        <p class="text-sm text-slate-200 font-bold code-font text-center">
+                            (${rawVal})<sub>${srcBase}</sub> = <span class="text-emerald-400">(${destVal})<sub>${trgBase}</sub></span>
+                        </p>
                     </div>
                 </div>
             `;
@@ -1508,6 +1718,82 @@
                 if (raw !== "" && !baseRegex[sourceBase].test(raw)) {
                     triggerErrorToast('invalid_toast');
                 }
+            }
+        });
+
+
+        // ==================== GRAPH EDIT MODAL ====================
+        function openGraphEditModal() {
+            playTone(550, 'sine', 0.08);
+            const modal = document.getElementById('graph-edit-modal');
+            const input = document.getElementById('graph-edit-input');
+            const validation = document.getElementById('graph-edit-validation');
+            
+            // Pre-fill with current binary value
+            const currentBin = document.getElementById('out-bin').innerText.trim();
+            input.value = (currentBin === "0" || currentBin === "") ? "" : currentBin;
+            
+            // Reset validation state
+            validation.classList.remove('active', 'error', 'success');
+            
+            modal.classList.add('active');
+            setTimeout(() => input.focus(), 100);
+        }
+
+        function closeGraphEditModal() {
+            playTone(300, 'sine', 0.08);
+            const modal = document.getElementById('graph-edit-modal');
+            modal.classList.remove('active');
+        }
+
+        function applyGraphEdit() {
+            const input = document.getElementById('graph-edit-input');
+            const validation = document.getElementById('graph-edit-validation');
+            const validationMsg = document.getElementById('graph-edit-validation-msg');
+            const rawValue = input.value.trim().toUpperCase();
+
+            // Validate: only 0, 1, and single dot allowed
+            const binaryRegex = /^[01]+\.?[01]*$|^[01]*\.[01]+$/;
+            
+            if (rawValue === "") {
+                validation.classList.add('active', 'error');
+                validation.classList.remove('success');
+                validationMsg.innerText = t('invalid_graph_edit');
+                playTone(220, 'sawtooth', 0.2);
+                return;
+            }
+
+            if (!binaryRegex.test(rawValue)) {
+                validation.classList.add('active', 'error');
+                validation.classList.remove('success');
+                validationMsg.innerText = t('invalid_graph_edit');
+                playTone(220, 'sawtooth', 0.2);
+                return;
+            }
+
+            // Valid input - apply changes
+            playTone(800, 'sine', 0.1);
+            setTimeout(() => playTone(1000, 'sine', 0.1), 80);
+
+            // Update main input and source base to binary
+            document.getElementById('main-input').value = rawValue;
+            setSourceBase(2);
+
+            // Show success validation
+            validation.classList.add('active', 'success');
+            validation.classList.remove('error');
+            validationMsg.innerText = t('graph_edit_applied');
+
+            // Auto close after short delay
+            setTimeout(() => {
+                closeGraphEditModal();
+            }, 1200);
+        }
+
+        // Allow Enter key in graph edit input
+        document.getElementById('graph-edit-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                applyGraphEdit();
             }
         });
 
@@ -1635,6 +1921,9 @@
                 </div>
             `;
             lucide.createIcons();
+
+            // Show reset success toast
+            triggerSuccessToast('reset_calculator_toast');
         }
 
         // Cumulative calculation evaluation
@@ -2059,4 +2348,5 @@
     </script>
 </body>
 </html>
+
 
