@@ -50,6 +50,30 @@ body::before {
 }
 
 #matrix-bg { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+/* --- Loading Screen Overlay --- */
+#loading-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999; /* সবকিছুর একদম উপরে থাকবে */
+  background-color: #030712; /* ডার্ক মোডের ব্যাকগ্রাউন্ড */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.6s ease-out, visibility 0.6s ease-out;
+}
+#loading-overlay.fade-out {
+  opacity: 0;
+  visibility: hidden; /* ২.৫ সেকেন্ড পর মিলিয়ে যাবে */
+}
+#loading-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.theme-light #loading-overlay {
+  background-color: #f8fafc; /* লাইট মোডের ব্যাকগ্রাউন্ড */
+}
 
 /* Premium Glassmorphism Cards */
 .custom-card {
@@ -107,6 +131,45 @@ body::before {
 .theme-light input::placeholder { color: #94a3b8 !important; }
 
 /* --- HAMBURGER MENU STYLES --- */
+/* Floating Hamburger Menu (Top Right Fixed) */
+#menu-container {
+  position: fixed !important;
+  top: 20px !important;
+  right: 20px !important;
+  z-index: 1000 !important;
+}
+#main-dropdown {
+  top: 55px !important; /* ড্রপডাউন যাতে মেনুর ঠিক নিচে আসে */
+}
+
+/* Binary Logo Styling (Transparent to match Matrix Background) */
+.binary-logo-container {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 12px;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.binary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  font-family: 'Fira Code', monospace;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1;
+}
+.b-bit {
+  width: 16px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
 .menu-dropdown {
   position: absolute;
   right: 0;
@@ -222,7 +285,10 @@ body::before {
 </style>
 </head>
 <body class="min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
-
+<!-- Loading Screen Overlay -->
+<div id="loading-overlay">
+  <canvas id="loading-canvas"></canvas>
+</div>
 <!-- Matrix Binary Rain Background Canvas -->
 <canvas id="matrix-bg"></canvas>
 <!-- Celebration Overlay -->
@@ -272,26 +338,31 @@ body::before {
     </div>
 
 <!-- Header Area -->
-<header class="border-b border-slate-800 bg-slate-950/60 backdrop-blur sticky top-0 z-50 px-4 md:px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-4 custom-card">
-  <div class="flex items-center gap-3">
-    <div onclick="location.reload()" class="bg-gradient-to-tr from-indigo-600 to-violet-500 p-2.5 rounded-xl text-white shadow-lg shadow-indigo-500/20 cursor-pointer hover:scale-110 transition-transform duration-200" title="Click to refresh">
-      <i data-lucide="activity" class="w-6 h-6 animate-pulse"></i>
+<header class="border-b border-slate-800 bg-slate-950/60 backdrop-blur sticky top-0 z-50 px-4 md:px-6 py-4 custom-card">
+  <!-- Row 1: Title (Left) & Menu (Right) -->
+  <div class="flex items-center justify-between gap-4 mb-4">
+    <div class="flex items-center gap-3">
+      <!-- Binary Animated Logo -->
+      <div onclick="location.reload()" class="binary-logo-container cursor-pointer hover:scale-110 transition-transform duration-200" title="Click to refresh">
+        <div class="binary-grid">
+          <span class="b-bit">0</span>
+          <span class="b-bit">1</span>
+          <span class="b-bit">1</span>
+          <span class="b-bit">0</span>
+        </div>
+      </div>
+      <div>
+        <h1 id="header-title" class="text-xl md:text-2xl font-bold bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+          Number System
+        </h1>
+        <p id="header-subtitle" class="text-xs text-slate-400 hidden md:block" data-key="header_subtitle">Decimal conversion, live digital wave & multi-operand math engine</p>
+      </div>
     </div>
-    <div>
-      <h1 id="header-title" class="text-xl md:text-2xl font-bold bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-        Number System
-      </h1>
-      <p id="header-subtitle" class="text-xs text-slate-400" data-key="header_subtitle">Decimal conversion, live digital wave & multi-operand math engine</p>
-    </div>
-  </div>
-
-  <div class="flex flex-wrap items-center gap-3">
     <!-- Hamburger Menu Container -->
     <div class="relative" id="menu-container">
       <button onclick="toggleMainMenu(event)" class="p-2.5 rounded-xl border border-slate-700 bg-slate-900/60 hover:bg-slate-800 text-slate-200 transition-all shadow-lg" id="hamburger-btn">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16" /></svg>
       </button>
-      
       <!-- Dropdown Menu -->
       <div id="main-dropdown" class="menu-dropdown">
         <button onclick="toggleLanguage(); toggleMainMenu(event);" class="menu-item-btn">
@@ -308,19 +379,19 @@ body::before {
         </button>
       </div>
     </div>
+  </div>
 
-    <!-- Tab Buttons -->
-    <div class="flex items-center gap-1 bg-slate-900 p-1 rounded-xl border border-slate-800">
-      <button onclick="switchTab('converter-tab')" id="tab-btn-converter" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white flex items-center gap-1.5">
-        <i data-lucide="shuffle" class="w-3.5 h-3.5"></i> <span data-key="tab_converter">Converter</span>
-      </button>
-      <button onclick="switchTab('calculator-tab')" id="tab-btn-calculator" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-slate-200 flex items-center gap-1.5">
-        <i data-lucide="calculator" class="w-3.5 h-3.5"></i> <span data-key="tab_calculator">Calculator</span>
-      </button>
-      <button onclick="switchTab('quiz-tab')" id="tab-btn-quiz" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-slate-200 flex items-center gap-1.5">
-        <i data-lucide="gamepad-2" class="w-3.5 h-3.5"></i> <span data-key="tab_quiz">Quiz</span>
-      </button>
-    </div>
+  <!-- Row 2: Tab Buttons (Below Title & Menu) -->
+  <div class="flex items-center justify-center md:justify-start gap-1 bg-slate-900 p-1 rounded-xl border border-slate-800 w-fit mx-auto md:mx-0">
+    <button onclick="switchTab('converter-tab')" id="tab-btn-converter" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white flex items-center gap-1.5">
+      <i data-lucide="shuffle" class="w-3.5 h-3.5"></i> <span data-key="tab_converter">Converter</span>
+    </button>
+    <button onclick="switchTab('calculator-tab')" id="tab-btn-calculator" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-slate-200 flex items-center gap-1.5">
+      <i data-lucide="calculator" class="w-3.5 h-3.5"></i> <span data-key="tab_calculator">Calculator</span>
+    </button>
+    <button onclick="switchTab('quiz-tab')" id="tab-btn-quiz" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-slate-200 flex items-center gap-1.5">
+      <i data-lucide="gamepad-2" class="w-3.5 h-3.5"></i> <span data-key="tab_quiz">Quiz</span>
+    </button>
   </div>
 </header>
 
@@ -2302,9 +2373,84 @@ ctx.fillStyle = isDarkMode ? '#94a3b8' : '#1e293b';
             feedbackEl.classList.remove('hidden');
             setTimeout(generateNewQuiz, 3500);
         }
+// ==================== BINARY LOGO ANIMATION ENGINE ====================
+const bBits = document.querySelectorAll('.b-bit');
+let bPattern = [0, 1, 1, 0]; // Initial 2x2 grid pattern
 
+function updateBinaryLogo() {
+  // Shift the array to make the bits "move" continuously
+  bPattern.unshift(bPattern.pop());
+  const isLight = document.body.classList.contains('theme-light');
+  
+  bBits.forEach((bit, i) => {
+    bit.innerText = bPattern[i];
+    if (bPattern[i] === 1) {
+      if (isLight) {
+        // লাইট মোডে ব্যাকগ্রাউন্ডের ম্যাট্রিক্স রেইন যেমন ইন্ডিগো/নীল, লোগোও তেমন
+        bit.style.color = '#4338ca';
+        bit.style.textShadow = '0 0 10px rgba(67, 56, 202, 0.9)';
+      } else {
+        // ডার্ক মোডে ব্যাকগ্রাউন্ডের ম্যাট্রিক্স রেইন যেমন সবুজ, লোগোও তেমন
+        bit.style.color = '#10b981';
+        bit.style.textShadow = '0 0 10px rgba(16, 185, 129, 0.9)';
+      }
+    } else {
+      // 0 হলে হালকা ডার্ক/গ্রে (থিম অনুযায়ী)
+      bit.style.color = isLight ? '#94a3b8' : '#334155';
+      bit.style.textShadow = 'none';
+    }
+  });
+}
+
+updateBinaryLogo(); // পেজ লোড হওয়ার সাথে সাথে প্রথমবার চালু করা
+setInterval(updateBinaryLogo, 500); // প্রতি ০.৫ সেকেন্ডে 0 এবং 1 জায়গা পরিবর্তন হবে
         window.addEventListener('resize', triggerWaveformDrawing);
-
+// --- Loading Screen Binary Rain Engine ---
+function initLoadingRain() {
+  const canvas = document.getElementById('loading-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let width, height, columns, drops;
+  const fontSize = 18;
+  const chars = "01";
+  
+  function resize() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+    columns = Math.floor(width / fontSize);
+    drops = Array(columns).fill(1);
+  }
+  resize();
+  
+  function draw() {
+    const isLight = document.body.classList.contains('theme-light');
+    const trailColor = isLight ? 'rgba(248, 250, 252, 0.2)' : 'rgba(3, 7, 18, 0.1)';
+    const textColor = isLight ? 'rgba(67, 56, 202, 0.85)' : 'rgba(16, 185, 129, 0.85)';
+    
+    ctx.fillStyle = trailColor;
+    ctx.fillRect(0, 0, width, height);
+    ctx.fillStyle = textColor;
+    ctx.font = fontSize + "px 'Fira Code', monospace";
+    
+    for (let i = 0; i < drops.length; i++) {
+      const text = chars[Math.floor(Math.random() * chars.length)];
+      ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+      if (drops[i] * fontSize > height && Math.random() > 0.975) {
+        drops[i] = 0;
+      }
+      drops[i]++;
+    }
+  }
+  
+  const loadingInterval = setInterval(draw, 40);
+  
+  // ২.৫ সেকেন্ড (২৫০০ মিলিসেকেন্ড) পর লোডিং স্ক্রিন মিলিয়ে ফেলা
+  setTimeout(() => {
+    clearInterval(loadingInterval);
+    const overlay = document.getElementById('loading-overlay');
+    if (overlay) overlay.classList.add('fade-out');
+  }, 2500);
+}
 // Matrix Binary Rain Background Engine
 function initMatrixRain() {
   const canvas = document.getElementById('matrix-bg');
@@ -2355,6 +2501,7 @@ const textColor = isLight ? 'rgba(67, 56, 202, 0.85)' : 'rgba(16, 185, 129, 0.7)
 }
 
 window.onload = function() {
+    initLoadingRain(); // লোডিং অ্যানিমেশন চালু করা
 initMatrixRain(); // পেজ লোড হওয়ার সাথে সাথে ব্যাকগ্রাউন্ড চালু করা
             setSourceBase(10);
             setTargetBase(2);
@@ -2370,4 +2517,3 @@ initMatrixRain(); // পেজ লোড হওয়ার সাথে সা�
     </script>
 </body>
 </html>
-
