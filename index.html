@@ -11,7 +11,7 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Poppins:wght@400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap');
 
 :root {
   --bg-primary: #030712;
@@ -35,7 +35,7 @@
 }
 
 body {
-  font-family: 'Inter', 'Hind Siliguri', sans-serif;
+  font-family: 'Poppins', 'Hind Siliguri', 'Noto Sans Bengali', sans-serif;
   background-color: transparent !important;
   color: var(--text-primary);
   transition: background-color 0.4s ease, color 0.4s ease;
@@ -282,6 +282,17 @@ body::before {
   background-color: #ffffff !important;
   border-color: #e2e8f0 !important;
 }
+/* Light Mode Toast Styling */
+.theme-light #dynamic-toast #toast-content {
+  background: rgba(255, 255, 255, 0.95);
+  color: #0f172a;
+  border-color: rgba(0, 0, 0, 0.05);
+}
+.theme-light #dynamic-toast #toast-content > div.absolute {
+  background: rgba(255, 255, 255, 0.95);
+  border-right-color: rgba(0, 0, 0, 0.05);
+  border-bottom-color: rgba(0, 0, 0, 0.05);
+}
 </style>
 </head>
 <body class="min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
@@ -373,11 +384,33 @@ body::before {
           <i data-lucide="sun" class="w-4 h-4 text-amber-400" id="theme-icon"></i>
           <span id="theme-text">Light Mode</span>
         </button>
-        <button onclick="shareWebsite(); toggleMainMenu(event);" class="menu-item-btn">
-          <i data-lucide="share-2" class="w-4 h-4 text-pink-400"></i>
-          <span data-key="share_btn">Share Website</span>
-        </button>
-      </div>
+       <button onclick="shareWebsite(); toggleMainMenu(event);" class="menu-item-btn">
+  <i data-lucide="share-2" class="w-4 h-4 text-pink-400"></i>
+  <span data-key="share_btn">Share Website</span>
+</button>
+
+<!-- Our Websites Section -->
+<div class="menu-divider"></div>
+<div class="menu-section">
+  <span class="menu-label text-center" data-key="our_websites_title">Our Some Website</span>
+  <div class="flex justify-center items-center gap-3 mt-2">
+            <!-- Website 1 -->
+            <a href="https://sks-he.github.io/Honey-Entertainment/" target="_blank" class="p-1.5 rounded-lg border border-slate-700/50 hover:border-indigo-500 hover:scale-105 transition-all duration-300 bg-slate-800/40 theme-light:bg-slate-200/60 theme-light:border-slate-300/60 group">
+              <img src="https://i.pinimg.com/736x/9c/53/79/9c53799148e32a70de21cf82ce1b0207.jpg" alt="Website 1" class="w-12 h-12 rounded-md object-cover">
+            </a>
+            
+            <!-- Website 2 -->
+            <a href="https://sks-he.github.io/sajeeb/" target="_blank" class="p-1.5 rounded-lg border border-slate-700/50 hover:border-indigo-500 hover:scale-105 transition-all duration-300 bg-slate-800/40 theme-light:bg-slate-200/60 theme-light:border-slate-300/60 group">
+              <img src="https://i.pinimg.com/736x/86/cf/28/86cf28b24de41147716b056316807f64.jpg" alt="Website 2" class="w-12 h-12 rounded-md object-cover">
+            </a>
+            
+            <!-- Website 3 -->
+            <a href="https://sks-he.github.io/voice-typing/" target="_blank" class="p-1.5 rounded-lg border border-slate-700/50 hover:border-indigo-500 hover:scale-105 transition-all duration-300 bg-slate-800/40 theme-light:bg-slate-200/60 theme-light:border-slate-300/60 group">
+              <img src="https://i.pinimg.com/736x/70/1a/f4/701af4536876f6acf9d9bc853921db87.jpg" alt="Website 3" class="w-12 h-12 rounded-md object-cover">
+            </a>
+  </div>
+</div>
+</div>
     </div>
   </div>
 
@@ -398,16 +431,14 @@ body::before {
     <!-- Main Workspace Container -->
     <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6">
         
-        <!-- Dynamic Premium Toast Alerts -->
-        <div id="toast-success" class="hidden fixed bottom-6 right-6 z-50 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl p-4 flex items-center gap-3 text-emerald-400 text-sm shadow-xl shadow-emerald-950/20 max-w-sm transition-all duration-300">
-            <i data-lucide="check-circle" class="w-5 h-5 shrink-0 animate-bounce"></i>
-            <span id="toast-success-msg">Copied successfully!</span>
-        </div>
-
-        <div id="toast-error" class="hidden fixed bottom-6 right-6 z-50 bg-rose-500/10 border border-rose-500/30 rounded-2xl p-4 flex items-center gap-3 text-rose-400 text-sm shadow-xl shadow-rose-950/20 max-w-sm transition-all duration-300">
-            <i data-lucide="alert-triangle" class="w-5 h-5 shrink-0 animate-pulse"></i>
-            <span id="toast-error-msg">Invalid input characters entered!</span>
-        </div>
+     <!-- Dynamic Premium Speech Bubble Toast -->
+<div id="dynamic-toast" class="fixed bottom-6 right-6 z-[9999] pointer-events-none transform translate-x-[120%] opacity-0 transition-all duration-400 ease-out">
+  <div id="toast-content" class="relative bg-slate-900/95 backdrop-blur-xl text-slate-100 p-4 pr-5 pl-12 rounded-2xl rounded-bl-sm shadow-2xl border border-white/10 max-w-[320px] font-['Hind_Siliguri','Poppins',sans-serif] text-[0.95rem] font-medium leading-relaxed border-l-4 border-emerald-500">
+    <span id="toast-quote" class="absolute left-3 top-2 text-3xl font-['Poppins',serif] text-emerald-500 opacity-80 leading-none">“</span>
+    <span id="toast-message">Message goes here</span>
+    <div class="absolute -bottom-2 right-6 w-4 h-4 bg-slate-900/95 border-r border-b border-white/10 transform rotate-45"></div>
+  </div>
+</div>
 
         <!-- ==================== TAB 1: CONVERTER & WAVEFORM WORKSPACE ==================== -->
         <div id="tab-converter" class="tab-content grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -897,7 +928,8 @@ body::before {
                 share_btn: "Share",
                 share_link_copied: "Website link copied to clipboard!",
                 share_link_failed: "Failed to copy link. Please copy manually.",
-                reset_bits_toast: "Bits have been reset successfully!",
+our_websites_title: "Our Some Website",
+reset_bits_toast: "Bits have been reset successfully!",
                 reset_calculator_toast: "Calculator has been reset successfully!",
                 edit_graph: "Edit",
                 edit_graph_title: "Edit Waveform",
@@ -965,8 +997,9 @@ hex_label: "Hexadecimal",
                 calc_assistant_ready: "ক্যালকুলেটর প্রস্তুত। 'নতুন সংখ্যা যোগ করুন' বাটনে চাপ দিয়ে যেকোনো সমীকরণ সাজিয়ে 'ফলাফল দেখুন' এ ক্লিক করুন।",
                 share_btn: "শেয়ার",
                 share_link_copied: "ওয়েবসাইটের লিংক ক্লিপবোর্ডে কপি হয়েছে!",
-                share_link_failed: "লিংক কপি করা যায়নি। দয়া করে ম্যানুয়ালি কপি করুন।",
-                reset_bits_toast: "বিটস সফলভাবে রিসেট করা হয়েছে!",
+               share_link_failed: "লিংক কপি করা যায়নি। দয়া করে ম্যানুয়ালি কপি করুন।",
+our_websites_title: "আমাদের কিছু ওয়েবসাইট",
+reset_bits_toast: "বিটস সফলভাবে রিসেট করা হয়েছে!",
                 reset_calculator_toast: "ক্যালকুলেটর সফলভাবে রিসেট করা হয়েছে!",
                 edit_graph: "এডিট",
                 edit_graph_title: "ওয়েভফর্ম এডিট করুন",
@@ -1097,44 +1130,79 @@ document.addEventListener('click', (e) => {
         }
 
         // Tab Navigation Engine
-        function switchTab(tabId) {
-            playTone(450, 'sine', 0.08);
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.className = "tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-slate-200 flex items-center gap-1.5";
-            });
+function switchTab(tabId) {
+  playTone(450, 'sine', 0.08);
+  document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.className = "tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-slate-200 flex items-center gap-1.5";
+  });
+  if (tabId === 'converter-tab') {
+    document.getElementById('tab-converter').classList.remove('hidden');
+    document.getElementById('tab-btn-converter').className = "tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white flex items-center gap-1.5";
+    setTimeout(triggerWaveformDrawing, 100);
+  } else if (tabId === 'calculator-tab') {
+    document.getElementById('tab-calculator').classList.remove('hidden');
+    document.getElementById('tab-btn-calculator').className = "tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white flex items-center gap-1.5";
+  } else if (tabId === 'quiz-tab') {
+    document.getElementById('tab-quiz').classList.remove('hidden');
+    document.getElementById('tab-btn-quiz').className = "tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white flex items-center gap-1.5";
+    
+    // Reset quiz when entering the tab to prevent memorization
+    generateNewQuiz();
+    const feedbackEl = document.getElementById('quiz-feedback');
+    if (feedbackEl) feedbackEl.classList.add('hidden');
+  }
+}
 
-            if (tabId === 'converter-tab') {
-                document.getElementById('tab-converter').classList.remove('hidden');
-                document.getElementById('tab-btn-converter').className = "tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white flex items-center gap-1.5";
-                setTimeout(triggerWaveformDrawing, 100);
-            } else if (tabId === 'calculator-tab') {
-                document.getElementById('tab-calculator').classList.remove('hidden');
-                document.getElementById('tab-btn-calculator').className = "tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white flex items-center gap-1.5";
-            } else if (tabId === 'quiz-tab') {
-                document.getElementById('tab-quiz').classList.remove('hidden');
-                document.getElementById('tab-btn-quiz').className = "tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white flex items-center gap-1.5";
-            }
-        }
+        // Premium Speech Bubble Toast Logic
+let toastTimeout;
+function showToast(message, type = 'success') {
+  if (type === 'success') playTone(880, 'sine', 0.1);
+  else playTone(220, 'sawtooth', 0.25);
 
-        // Toasts trigger logic
-        function triggerSuccessToast(msgKey) {
-            playTone(880, 'sine', 0.1);
-            const msg = translations[currentLang][msgKey] || msgKey;
-            const toast = document.getElementById('toast-success');
-            document.getElementById('toast-success-msg').innerText = msg;
-            toast.classList.remove('hidden');
-            setTimeout(() => toast.classList.add('hidden'), 2500);
-        }
+  const toast = document.getElementById('dynamic-toast');
+  const toastContent = document.getElementById('toast-content');
+  const toastMessage = document.getElementById('toast-message');
+  const toastQuote = document.getElementById('toast-quote');
+  
+  if (toastTimeout) {
+    clearTimeout(toastTimeout);
+    toast.classList.remove('translate-x-0', 'opacity-100');
+    toast.classList.add('translate-x-[120%]', 'opacity-0');
+  }
 
-        function triggerErrorToast(msgKey) {
-            playTone(220, 'sawtooth', 0.25);
-            const msg = translations[currentLang][msgKey] || msgKey;
-            const toast = document.getElementById('toast-error');
-            document.getElementById('toast-error-msg').innerText = msg;
-            toast.classList.remove('hidden');
-            setTimeout(() => toast.classList.add('hidden'), 2500);
-        }
+  setTimeout(() => {
+    toastMessage.innerText = message;
+    
+    if (type === 'error') {
+      toastContent.classList.remove('border-emerald-500');
+      toastContent.classList.add('border-rose-500');
+      toastQuote.className = "absolute left-3 top-2 text-3xl font-['Poppins',serif] text-rose-500 opacity-80 leading-none";
+    } else {
+      toastContent.classList.remove('border-rose-500');
+      toastContent.classList.add('border-emerald-500');
+      toastQuote.className = "absolute left-3 top-2 text-3xl font-['Poppins',serif] text-emerald-500 opacity-80 leading-none";
+    }
+
+    toast.classList.remove('translate-x-[120%]', 'opacity-0');
+    toast.classList.add('translate-x-0', 'opacity-100');
+
+    toastTimeout = setTimeout(() => {
+      toast.classList.remove('translate-x-0', 'opacity-100');
+      toast.classList.add('translate-x-[120%]', 'opacity-0');
+    }, 3000);
+  }, 400);
+}
+
+function triggerSuccessToast(msgKey) {
+  const msg = translations[currentLang][msgKey] || msgKey;
+  showToast(msg, 'success');
+}
+
+function triggerErrorToast(msgKey) {
+  const msg = translations[currentLang][msgKey] || msgKey;
+  showToast(msg, 'error');
+}
 
         // State variables
         let sourceBase = 10;
@@ -2501,19 +2569,25 @@ const textColor = isLight ? 'rgba(67, 56, 202, 0.85)' : 'rgba(16, 185, 129, 0.7)
 }
 
 window.onload = function() {
-    initLoadingRain(); // লোডিং অ্যানিমেশন চালু করা
-initMatrixRain(); // পেজ লোড হওয়ার সাথে সাথে ব্যাকগ্রাউন্ড চালু করা
-            setSourceBase(10);
-            setTargetBase(2);
-            updateBitBoardUI();
-            renderCalculatorRows();
-            resetCalculator();
-            generateNewQuiz();
-            triggerWaveformDrawing();
-            showDefaultSolutionNote();
-            updateScoreDisplay();
-            lucide.createIcons();
-        };
+  initLoadingRain(); // লোডিং অ্যানিমেশন চালু করা
+  initMatrixRain(); // পেজ লোড হওয়ার সাথে সাথে ব্যাকগ্রাউন্ড চালু করা
+  setSourceBase(10);
+  setTargetBase(2);
+  updateBitBoardUI();
+  renderCalculatorRows();
+  
+  // Initial calculator state without triggering the reset toast
+  document.getElementById('calc-out-dec').innerText = '0';
+  document.getElementById('calc-out-bin').innerText = '0';
+  document.getElementById('calc-out-oct').innerText = '0';
+  document.getElementById('calc-out-hex').innerText = '0';
+  
+  generateNewQuiz();
+  triggerWaveformDrawing();
+  showDefaultSolutionNote();
+  updateScoreDisplay();
+  lucide.createIcons();
+};
     </script>
 </body>
 </html>
