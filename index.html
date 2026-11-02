@@ -133,13 +133,30 @@ body::before {
 /* --- HAMBURGER MENU STYLES --- */
 /* Floating Hamburger Menu (Top Right Fixed) */
 #menu-container {
-  position: fixed !important;
-  top: 20px !important;
-  right: 20px !important;
-  z-index: 1000 !important;
+  position: relative;
+  z-index: 1000;
 }
 #main-dropdown {
-  top: 55px !important; /* ড্রপডাউন যাতে মেনুর ঠিক নিচে আসে */
+  top: calc(100% + 10px) !important;
+}
+.menu-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 8px 0;
+}
+.theme-light .menu-divider {
+  background: #e2e8f0;
+}
+.menu-section {
+  padding: 4px 6px;
+}
+.menu-label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #94a3b8;
 }
 
 /* Binary Logo Styling (Transparent to match Matrix Background) */
@@ -149,12 +166,10 @@ body::before {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
-  border: none;
+  background: rgba(99, 102, 241, 0.08);
+  border: 1px solid rgba(99, 102, 241, 0.2);
   border-radius: 12px;
-  box-shadow: none;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
+  flex-shrink: 0;
 }
 .binary-grid {
   display: grid;
@@ -175,17 +190,17 @@ body::before {
   right: 0;
   top: calc(100% + 10px);
   width: 260px;
-  background: rgba(15, 23, 42, 0.95);
+  background: rgba(15, 23, 42, 0.96);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 16px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
   padding: 12px;
   z-index: 100;
   opacity: 0;
   transform: translateY(-10px) scale(0.95);
   pointer-events: none;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .menu-dropdown.active {
   opacity: 1;
@@ -193,9 +208,9 @@ body::before {
   pointer-events: auto;
 }
 .theme-light .menu-dropdown {
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
 }
 .menu-item-btn {
   display: flex;
@@ -212,8 +227,8 @@ body::before {
   border: 1px solid transparent;
 }
 .menu-item-btn:hover {
-  background: rgba(99, 102, 241, 0.1);
-  border-color: rgba(99, 102, 241, 0.2);
+  background: rgba(99, 102, 241, 0.12);
+  border-color: rgba(99, 102, 241, 0.25);
 }
 .theme-light .menu-item-btn {
   color: #0f172a;
@@ -252,30 +267,38 @@ body::before {
 .score-milestone-pulse { animation: scorePulse 0.8s ease-out; }
 @keyframes scorePulse { 0% { transform: scale(1); } 50% { transform: scale(1.3); box-shadow: 0 0 30px currentColor; } 100% { transform: scale(1); } }
 
-.graph-edit-modal { position: fixed; inset: 0; z-index: 9998; display: none; align-items: center; justify-content: center; padding: 1rem; }
-.graph-edit-modal.active { display: flex; animation: celebFadeIn 0.3s ease-out; }
-.graph-edit-backdrop { position: absolute; inset: 0; backdrop-filter: blur(6px); background: rgba(0, 0, 0, 0.7); }
-.graph-edit-card { position: relative; z-index: 2; width: 100%; max-width: 500px; padding: 1.75rem; border-radius: 1.5rem; background: linear-gradient(135deg, rgba(11, 15, 25, 0.95) 0%, rgba(30, 27, 75, 0.95) 100%); border: 1px solid rgba(99, 102, 241, 0.3); box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6); animation: celebCardPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); backdrop-filter: blur(20px); }
-.theme-light .graph-edit-card { background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(238, 242, 255, 0.98) 100%); border: 1px solid rgba(99, 102, 241, 0.2); }
-.graph-edit-validation { margin-top: 0.75rem; padding: 0.5rem 0.75rem; border-radius: 0.5rem; font-size: 0.75rem; font-weight: 600; display: none; align-items: center; gap: 0.5rem; }
+/* Hand-Drawn Graph Edit Modal Styles */
+.graph-edit-modal { position: fixed; inset: 0; z-index: 9998; display: none; align-items: center; justify-content: center; padding: 0.75rem; }
+.graph-edit-modal.active { display: flex; animation: celebFadeIn 0.25s ease-out; }
+.graph-edit-backdrop { position: absolute; inset: 0; backdrop-filter: blur(8px); background: rgba(0, 0, 0, 0.75); }
+.graph-edit-card { position: relative; z-index: 2; width: 100%; max-width: 620px; padding: 1.25rem 1.5rem; border-radius: 1.5rem; background: linear-gradient(135deg, rgba(11, 15, 25, 0.97) 0%, rgba(23, 21, 58, 0.97) 100%); border: 1px solid rgba(99, 102, 241, 0.35); box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7); animation: celebCardPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); backdrop-filter: blur(20px); }
+.theme-light .graph-edit-card { background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(238, 242, 255, 0.98) 100%); border: 1px solid rgba(99, 102, 241, 0.25); }
+#graph-draw-canvas { touch-action: none; cursor: crosshair; user-select: none; }
+.graph-edit-validation { margin-top: 0.6rem; padding: 0.45rem 0.75rem; border-radius: 0.5rem; font-size: 0.75rem; font-weight: 600; display: none; align-items: center; gap: 0.5rem; }
 .graph-edit-validation.active { display: flex; }
-.graph-edit-validation.error { background: rgba(244, 63, 94, 0.1); border: 1px solid rgba(244, 63, 94, 0.3); color: #fb7185; }
-.graph-edit-validation.success { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); color: #34d399; }
+.graph-edit-validation.error { background: rgba(244, 63, 94, 0.12); border: 1px solid rgba(244, 63, 94, 0.35); color: #fb7185; }
+.graph-edit-validation.success { background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.35); color: #34d399; }
+
+/* Output Value Box Clean Wrapping & Scroll */
+.output-val-box {
+  word-break: break-all;
+  line-height: 1.35;
+  max-height: 3.6rem;
+  overflow-y: auto;
+}
 
 @media (max-width: 768px) {
   header, main, footer { position: relative; z-index: 10; }
-  header { padding: 0.75rem 1rem; gap: 0.75rem; }
+  header { padding: 0.75rem 0.85rem; }
   header h1 { font-size: 1.15rem; }
   header p { display: none; }
-  .tab-btn { padding: 0.5rem 0.75rem; font-size: 0.7rem; }
-  .tab-btn i { display: none; }
+  .tab-btn { padding: 0.5rem 0.65rem; font-size: 0.72rem; flex: 1; justify-content: center; }
   main { padding: 0.75rem; }
-  .custom-card { padding: 1rem !important; }
-  #waveform-canvas { height: 7rem; }
-  button { min-height: 40px; }
- footer { padding: 1.5rem 1rem; }
+  .custom-card { padding: 1.1rem !important; }
+  #waveform-canvas { height: 8.5rem; }
+  .graph-edit-card { padding: 1rem; border-radius: 1.25rem; }
+  footer { padding: 1.25rem 1rem; }
 }
-
 /* Fix Oscilloscope & Notes Background for Light Mode */
 .theme-light .waveform-container,
 .theme-light .light-mode-card-fix {
@@ -331,117 +354,152 @@ input, textarea, [contenteditable="true"] {
         </div>
     </div>
 
-    <!-- Graph Edit Modal -->
+<!-- Graph Edit Modal (Interactive Hand-Draw Waveform Studio) -->
     <div id="graph-edit-modal" class="graph-edit-modal">
         <div class="graph-edit-backdrop" onclick="closeGraphEditModal()"></div>
         <div class="graph-edit-card">
-            <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center justify-between mb-2">
                 <h3 class="text-sm font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2">
-                    <i data-lucide="edit-3" class="w-4 h-4 text-indigo-400"></i>
-                    <span data-key="edit_graph_title">Edit Waveform</span>
+                    <i data-lucide="pen-tool" class="w-4 h-4 text-pink-400"></i>
+                    <span data-key="edit_graph_title">Draw Custom Waveform</span>
                 </h3>
                 <button onclick="closeGraphEditModal()" class="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-all">
                     <i data-lucide="x" class="w-4 h-4"></i>
                 </button>
             </div>
-            <p class="text-xs text-slate-400 mb-4 leading-relaxed" data-key="edit_graph_desc">
-                Enter a custom binary string (use 0, 1, and . for fractional parts). The waveform and all outputs will update instantly.
+            <p class="text-xs text-slate-400 mb-3 leading-relaxed" data-key="edit_graph_desc">
+                Draw across the pad with your finger or mouse! Drag in the upper zone for HIGH (1) and lower zone for LOW (0).
             </p>
-            <div>
-                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5" data-key="edit_graph_label">Binary Input</label>
-                <input id="graph-edit-input" type="text" placeholder="e.g. 1010.1101" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-lg font-bold text-white tracking-widest focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all code-font uppercase" />
+
+            <!-- Live Detected Binary & Decimal Bar -->
+            <div class="flex flex-wrap items-center justify-between gap-2 bg-slate-950/90 border border-slate-800 rounded-xl px-3.5 py-2 mb-3">
+                <div class="flex items-center gap-2 min-w-0">
+                    <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30" data-key="bin_label">Binary</span>
+                    <span id="drawn-bin-preview" class="text-sm sm:text-base font-bold code-font text-emerald-400 tracking-wider break-all">00000000</span>
+                </div>
+                <div class="flex items-center gap-1.5 text-xs code-font text-slate-400 shrink-0">
+                    <span>DEC:</span>
+                    <strong id="drawn-dec-preview" class="text-white">0</strong>
+                </div>
             </div>
+
+            <!-- Interactive Finger / Mouse Drawing Canvas -->
+            <div class="relative bg-slate-950 rounded-xl border border-indigo-500/40 p-2 overflow-hidden shadow-inner waveform-container">
+                <div class="flex justify-between text-[9px] font-mono text-slate-400 px-2 mb-1 pointer-events-none">
+                    <span class="text-emerald-400 font-bold">▲ HIGH (5V) = 1</span>
+                    <span data-key="draw_canvas_hint">Touch & Drag to Draw Wave</span>
+                    <span class="text-indigo-400 font-bold">▼ LOW (0V) = 0</span>
+                </div>
+                <canvas id="graph-draw-canvas" class="w-full h-40 block rounded-lg"></canvas>
+            </div>
+
+            <!-- Drawing Pad Controls (- Bit, + Bit, Decimal Dot, Invert, Reset) -->
+            <div class="flex flex-wrap items-center justify-between gap-1.5 mt-3">
+                <div class="flex items-center gap-1.5">
+                    <button type="button" onclick="changeDrawBitCount(-1)" class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-[11px] font-bold border border-slate-700 transition-all">- Bit</button>
+                    <span id="draw-bit-count-label" class="text-[11px] font-mono font-bold text-indigo-400 px-1.5">8 Bits</span>
+                    <button type="button" onclick="changeDrawBitCount(1)" class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-[11px] font-bold border border-slate-700 transition-all">+ Bit</button>
+                </div>
+                <div class="flex items-center gap-1.5">
+                    <button type="button" onclick="toggleDrawDecimalDot()" id="btn-draw-dot" class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-amber-400 rounded-lg text-[11px] font-bold border border-slate-700 transition-all" title="Toggle Fractional Dot (.)">. Dot</button>
+                    <button type="button" onclick="invertDrawnBits()" class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-violet-300 rounded-lg text-[11px] font-bold border border-slate-700 transition-all" data-key="invert_wave">Invert</button>
+                    <button type="button" onclick="clearDrawnBits()" class="px-2.5 py-1.5 bg-slate-800 hover:bg-rose-950/60 text-rose-400 rounded-lg text-[11px] font-bold border border-slate-700 transition-all" data-key="clear_wave">Clear</button>
+                </div>
+            </div>
+
             <div id="graph-edit-validation" class="graph-edit-validation">
-                <i data-lucide="alert-circle" class="w-4 h-4 shrink-0"></i>
+                <i data-lucide="check-circle-2" class="w-4 h-4 shrink-0"></i>
                 <span id="graph-edit-validation-msg"></span>
             </div>
-            <div class="grid grid-cols-2 gap-2 mt-5">
+
+            <div class="grid grid-cols-2 gap-2.5 mt-4">
                 <button onclick="closeGraphEditModal()" class="py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold rounded-xl transition-all border border-slate-700" data-key="cancel">Cancel</button>
-                <button onclick="applyGraphEdit()" class="py-2.5 bg-gradient-to-r from-indigo-600 to-violet-500 hover:from-indigo-700 hover:to-violet-600 text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-lg shadow-indigo-500/20">
+                <button onclick="applyGraphEdit()" class="py-2.5 bg-gradient-to-r from-indigo-600 to-pink-600 hover:from-indigo-700 hover:to-pink-700 text-white text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-lg shadow-indigo-500/20">
                     <i data-lucide="check" class="w-3.5 h-3.5"></i>
-                    <span data-key="apply">Apply</span>
+                    <span data-key="apply">Apply Waveform</span>
                 </button>
             </div>
         </div>
     </div>
 
 <!-- Header Area -->
-<header class="border-b border-slate-800 bg-slate-950/60 backdrop-blur sticky top-0 z-50 px-4 md:px-6 py-4 custom-card">
-  <!-- Row 1: Title (Left) & Menu (Right) -->
-  <div class="flex items-center justify-between gap-4 mb-4">
-    <div class="flex items-center gap-3">
-      <!-- Binary Animated Logo -->
-      <div onclick="location.reload()" class="binary-logo-container cursor-pointer hover:scale-110 transition-transform duration-200" title="Click to refresh">
-        <div class="binary-grid">
-          <span class="b-bit">0</span>
-          <span class="b-bit">1</span>
-          <span class="b-bit">1</span>
-          <span class="b-bit">0</span>
+<header class="border-b border-slate-800 bg-slate-950/75 backdrop-blur-xl sticky top-0 z-50 px-4 md:px-6 py-3 custom-card">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+    <!-- Top Bar: Brand Logo + Title (Left) & Hamburger Menu (Right on mobile) -->
+    <div class="flex items-center justify-between gap-3">
+      <div class="flex items-center gap-3 min-w-0">
+        <!-- Binary Animated Logo -->
+        <div onclick="location.reload()" class="binary-logo-container cursor-pointer hover:scale-110 transition-transform duration-200" title="Click to refresh">
+          <div class="binary-grid">
+            <span class="b-bit">0</span>
+            <span class="b-bit">1</span>
+            <span class="b-bit">1</span>
+            <span class="b-bit">0</span>
+          </div>
+        </div>
+        <div class="min-w-0">
+          <h1 id="header-title" class="text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent truncate">
+            Number System
+          </h1>
+          <p id="header-subtitle" class="text-xs text-slate-400 hidden md:block" data-key="header_subtitle">Decimal conversion, live digital wave & multi-operand math engine</p>
         </div>
       </div>
-      <div>
-        <h1 id="header-title" class="text-xl md:text-2xl font-bold bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-          Number System
-        </h1>
-        <p id="header-subtitle" class="text-xs text-slate-400 hidden md:block" data-key="header_subtitle">Decimal conversion, live digital wave & multi-operand math engine</p>
+
+      <!-- Mobile/Desktop Hamburger Menu Container -->
+      <div class="relative md:order-3" id="menu-container">
+        <button onclick="toggleMainMenu(event)" class="p-2.5 rounded-xl border border-slate-700 bg-slate-900/80 hover:bg-slate-800 text-slate-200 transition-all shadow-lg flex items-center justify-center" id="hamburger-btn" aria-label="Menu">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16" /></svg>
+        </button>
+        <!-- Dropdown Menu -->
+        <div id="main-dropdown" class="menu-dropdown">
+          <button onclick="toggleLanguage(); toggleMainMenu(event);" class="menu-item-btn">
+            <i data-lucide="languages" class="w-4 h-4 text-indigo-400"></i>
+            <span id="lang-btn-text">বাংলা</span>
+          </button>
+          <button onclick="toggleTheme(); toggleMainMenu(event);" class="menu-item-btn">
+            <i data-lucide="sun" class="w-4 h-4 text-amber-400" id="theme-icon"></i>
+            <span id="theme-text">Light Mode</span>
+          </button>
+          <button onclick="shareWebsite(); toggleMainMenu(event);" class="menu-item-btn">
+            <i data-lucide="share-2" class="w-4 h-4 text-pink-400"></i>
+            <span data-key="share_btn">Share Website</span>
+          </button>
+
+          <!-- Our Websites Section -->
+          <div class="menu-divider"></div>
+          <div class="menu-section">
+            <span class="menu-label text-center" data-key="our_websites_title">Our Some Website</span>
+            <div class="flex justify-center items-center gap-3 mt-2">
+              <!-- Website 1 -->
+              <a href="https://sks-he.github.io/Honey-Entertainment/" target="_blank" class="p-1.5 rounded-lg border border-slate-700/50 hover:border-indigo-500 hover:scale-105 transition-all duration-300 bg-slate-800/40 theme-light:bg-slate-200/60 theme-light:border-slate-300/60 group">
+                <img src="https://i.pinimg.com/736x/9c/53/79/9c53799148e32a70de21cf82ce1b0207.jpg" alt="Website 1" class="w-12 h-12 rounded-md object-cover">
+              </a>
+              <!-- Website 2 -->
+              <a href="https://sks-he.github.io/sajeeb/" target="_blank" class="p-1.5 rounded-lg border border-slate-700/50 hover:border-indigo-500 hover:scale-105 transition-all duration-300 bg-slate-800/40 theme-light:bg-slate-200/60 theme-light:border-slate-300/60 group">
+                <img src="https://i.pinimg.com/736x/86/cf/28/86cf28b24de41147716b056316807f64.jpg" alt="Website 2" class="w-12 h-12 rounded-md object-cover">
+              </a>
+              <!-- Website 3 -->
+              <a href="https://sks-he.github.io/voice-typing/" target="_blank" class="p-1.5 rounded-lg border border-slate-700/50 hover:border-indigo-500 hover:scale-105 transition-all duration-300 bg-slate-800/40 theme-light:bg-slate-200/60 theme-light:border-slate-300/60 group">
+                <img src="https://i.pinimg.com/736x/70/1a/f4/701af4536876f6acf9d9bc853921db87.jpg" alt="Website 3" class="w-12 h-12 rounded-md object-cover">
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <!-- Hamburger Menu Container -->
-    <div class="relative" id="menu-container">
-      <button onclick="toggleMainMenu(event)" class="p-2.5 rounded-xl border border-slate-700 bg-slate-900/60 hover:bg-slate-800 text-slate-200 transition-all shadow-lg" id="hamburger-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16" /></svg>
+
+    <!-- Navigation Tabs -->
+    <div class="flex items-center justify-center gap-1.5 bg-slate-900/90 p-1.5 rounded-xl border border-slate-800 w-full md:w-auto md:order-2">
+      <button onclick="switchTab('converter-tab')" id="tab-btn-converter" class="tab-btn px-3.5 py-2 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white flex items-center gap-1.5 shadow">
+        <i data-lucide="shuffle" class="w-3.5 h-3.5"></i> <span data-key="tab_converter">Converter & Waves</span>
       </button>
-      <!-- Dropdown Menu -->
-      <div id="main-dropdown" class="menu-dropdown">
-        <button onclick="toggleLanguage(); toggleMainMenu(event);" class="menu-item-btn">
-          <i data-lucide="languages" class="w-4 h-4 text-indigo-400"></i>
-          <span id="lang-btn-text">বাংলা</span>
-        </button>
-        <button onclick="toggleTheme(); toggleMainMenu(event);" class="menu-item-btn">
-          <i data-lucide="sun" class="w-4 h-4 text-amber-400" id="theme-icon"></i>
-          <span id="theme-text">Light Mode</span>
-        </button>
-       <button onclick="shareWebsite(); toggleMainMenu(event);" class="menu-item-btn">
-  <i data-lucide="share-2" class="w-4 h-4 text-pink-400"></i>
-  <span data-key="share_btn">Share Website</span>
-</button>
-
-<!-- Our Websites Section -->
-<div class="menu-divider"></div>
-<div class="menu-section">
-  <span class="menu-label text-center" data-key="our_websites_title">Our Some Website</span>
-  <div class="flex justify-center items-center gap-3 mt-2">
-            <!-- Website 1 -->
-            <a href="https://sks-he.github.io/Honey-Entertainment/" target="_blank" class="p-1.5 rounded-lg border border-slate-700/50 hover:border-indigo-500 hover:scale-105 transition-all duration-300 bg-slate-800/40 theme-light:bg-slate-200/60 theme-light:border-slate-300/60 group">
-              <img src="https://i.pinimg.com/736x/9c/53/79/9c53799148e32a70de21cf82ce1b0207.jpg" alt="Website 1" class="w-12 h-12 rounded-md object-cover">
-            </a>
-            
-            <!-- Website 2 -->
-            <a href="https://sks-he.github.io/sajeeb/" target="_blank" class="p-1.5 rounded-lg border border-slate-700/50 hover:border-indigo-500 hover:scale-105 transition-all duration-300 bg-slate-800/40 theme-light:bg-slate-200/60 theme-light:border-slate-300/60 group">
-              <img src="https://i.pinimg.com/736x/86/cf/28/86cf28b24de41147716b056316807f64.jpg" alt="Website 2" class="w-12 h-12 rounded-md object-cover">
-            </a>
-            
-            <!-- Website 3 -->
-            <a href="https://sks-he.github.io/voice-typing/" target="_blank" class="p-1.5 rounded-lg border border-slate-700/50 hover:border-indigo-500 hover:scale-105 transition-all duration-300 bg-slate-800/40 theme-light:bg-slate-200/60 theme-light:border-slate-300/60 group">
-              <img src="https://i.pinimg.com/736x/70/1a/f4/701af4536876f6acf9d9bc853921db87.jpg" alt="Website 3" class="w-12 h-12 rounded-md object-cover">
-            </a>
-  </div>
-</div>
-</div>
+      <button onclick="switchTab('calculator-tab')" id="tab-btn-calculator" class="tab-btn px-3.5 py-2 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-slate-200 flex items-center gap-1.5">
+        <i data-lucide="calculator" class="w-3.5 h-3.5"></i> <span data-key="tab_calculator">Multi-Calculator</span>
+      </button>
+      <button onclick="switchTab('quiz-tab')" id="tab-btn-quiz" class="tab-btn px-3.5 py-2 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-slate-200 flex items-center gap-1.5">
+        <i data-lucide="gamepad-2" class="w-3.5 h-3.5"></i> <span data-key="tab_quiz">Quiz</span>
+      </button>
     </div>
-  </div>
-
-  <!-- Row 2: Tab Buttons (Below Title & Menu) -->
-  <div class="flex items-center justify-center md:justify-start gap-1 bg-slate-900 p-1 rounded-xl border border-slate-800 w-fit mx-auto md:mx-0">
-    <button onclick="switchTab('converter-tab')" id="tab-btn-converter" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white flex items-center gap-1.5">
-      <i data-lucide="shuffle" class="w-3.5 h-3.5"></i> <span data-key="tab_converter">Converter</span>
-    </button>
-    <button onclick="switchTab('calculator-tab')" id="tab-btn-calculator" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-slate-200 flex items-center gap-1.5">
-      <i data-lucide="calculator" class="w-3.5 h-3.5"></i> <span data-key="tab_calculator">Calculator</span>
-    </button>
-    <button onclick="switchTab('quiz-tab')" id="tab-btn-quiz" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-slate-200 flex items-center gap-1.5">
-      <i data-lucide="gamepad-2" class="w-3.5 h-3.5"></i> <span data-key="tab_quiz">Quiz</span>
-    </button>
   </div>
 </header>
 
@@ -458,115 +516,60 @@ input, textarea, [contenteditable="true"] {
 </div>
 
         <!-- ==================== TAB 1: CONVERTER & WAVEFORM WORKSPACE ==================== -->
-        <div id="tab-converter" class="tab-content grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div id="tab-converter" class="tab-content grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
             
-            <!-- LEFT PANEL: Interactive Register & Live Multi-Converter (5 Columns) -->
+            <!-- LEFT PANEL: Conversion Wizard & 8-Bit Register (5 Columns) -->
             <section class="lg:col-span-5 flex flex-col gap-6">
-                
-                <!-- Bit Board Playfield -->
-                <div class="custom-card border rounded-2xl p-5 shadow-xl relative overflow-hidden group">
-                    <div class="absolute -right-12 -top-12 w-24 h-24 bg-indigo-500/10 rounded-full blur-2xl group-hover:bg-indigo-500/20 transition-all"></div>
-                    <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-sm font-semibold text-slate-300 uppercase tracking-wider flex items-center gap-2">
-                            <i data-lucide="cpu" class="w-4 h-4 text-emerald-400"></i> <span data-key="bit_board_title">8-Bit Register</span>
+
+                <!-- The Converter Input Workspace (Placed First for Instant Access) -->
+                <div class="custom-card border rounded-2xl p-5 sm:p-6 shadow-xl flex flex-col gap-5">
+                    <div class="flex justify-between items-center border-b border-slate-800/80 pb-3">
+                        <h3 class="text-sm font-semibold text-slate-200 uppercase tracking-wider flex items-center gap-2">
+                            <i data-lucide="sparkles" class="w-4 h-4 text-indigo-400"></i> <span data-key="conversion_wizard">Conversion Wizard</span>
                         </h3>
-                        <button id="btn-reset-bits" class="text-xs text-slate-400 hover:text-white flex items-center gap-1 transition-colors">
-                            <i data-lucide="refresh-cw" class="w-3 h-3"></i> <span data-key="reset_bits">Reset Bits</span>
-                        </button>
-                    </div>
-                    
-                    <p class="text-xs text-slate-400 mb-4 leading-relaxed" data-key="bit_board_desc">
-                        Toggle bits below to change state. Fractional decimals should be entered in the Converter below.
-                    </p>
-
-                    <!-- 8 Interactive Bits UI -->
-                    <div class="grid grid-cols-8 gap-2 bg-slate-950 p-4 rounded-xl border border-slate-800/80 mb-4">
-                        <div class="flex flex-col items-center gap-1">
-                            <span class="text-[10px] text-slate-500 code-font">128</span>
-                            <button onclick="toggleBit(7)" id="bit-7" class="w-full aspect-square bg-slate-800 border border-slate-700 hover:border-indigo-500 rounded-lg flex items-center justify-center font-bold text-lg code-font text-slate-400 transition-all duration-150 shadow">0</button>
-                        </div>
-                        <div class="flex flex-col items-center gap-1">
-                            <span class="text-[10px] text-slate-500 code-font">64</span>
-                            <button onclick="toggleBit(6)" id="bit-6" class="w-full aspect-square bg-slate-800 border border-slate-700 hover:border-indigo-500 rounded-lg flex items-center justify-center font-bold text-lg code-font text-slate-400 transition-all duration-150 shadow">0</button>
-                        </div>
-                        <div class="flex flex-col items-center gap-1">
-                            <span class="text-[10px] text-slate-500 code-font">32</span>
-                            <button onclick="toggleBit(5)" id="bit-5" class="w-full aspect-square bg-slate-800 border border-slate-700 hover:border-indigo-500 rounded-lg flex items-center justify-center font-bold text-lg code-font text-slate-400 transition-all duration-150 shadow">0</button>
-                        </div>
-                        <div class="flex flex-col items-center gap-1">
-                            <span class="text-[10px] text-slate-500 code-font">16</span>
-                            <button onclick="toggleBit(4)" id="bit-4" class="w-full aspect-square bg-slate-800 border border-slate-700 hover:border-indigo-500 rounded-lg flex items-center justify-center font-bold text-lg code-font text-slate-400 transition-all duration-150 shadow">0</button>
-                        </div>
-                        <div class="flex flex-col items-center gap-1">
-                            <span class="text-[10px] text-slate-500 code-font">8</span>
-                            <button onclick="toggleBit(3)" id="bit-3" class="w-full aspect-square bg-slate-800 border border-slate-700 hover:border-indigo-500 rounded-lg flex items-center justify-center font-bold text-lg code-font text-slate-400 transition-all duration-150 shadow">0</button>
-                        </div>
-                        <div class="flex flex-col items-center gap-1">
-                            <span class="text-[10px] text-slate-500 code-font">4</span>
-                            <button onclick="toggleBit(2)" id="bit-2" class="w-full aspect-square bg-slate-800 border border-slate-700 hover:border-indigo-500 rounded-lg flex items-center justify-center font-bold text-lg code-font text-slate-400 transition-all duration-150 shadow">0</button>
-                        </div>
-                        <div class="flex flex-col items-center gap-1">
-                            <span class="text-[10px] text-slate-500 code-font">2</span>
-                            <button onclick="toggleBit(1)" id="bit-1" class="w-full aspect-square bg-slate-800 border border-slate-700 hover:border-indigo-500 rounded-lg flex items-center justify-center font-bold text-lg code-font text-slate-400 transition-all duration-150 shadow">0</button>
-                        </div>
-                        <div class="flex flex-col items-center gap-1">
-                            <span class="text-[10px] text-slate-500 code-font">1</span>
-                            <button onclick="toggleBit(0)" id="bit-0" class="w-full aspect-square bg-slate-800 border border-slate-700 hover:border-indigo-500 rounded-lg flex items-center justify-center font-bold text-lg code-font text-slate-400 transition-all duration-150 shadow">0</button>
-                        </div>
-                    </div>
-
-                    <!-- Bitboard Fast Info Cards -->
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                        <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 text-center">
-                            <div class="text-[10px] text-slate-400" data-key="dec_label">Decimal</div>
-                            <div id="bit-dec-val" class="font-bold text-lg text-emerald-400 code-font">0</div>
-                        </div>
-                        <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 text-center">
-                            <div class="text-[10px] text-slate-400" data-key="oct_label">Octal</div>
-                            <div id="bit-oct-val" class="font-bold text-lg text-indigo-400 code-font">0</div>
-                        </div>
-                        <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 text-center">
-                            <div class="text-[10px] text-slate-400" data-key="hex_label">Hexadecimal</div>
-                            <div id="bit-hex-val" class="font-bold text-lg text-violet-400 code-font">00</div>
-                        </div>
-                        <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 text-center">
-                            <div class="text-[10px] text-slate-400">ASCII</div>
-                            <div id="bit-ascii-val" class="font-bold text-sm text-pink-400 code-font py-0.5">[Null]</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- The Converter Input Workspace -->
-                <div class="custom-card border rounded-2xl p-6 shadow-xl flex flex-col gap-5">
-                    <div class="flex justify-between items-center">
-                        <h3 class="text-sm font-semibold text-slate-300 uppercase tracking-wider flex items-center gap-2">
-                            <i data-lucide="calculator" class="w-4.5 h-4.5 text-indigo-400"></i> <span data-key="conversion_wizard">Conversion Wizard</span>
-                        </h3>
-                        <span class="text-[10px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/20 font-bold uppercase" data-key="fraction_supported">Fraction Supported</span>
+                        <span class="text-[10px] bg-emerald-500/10 text-emerald-400 px-2.5 py-0.5 rounded-full border border-emerald-500/20 font-bold uppercase" data-key="fraction_supported">Fraction Supported</span>
                     </div>
 
                     <!-- Source Base Selector -->
                     <div>
                         <label class="block text-xs font-semibold text-slate-400 mb-2 uppercase tracking-wider" data-key="input_system">Input System (From)</label>
                         <div class="grid grid-cols-4 gap-2">
-                            <button onclick="setSourceBase(10)" id="src-base-10" class="base-btn-src px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-bold transition-all border border-indigo-500 shadow-md">DEC</button>
-                            <button onclick="setSourceBase(2)" id="src-base-2" class="base-btn-src px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-bold transition-all border border-slate-700">BIN</button>
-                            <button onclick="setSourceBase(8)" id="src-base-8" class="base-btn-src px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-bold transition-all border border-slate-700">OCT</button>
-                            <button onclick="setSourceBase(16)" id="src-base-16" class="base-btn-src px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-bold transition-all border border-slate-700">HEX</button>
+                            <button onclick="setSourceBase(10)" id="src-base-10" class="base-btn-src px-3 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs sm:text-sm font-bold transition-all border border-indigo-500 shadow-md">DEC (10)</button>
+                            <button onclick="setSourceBase(2)" id="src-base-2" class="base-btn-src px-3 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs sm:text-sm font-bold transition-all border border-slate-700">BIN (2)</button>
+                            <button onclick="setSourceBase(8)" id="src-base-8" class="base-btn-src px-3 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs sm:text-sm font-bold transition-all border border-slate-700">OCT (8)</button>
+                            <button onclick="setSourceBase(16)" id="src-base-16" class="base-btn-src px-3 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs sm:text-sm font-bold transition-all border border-slate-700">HEX (16)</button>
                         </div>
                     </div>
 
-                    <!-- Input Field with live validator helper -->
+                    <!-- Input Field with Direct Mobile Numeric Keypad & Dynamic Placeholder -->
                     <div>
                         <div class="flex justify-between items-center mb-1.5">
-                            <label for="main-input" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider" data-key="enter_number">Enter Your Number</label>
-                            <span id="validation-tip" class="text-[10px] text-slate-500 font-mono">Allowed: 0-9 and .</span>
+                            <label for="main-input" id="main-input-label" class="block text-xs font-semibold text-indigo-400 uppercase tracking-wider" data-key="enter_number">Enter Your Number</label>
+                            <span id="validation-tip" class="text-[10px] text-slate-400 font-mono bg-slate-900 px-2 py-0.5 rounded border border-slate-800">Allowed: 0-9 and .</span>
                         </div>
                         <div class="relative">
-                            <input id="main-input" type="text" placeholder="Decimal Number... (e.g. 45.625)" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-lg font-bold text-white tracking-widest focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all code-font uppercase" />
-                            <button id="btn-clear" class="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-slate-500 hover:text-slate-300 transition-colors" title="Clear">
+                            <input id="main-input" type="text" inputmode="decimal" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false" placeholder="Decimal Number... (e.g. 45.625)" class="w-full bg-slate-950 border-2 border-slate-700/90 rounded-xl pl-4 pr-10 py-3.5 text-base sm:text-lg font-bold text-white tracking-wider focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 transition-all code-font uppercase shadow-inner" />
+                            <button id="btn-clear" class="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-slate-400 hover:text-rose-400 transition-colors" title="Clear">
                                 <i data-lucide="x-circle" class="w-5 h-5"></i>
                             </button>
+                        </div>
+
+                        <!-- Quick Hex & Fractional Keypad (Helps phone users type A-F and . while keeping Numeric Keyboard!) -->
+                        <div id="hex-quick-pad" class="hidden mt-2.5 p-2 bg-slate-950/90 border border-pink-500/30 rounded-xl">
+                            <div class="text-[10px] text-pink-400 font-semibold mb-1.5 flex items-center justify-between">
+                                <span data-key="hex_keypad_title">Quick Hex Digits (Tap to insert):</span>
+                                <span class="font-mono text-slate-400">A=10 ... F=15</span>
+                            </div>
+                            <div class="grid grid-cols-8 gap-1.5">
+                                <button type="button" onclick="insertMainInputChar('A')" class="py-1.5 bg-slate-800 hover:bg-indigo-600 text-white font-bold rounded-lg text-xs code-font border border-slate-700 transition-all">A</button>
+                                <button type="button" onclick="insertMainInputChar('B')" class="py-1.5 bg-slate-800 hover:bg-indigo-600 text-white font-bold rounded-lg text-xs code-font border border-slate-700 transition-all">B</button>
+                                <button type="button" onclick="insertMainInputChar('C')" class="py-1.5 bg-slate-800 hover:bg-indigo-600 text-white font-bold rounded-lg text-xs code-font border border-slate-700 transition-all">C</button>
+                                <button type="button" onclick="insertMainInputChar('D')" class="py-1.5 bg-slate-800 hover:bg-indigo-600 text-white font-bold rounded-lg text-xs code-font border border-slate-700 transition-all">D</button>
+                                <button type="button" onclick="insertMainInputChar('E')" class="py-1.5 bg-slate-800 hover:bg-indigo-600 text-white font-bold rounded-lg text-xs code-font border border-slate-700 transition-all">E</button>
+                                <button type="button" onclick="insertMainInputChar('F')" class="py-1.5 bg-slate-800 hover:bg-indigo-600 text-white font-bold rounded-lg text-xs code-font border border-slate-700 transition-all">F</button>
+                                <button type="button" onclick="insertMainInputChar('.')" class="py-1.5 bg-slate-800 hover:bg-emerald-600 text-emerald-400 hover:text-white font-bold rounded-lg text-xs code-font border border-slate-700 transition-all">.</button>
+                                <button type="button" onclick="backspaceMainInput()" class="py-1.5 bg-slate-800 hover:bg-rose-600 text-rose-400 hover:text-white font-bold rounded-lg text-xs code-font border border-slate-700 transition-all">⌫</button>
+                            </div>
                         </div>
                     </div>
 
@@ -574,13 +577,85 @@ input, textarea, [contenteditable="true"] {
                     <div>
                         <label class="block text-xs font-semibold text-slate-400 mb-2 uppercase tracking-wider" data-key="target_system">Target System (To)</label>
                         <div class="grid grid-cols-4 gap-2">
-                            <button onclick="setTargetBase(2)" id="trg-base-2" class="base-btn-trg px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-bold transition-all border border-indigo-500 shadow-md">BIN</button>
-                            <button onclick="setTargetBase(10)" id="trg-base-10" class="base-btn-trg px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-bold transition-all border border-slate-700">DEC</button>
-                            <button onclick="setTargetBase(8)" id="trg-base-8" class="base-btn-trg px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-bold transition-all border border-slate-700">OCT</button>
-                            <button onclick="setTargetBase(16)" id="trg-base-16" class="base-btn-trg px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-bold transition-all border border-slate-700">HEX</button>
+                            <button onclick="setTargetBase(2)" id="trg-base-2" class="base-btn-trg px-3 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs sm:text-sm font-bold transition-all border border-indigo-500 shadow-md">BIN (2)</button>
+                            <button onclick="setTargetBase(10)" id="trg-base-10" class="base-btn-trg px-3 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs sm:text-sm font-bold transition-all border border-slate-700">DEC (10)</button>
+                            <button onclick="setTargetBase(8)" id="trg-base-8" class="base-btn-trg px-3 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs sm:text-sm font-bold transition-all border border-slate-700">OCT (8)</button>
+                            <button onclick="setTargetBase(16)" id="trg-base-16" class="base-btn-trg px-3 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs sm:text-sm font-bold transition-all border border-slate-700">HEX (16)</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bit Board Playfield -->
+                <div class="custom-card border rounded-2xl p-5 sm:p-6 shadow-xl relative overflow-hidden group">
+                    <div class="absolute -right-12 -top-12 w-24 h-24 bg-indigo-500/10 rounded-full blur-2xl group-hover:bg-indigo-500/20 transition-all"></div>
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-sm font-semibold text-slate-200 uppercase tracking-wider flex items-center gap-2">
+                            <i data-lucide="cpu" class="w-4 h-4 text-emerald-400"></i> <span data-key="bit_board_title">8-Bit Register</span>
+                        </h3>
+                        <button id="btn-reset-bits" class="text-xs bg-slate-900 hover:bg-slate-800 border border-slate-700 px-2.5 py-1 rounded-lg text-slate-300 hover:text-white flex items-center gap-1 transition-colors">
+                            <i data-lucide="refresh-cw" class="w-3 h-3"></i> <span data-key="reset_bits">Reset Bits</span>
+                        </button>
+                    </div>
+                    
+                    <p class="text-xs text-slate-400 mb-3 leading-relaxed" data-key="bit_board_desc">
+                        Toggle bits below to change state. Fractional decimals should be entered in the Converter above.
+                    </p>
+
+                    <!-- 8 Interactive Bits UI -->
+                    <div class="grid grid-cols-8 gap-1.5 sm:gap-2 bg-slate-950 p-3 sm:p-4 rounded-xl border border-slate-800/80 mb-4">
+                        <div class="flex flex-col items-center gap-1">
+                            <span class="text-[9px] sm:text-[10px] text-slate-400 code-font font-semibold">128</span>
+                            <button onclick="toggleBit(7)" id="bit-7" class="w-full aspect-square bg-slate-800 border border-slate-700 hover:border-indigo-500 rounded-lg flex items-center justify-center font-bold text-base sm:text-lg code-font text-slate-400 transition-all duration-150 shadow">0</button>
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <span class="text-[9px] sm:text-[10px] text-slate-400 code-font font-semibold">64</span>
+                            <button onclick="toggleBit(6)" id="bit-6" class="w-full aspect-square bg-slate-800 border border-slate-700 hover:border-indigo-500 rounded-lg flex items-center justify-center font-bold text-base sm:text-lg code-font text-slate-400 transition-all duration-150 shadow">0</button>
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <span class="text-[9px] sm:text-[10px] text-slate-400 code-font font-semibold">32</span>
+                            <button onclick="toggleBit(5)" id="bit-5" class="w-full aspect-square bg-slate-800 border border-slate-700 hover:border-indigo-500 rounded-lg flex items-center justify-center font-bold text-base sm:text-lg code-font text-slate-400 transition-all duration-150 shadow">0</button>
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <span class="text-[9px] sm:text-[10px] text-slate-400 code-font font-semibold">16</span>
+                            <button onclick="toggleBit(4)" id="bit-4" class="w-full aspect-square bg-slate-800 border border-slate-700 hover:border-indigo-500 rounded-lg flex items-center justify-center font-bold text-base sm:text-lg code-font text-slate-400 transition-all duration-150 shadow">0</button>
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <span class="text-[9px] sm:text-[10px] text-slate-400 code-font font-semibold">8</span>
+                            <button onclick="toggleBit(3)" id="bit-3" class="w-full aspect-square bg-slate-800 border border-slate-700 hover:border-indigo-500 rounded-lg flex items-center justify-center font-bold text-base sm:text-lg code-font text-slate-400 transition-all duration-150 shadow">0</button>
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <span class="text-[9px] sm:text-[10px] text-slate-400 code-font font-semibold">4</span>
+                            <button onclick="toggleBit(2)" id="bit-2" class="w-full aspect-square bg-slate-800 border border-slate-700 hover:border-indigo-500 rounded-lg flex items-center justify-center font-bold text-base sm:text-lg code-font text-slate-400 transition-all duration-150 shadow">0</button>
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <span class="text-[9px] sm:text-[10px] text-slate-400 code-font font-semibold">2</span>
+                            <button onclick="toggleBit(1)" id="bit-1" class="w-full aspect-square bg-slate-800 border border-slate-700 hover:border-indigo-500 rounded-lg flex items-center justify-center font-bold text-base sm:text-lg code-font text-slate-400 transition-all duration-150 shadow">0</button>
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <span class="text-[9px] sm:text-[10px] text-slate-400 code-font font-semibold">1</span>
+                            <button onclick="toggleBit(0)" id="bit-0" class="w-full aspect-square bg-slate-800 border border-slate-700 hover:border-indigo-500 rounded-lg flex items-center justify-center font-bold text-base sm:text-lg code-font text-slate-400 transition-all duration-150 shadow">0</button>
                         </div>
                     </div>
 
+                    <!-- Bitboard Fast Info Cards -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                        <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800 text-center">
+                            <div class="text-[10px] text-slate-400" data-key="dec_label">Decimal</div>
+                            <div id="bit-dec-val" class="font-bold text-base sm:text-lg text-emerald-400 code-font">0</div>
+                        </div>
+                        <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800 text-center">
+                            <div class="text-[10px] text-slate-400" data-key="oct_label">Octal</div>
+                            <div id="bit-oct-val" class="font-bold text-base sm:text-lg text-indigo-400 code-font">0</div>
+                        </div>
+                        <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800 text-center">
+                            <div class="text-[10px] text-slate-400" data-key="hex_label">Hexadecimal</div>
+                            <div id="bit-hex-val" class="font-bold text-base sm:text-lg text-violet-400 code-font">00</div>
+                        </div>
+                        <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800 text-center">
+                            <div class="text-[10px] text-slate-400">ASCII</div>
+                            <div id="bit-ascii-val" class="font-bold text-xs sm:text-sm text-pink-400 code-font py-0.5">[Null]</div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -588,58 +663,72 @@ input, textarea, [contenteditable="true"] {
             <section class="lg:col-span-7 flex flex-col gap-6">
 
                 <!-- Real-Time Multi-Base Display Panel -->
-                <div class="custom-card border rounded-2xl p-6 shadow-xl">
-                    <h3 class="text-sm font-semibold text-slate-300 uppercase tracking-wider mb-4 flex items-center gap-2">
-                        <i data-lucide="layout-grid" class="w-4.5 h-4.5 text-pink-400"></i> <span data-key="live_output">Live Output Grid (Fractional Supported)</span>
-                    </h3>
+                <div class="custom-card border rounded-2xl p-5 sm:p-6 shadow-xl">
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800/80 pb-3 mb-4">
+                        <h3 class="text-sm font-semibold text-slate-200 uppercase tracking-wider flex items-center gap-2">
+                            <i data-lucide="layout-grid" class="w-4 h-4 text-pink-400"></i> <span data-key="live_output">Live Output Grid (Fractional Supported)</span>
+                        </h3>
+                        <span class="text-[10px] font-mono text-indigo-300 bg-indigo-950/70 border border-indigo-800/60 px-2.5 py-0.5 rounded-full">12-Bit High Precision</span>
+                    </div>
                     
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                         <!-- Decimal Box -->
-                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex items-center justify-between group hover:border-emerald-500/30 transition-all">
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex items-start justify-between gap-3 group hover:border-emerald-500/40 transition-all">
                             <div class="min-w-0 flex-1">
-                                <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider" data-key="dec_label">Decimal</span>
-                                <div id="out-dec" class="text-xl font-bold font-mono tracking-wide text-slate-200 truncate pr-2">0</div>
+                                <div class="flex items-center gap-1.5 mb-1">
+                                    <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider" data-key="dec_label">Decimal</span>
+                                    <span class="text-[9px] font-mono px-1.5 py-0.2 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">Base 10</span>
+                                </div>
+                                <div id="out-dec" class="text-lg sm:text-xl font-bold font-mono tracking-wide text-slate-100 output-val-box">0</div>
                             </div>
-                            <button onclick="copyToClipboard('out-dec')" class="p-2 bg-slate-900 border border-slate-800 hover:border-slate-700 hover:text-white rounded-lg text-slate-400 transition-all flex items-center justify-center shrink-0" title="Copy">
+                            <button onclick="copyToClipboard('out-dec')" class="p-2 bg-slate-900 border border-slate-800 hover:border-emerald-500/50 hover:text-white rounded-lg text-slate-400 transition-all flex items-center justify-center shrink-0" title="Copy">
                                 <i data-lucide="copy" class="w-4 h-4"></i>
                             </button>
                         </div>
 
                         <!-- Binary Box -->
-                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex items-center justify-between group hover:border-indigo-500/30 transition-all">
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex items-start justify-between gap-3 group hover:border-indigo-500/40 transition-all">
                             <div class="min-w-0 flex-1">
-                                <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-wider" data-key="bin_label">Binary</span>
-                                <div id="out-bin" class="text-xl font-bold font-mono tracking-wide text-slate-200 truncate pr-2">0</div>
+                                <div class="flex items-center gap-1.5 mb-1">
+                                    <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-wider" data-key="bin_label">Binary</span>
+                                    <span class="text-[9px] font-mono px-1.5 py-0.2 rounded bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">Base 2</span>
+                                </div>
+                                <div id="out-bin" class="text-lg sm:text-xl font-bold font-mono tracking-wide text-slate-100 output-val-box">0</div>
                             </div>
-                            <button onclick="copyToClipboard('out-bin')" class="p-2 bg-slate-900 border border-slate-800 hover:border-slate-700 hover:text-white rounded-lg text-slate-400 transition-all flex items-center justify-center shrink-0" title="Copy">
+                            <button onclick="copyToClipboard('out-bin')" class="p-2 bg-slate-900 border border-slate-800 hover:border-indigo-500/50 hover:text-white rounded-lg text-slate-400 transition-all flex items-center justify-center shrink-0" title="Copy">
                                 <i data-lucide="copy" class="w-4 h-4"></i>
                             </button>
                         </div>
 
                         <!-- Octal Box -->
-                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex items-center justify-between group hover:border-violet-500/30 transition-all">
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex items-start justify-between gap-3 group hover:border-violet-500/40 transition-all">
                             <div class="min-w-0 flex-1">
-                                <span class="text-[10px] font-bold text-violet-400 uppercase tracking-wider" data-key="oct_label">Octal</span>
-                                <div id="out-oct" class="text-xl font-bold font-mono tracking-wide text-slate-200 truncate pr-2">0</div>
+                                <div class="flex items-center gap-1.5 mb-1">
+                                    <span class="text-[10px] font-bold text-violet-400 uppercase tracking-wider" data-key="oct_label">Octal</span>
+                                    <span class="text-[9px] font-mono px-1.5 py-0.2 rounded bg-violet-500/10 text-violet-300 border border-violet-500/20">Base 8</span>
+                                </div>
+                                <div id="out-oct" class="text-lg sm:text-xl font-bold font-mono tracking-wide text-slate-100 output-val-box">0</div>
                             </div>
-                            <button onclick="copyToClipboard('out-oct')" class="p-2 bg-slate-900 border border-slate-800 hover:border-slate-700 hover:text-white rounded-lg text-slate-400 transition-all flex items-center justify-center shrink-0" title="Copy">
+                            <button onclick="copyToClipboard('out-oct')" class="p-2 bg-slate-900 border border-slate-800 hover:border-violet-500/50 hover:text-white rounded-lg text-slate-400 transition-all flex items-center justify-center shrink-0" title="Copy">
                                 <i data-lucide="copy" class="w-4 h-4"></i>
                             </button>
                         </div>
 
                         <!-- Hexadecimal Box -->
-                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex items-center justify-between group hover:border-pink-500/30 transition-all">
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex items-start justify-between gap-3 group hover:border-pink-500/40 transition-all">
                             <div class="min-w-0 flex-1">
-                                <span class="text-[10px] font-bold text-pink-400 uppercase tracking-wider" data-key="hex_label">Hexadecimal</span>
-                                <div id="out-hex" class="text-xl font-bold font-mono tracking-wide text-slate-200 truncate pr-2">0</div>
+                                <div class="flex items-center gap-1.5 mb-1">
+                                    <span class="text-[10px] font-bold text-pink-400 uppercase tracking-wider" data-key="hex_label">Hexadecimal</span>
+                                    <span class="text-[9px] font-mono px-1.5 py-0.2 rounded bg-pink-500/10 text-pink-300 border border-pink-500/20">Base 16</span>
+                                </div>
+                                <div id="out-hex" class="text-lg sm:text-xl font-bold font-mono tracking-wide text-slate-100 output-val-box">0</div>
                             </div>
-                            <button onclick="copyToClipboard('out-hex')" class="p-2 bg-slate-900 border border-slate-800 hover:border-slate-700 hover:text-white rounded-lg text-slate-400 transition-all flex items-center justify-center shrink-0" title="Copy">
+                            <button onclick="copyToClipboard('out-hex')" class="p-2 bg-slate-900 border border-slate-800 hover:border-pink-500/50 hover:text-white rounded-lg text-slate-400 transition-all flex items-center justify-center shrink-0" title="Copy">
                                 <i data-lucide="copy" class="w-4 h-4"></i>
                             </button>
                         </div>
                     </div>
                 </div>
-
                 <!-- Digital Signal Oscilloscope -->
                 <div class="custom-card border rounded-2xl p-6 shadow-xl relative overflow-hidden">
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-slate-800 pb-3 mb-4">
@@ -900,7 +989,8 @@ input, textarea, [contenteditable="true"] {
             }
         }
 
-        // Language Translation System
+
+// Language Translation System
         let currentLang = 'en'; // default English
         const translations = {
             en: {
@@ -910,7 +1000,7 @@ input, textarea, [contenteditable="true"] {
                 header_subtitle: "Decimal conversion, live digital wave & multi-operand math engine",
                 bit_board_title: "8-Bit Register",
                 reset_bits: "Reset Bits",
-                bit_board_desc: "Toggle bits below to change state. Fractional decimals should be entered in the Converter below.",
+                bit_board_desc: "Toggle bits below to change state. Fractional numbers can be entered in the Conversion Wizard above.",
                 dec_label: "Decimal",
                 bin_label: "Binary",
                 oct_label: "Octal",
@@ -925,7 +1015,7 @@ input, textarea, [contenteditable="true"] {
                 oscilloscope_desc: "Real-time waveform of binary value and transition pulses",
                 oscilloscope_hint: "Wave pauses temporarily on decimal dots (.)",
                 solution_title: "Mathematical Breakdown & Assistant Notes",
-                solution_desc: "Detailed steps containing floating point and base logic",
+                solution_desc: "In-depth step-by-step explanations with formulas & bit-grouping",
                 calc_title: "Multi-Operand Calculator",
                 calc_unlimited: "Unlimited Operands",
                 calc_desc: "Add as many numbers as you want with different base systems, then apply arithmetic operations sequentially!",
@@ -940,51 +1030,53 @@ input, textarea, [contenteditable="true"] {
                 quiz_rule_text: "Get 10 points for every correct answer. Incorrect answers reveal the correct output automatically. Improve your binary base logic rapidly!",
                 copied_toast: "Copied successfully to clipboard!",
                 invalid_toast: "Warning: Invalid base character typed!",
-                no_input_note: "No inputs detected. Start typing decimals or binaries in the left panel to generate step-by-step conversions instantly.",
+                no_input_note: "No inputs detected. Start typing any number in the Conversion Wizard or toggle bits in the 8-Bit Register to see a complete step-by-step mathematical breakdown.",
                 calc_assistant_ready: "Multi-Base Calculator Active. Click 'Add Another Number' to build any custom base expression. Tap 'Calculate Result' to process equations step-by-step.",
-                share_btn: "Share",
+                share_btn: "Share Website",
                 share_link_copied: "Website link copied to clipboard!",
                 share_link_failed: "Failed to copy link. Please copy manually.",
-our_websites_title: "Our Some Website",
-reset_bits_toast: "Bits have been reset successfully!",
+                our_websites_title: "Our Some Website",
+                reset_bits_toast: "Bits have been reset successfully!",
                 reset_calculator_toast: "Calculator has been reset successfully!",
-                edit_graph: "Edit",
-                edit_graph_title: "Edit Waveform",
-                edit_graph_desc: "Enter a custom binary string (use 0, 1, and . for fractional parts). The waveform and all outputs will update instantly.",
-                edit_graph_label: "Binary Input",
+                edit_graph: "Draw Wave",
+                edit_graph_title: "Draw Custom Waveform",
+                edit_graph_desc: "Draw across the pad with your finger or mouse! Drag in the upper zone for HIGH (1) and lower zone for LOW (0).",
+                draw_canvas_hint: "Touch & Drag Finger/Mouse to Draw",
+                invert_wave: "Invert",
+                clear_wave: "Clear",
+                hex_keypad_title: "Quick Hex Digits (Tap to insert):",
                 cancel: "Cancel",
-                apply: "Apply",
-                invalid_graph_edit: "Invalid input! Only 0, 1, and . (one dot) are allowed.",
-                graph_edit_applied: "Waveform updated successfully!",
+                apply: "Apply Waveform",
+                graph_edit_applied: "Hand-drawn waveform applied!",
                 same_base_note: "You chose the same base for target conversion. Switch base values to generate breakdown steps.",
-                bridge_intro: "Conversion bridges through Decimal base system to guarantee pristine floating-point conversions.",
-                step1_bridge: "Step 1: Convert source to Decimal",
-                step2_bridge: "Step 2: Convert Decimal to Target Base",
-                cumulative_result: "Cumulative Result Value",
+                bridge_intro: "Conversion bridges through the Decimal base system (plus direct Bit-Grouping where applicable) for 100% accuracy.",
+                step1_bridge: "Phase 1: Convert Source to Decimal (Base 10)",
+                step2_bridge: "Phase 2: Convert Decimal to Target Base",
+                cumulative_result: "Final Converted Result",
                 int_part_title: "Integer Part",
                 frac_part_title: "Fractional Part",
-                successive_div: "Successive Division",
-                successive_mult: "Successive Multiplication",
-                remainder_bottom: "Remainders gathered from bottom-to-top",
-                integer_top: "Integers gathered from top-to-bottom",
-                positional_exp: "Sum elements raised by positional power values. Positive exponents correspond to integer digits from right-to-left. Negative exponents correspond to fractions from left-to-right.",
-                math_expression: "Mathematical Expression",
-                step1_calc: "Step-1: Calculate values",
-                step2_sum: "Step-2: Cumulative Sum",
+                successive_div: "Successive Division by Target Base",
+                successive_mult: "Successive Multiplication by Target Base",
+                remainder_bottom: "Read remainders from Bottom to Top (MSB ↑ LSB)",
+                integer_top: "Read integer carries from Top to Bottom (↓)",
+                positional_exp: "Rule: Multiply each digit by Baseⁿ (where n = positional index from right-to-left starting at 0 for integers, and -1, -2... from left-to-right for fractions), then sum all values.",
+                math_expression: "Positional Power Expansion Formula",
+                step1_calc: "Step 1: Evaluate Positional Weights",
+                step2_sum: "Step 2: Sum All Products Together",
                 same_bases: "Same Bases Selected!"
             },
             bn: {
                 tab_converter: "রূপান্তর ও তরঙ্গ",
                 tab_calculator: "গাণিতিক ক্যালকুলেটর",
                 tab_quiz: "কুইজ কর্নার",
-header_subtitle: "ডেসিমাল রূপান্তর, লাইভ ডিজিটাল ওয়েভ ও মাল্টি-অপারেন্ড ম্যাথ ইঞ্জিন",
-bit_board_title: "৮-বিট রেজিস্টার (পূর্ণসংখ্যা)",
-reset_bits: "রিসেট বিটস",
-bit_board_desc: "নিচের বিটগুলো অন/অফ করুন। দশমিক (Fractional) সংখ্যার জন্য নিচের 'রূপান্তর উইজার্ড' ব্যবহার করুন।",
-dec_label: "Decimal",
-bin_label: "Binary",
-oct_label: "Octal",
-hex_label: "Hexadecimal",
+                header_subtitle: "ডেসিমাল রূপান্তর, লাইভ ডিজিটাল ওয়েভ ও মাল্টি-অপারেন্ড ম্যাথ ইঞ্জিন",
+                bit_board_title: "৮-বিট রেজিস্টার (পূর্ণসংখ্যা)",
+                reset_bits: "রিসেট বিটস",
+                bit_board_desc: "নিচের বিটগুলো অন/অফ করুন। দশমিক (Fractional) সংখ্যার জন্য উপরের 'সংখ্যা রূপান্তর উইজার্ড' ব্যবহার করুন।",
+                dec_label: "Decimal",
+                bin_label: "Binary",
+                oct_label: "Octal",
+                hex_label: "Hexadecimal",
                 conversion_wizard: "সংখ্যা রূপান্তর উইজার্ড",
                 fraction_supported: "দশমিক বিন্দু সমর্থিত",
                 input_system: "ইনপুট সংখ্যা পদ্ধতি (From)",
@@ -994,8 +1086,8 @@ hex_label: "Hexadecimal",
                 oscilloscope_title: "ডিজিটাল সিগন্যাল অসিলোস্কোপ (Live Waveform)",
                 oscilloscope_desc: "বাইনারি মানের রিয়েল-টাইম তরঙ্গ ও ট্রানজিশন পালস",
                 oscilloscope_hint: "বিন্দু (.) সংকেতে তরঙ্গ ক্ষণস্থায়ী বিরতি নেয়",
-                solution_title: "গাণিতিক সমাধান ও অ্যাসিস্ট্যান্ট নোট",
-                solution_desc: "দশমিক ও ভগ্নাংশের সূক্ষ্ম হিসেব সহ সম্পূর্ণ বিবরণ",
+                solution_title: "গাণিতিক সমাধান ও বিস্তারিত ব্যাখ্যা",
+                solution_desc: "সূত্র, স্থানীয় মান ছক এবং শর্টকাট বিট-গ্রুপিংসহ ধাপে ধাপে বিশ্লেষণ",
                 calc_title: "বহু-সংখ্যা পদ্ধতি ক্যালকুলেটর",
                 calc_unlimited: "আনলিমিটেড সংখ্যা সাপোর্ট",
                 calc_desc: "যত খুশি তত সংখ্যা ভিন্ন ভিন্ন সংখ্যা পদ্ধতিতে যুক্ত করে একনাগাড়ে গাণিতিক হিসেব সম্পাদন করুন!",
@@ -1009,44 +1101,130 @@ hex_label: "Hexadecimal",
                 skip_question: "অন্য প্রশ্ন দিন",
                 quiz_rule_text: "প্রতিটি সঠিক উত্তরের জন্য ১০ পয়েন্ট পাবেন। ভুল উত্তর দিলে সঠিক উত্তরটি চিহ্নিত হয়ে যাবে। সংখ্যা পদ্ধতির দক্ষতা বাড়ানোর চমৎকার মাধ্যম!",
                 copied_toast: "ক্লিপবোর্ডে সফলভাবে কপি করা হয়েছে!",
-                invalid_toast: "সতর্কতা: সংখ্যা পদ্ধতিতে ভুল সংকেত টাইপ করা হয়েছে!",
-                no_input_note: "কোনো ইনপুট নেই। বামে যেকোনো পূর্ণ বা ভগ্নাংশ সংখ্যা টাইপ করলেই আমরা লাইভ গাণিতিক সমাধান বের করে প্রতিটি কদম বুঝিয়ে দেব।",
+                invalid_toast: "সতর্কতা: নির্বাচিত সংখ্যা পদ্ধতিতে এই অংকটি অনুমোদিত নয়!",
+                no_input_note: "কোনো ইনপুট নেই। বামে যেকোনো পূর্ণ বা ভগ্নাংশ সংখ্যা টাইপ করলেই আমরা সূত্র, স্থানীয় মান ছক ও শর্টকাট টেকনিকসহ প্রতিটি ধাপ বিস্তারিত বুঝিয়ে দেব।",
                 calc_assistant_ready: "ক্যালকুলেটর প্রস্তুত। 'নতুন সংখ্যা যোগ করুন' বাটনে চাপ দিয়ে যেকোনো সমীকরণ সাজিয়ে 'ফলাফল দেখুন' এ ক্লিক করুন।",
-                share_btn: "শেয়ার",
+                share_btn: "শেয়ার ওয়েবসাইট",
                 share_link_copied: "ওয়েবসাইটের লিংক ক্লিপবোর্ডে কপি হয়েছে!",
-               share_link_failed: "লিংক কপি করা যায়নি। দয়া করে ম্যানুয়ালি কপি করুন।",
-our_websites_title: "আমাদের কিছু ওয়েবসাইট",
-reset_bits_toast: "বিটস সফলভাবে রিসেট করা হয়েছে!",
+                share_link_failed: "লিংক কপি করা যায়নি। দয়া করে ম্যানুয়ালি কপি করুন।",
+                our_websites_title: "আমাদের কিছু ওয়েবসাইট",
+                reset_bits_toast: "বিটস সফলভাবে রিসেট করা হয়েছে!",
                 reset_calculator_toast: "ক্যালকুলেটর সফলভাবে রিসেট করা হয়েছে!",
-                edit_graph: "এডিট",
-                edit_graph_title: "ওয়েভফর্ম এডিট করুন",
-                edit_graph_desc: "কাস্টম বাইনারি স্ট্রিং লিখুন (0, 1 এবং দশমিক অংশের জন্য . ব্যবহার করুন)। ওয়েভফর্ম এবং সব আউটপুট তাৎক্ষণিকভাবে আপডেট হবে।",
-                edit_graph_label: "বাইনারি ইনপুট",
+                edit_graph: "হাতে আঁকুন",
+                edit_graph_title: "হাত দিয়ে ওয়েভফর্ম আঁকুন",
+                edit_graph_desc: "আঙুল বা মাউস টেনে নিজের মতো গ্রাফ আঁকুন! উপরের অংশে টানলে HIGH (1) এবং নিচের অংশে টানলে LOW (0) তৈরি হবে।",
+                draw_canvas_hint: "আঙুল বা মাউস টেনে তরঙ্গ আঁকুন",
+                invert_wave: "উল্টে দিন",
+                clear_wave: "মুছুন",
+                hex_keypad_title: "হেক্সাডেসিমাল অক্ষর (চাপ দিলেই বসবে):",
                 cancel: "বাতিল",
-                apply: "প্রয়োগ করুন",
-                invalid_graph_edit: "ভুল ইনপুট! শুধুমাত্র 0, 1 এবং . (একটি বিন্দু) অনুমোদিত।",
-                graph_edit_applied: "ওয়েভফর্ম সফলভাবে আপডেট হয়েছে!",
-                same_base_note: "আপনি একই বেস সিলেক্ট করেছেন। বিস্তারিত সমাধান দেখতে ভিন্ন বেস সিলেক্ট করুন।",
-                bridge_intro: "সংযোগ সেতু হিসেবে ডেসিমাল বেসকে ব্যবহার করে নিখুঁত গাণিতিক সমাধান করা হয়েছে।",
-                step1_bridge: "ধাপ ১: উৎস থেকে ডেসিমালে রূপান্তর",
-                step2_bridge: "ধাপ ২: ডেসিমাল থেকে গন্তব্য বেসে রূপান্তর",
-                cumulative_result: "চূড়ান্ত সম্মিলিত ফলাফল",
-                int_part_title: "পূর্ণসংখ্যা অংশ",
-                frac_part_title: "ভগ্নাংশ অংশ",
-                successive_div: "পর্যায়ক্রমিক ভাগ",
-                successive_mult: "পর্যায়ক্রমিক গুণ",
-                remainder_bottom: "নিচ থেকে উপরে ভাগশেষ সংগ্রহ",
-                integer_top: "উপর থেকে নিচে পূর্ণসংখ্যা সংগ্রহ",
-                positional_exp: "সংখ্যা পদ্ধতি থেকে ডেসিমালে রূপান্তরের জন্য স্থানিক ঘাত পূর্ণসংখ্যার অংশের ক্ষেত্রে ধনাত্মক এবং ভগ্নাংশের ক্ষেত্রে ঋণাত্মক পাওয়ার দিয়ে গুণ সমষ্টি নেওয়া হয়।",
-                math_expression: "গাণিতিক সমীকরণ",
-                step1_calc: "ধাপ-১: মান গণনা",
-                step2_sum: "ধাপ-২: সমষ্টি",
+                apply: "গ্রাফে বসান",
+                graph_edit_applied: "আপনার আঁকা ওয়েভফর্ম সফলভাবে বসেছে!",
+                same_base_note: "আপনি ইনপুট এবং গন্তব্যে একই বেস সিলেক্ট করেছেন। বিস্তারিত সমাধান দেখতে ভিন্ন বেস সিলেক্ট করুন।",
+                bridge_intro: "ডেসিমাল ব্রিজ পদ্ধতি এবং শর্টকাট বিট-গ্রুপিং নিয়মের মাধ্যমে নিখুঁতভাবে ধাপে ধাপে সমাধান নিচে দেওয়া হলো:",
+                step1_bridge: "১ম পর্যায়: প্রদত্ত সংখ্যাটিকে ডেসিমালে (Base 10) রূপান্তর",
+                step2_bridge: "২য় পর্যায়: প্রাপ্ত ডেসিমাল মানকে গন্তব্য বেসে রূপান্তর",
+                cumulative_result: "চূড়ান্ত নির্ণীত ফলাফল",
+                int_part_title: "পূর্ণসংখ্যা অংশ (Integer Part)",
+                frac_part_title: "ভগ্নাংশ অংশ (Fractional Part)",
+                successive_div: "গন্তব্য বেস দিয়ে পর্যায়ক্রমিক ভাগ",
+                successive_mult: "গন্তব্য বেস দিয়ে পর্যায়ক্রমিক গুণ",
+                remainder_bottom: "ভাগশেষগুলো নিচ থেকে উপরে (MSB ↑ LSB) সাজিয়ে পাই",
+                integer_top: "পূর্ণসংখ্যাগুলো উপর থেকে নিচে (MSB ↓ LSB) সাজিয়ে পাই",
+                positional_exp: "নিয়ম: যেকোনো বেস থেকে ডেসিমালে নেওয়ার জন্য প্রতিটি অংককে তার স্থানীয় ঘাত (Baseⁿ) দিয়ে গুণ করে যোগ করতে হয়। পূর্ণসংখ্যার ঘাত ডান থেকে বামে 0, 1, 2... এবং দশমিকের পর বাম থেকে ডানে -1, -2, -3... হয়।",
+                math_expression: "স্থানীয় মান ও ঘাতের গাণিতিক বিস্তৃতি",
+                step1_calc: "ধাপ-১: ঘাত অনুযায়ী গুণফল নির্ণয়",
+                step2_sum: "ধাপ-২: সবগুলো মানের যোগফল (ডেসিমাল মান)",
                 same_bases: "একই বেস নির্বাচিত!"
             }
         };
 
         function t(key) {
             return translations[currentLang][key] || translations['en'][key] || key;
+        }
+
+        // Dynamic Placeholders, Labels & Validation Tips per Base System
+        function updateInputUIForBase() {
+            const inputField = document.getElementById('main-input');
+            const labelEl = document.getElementById('main-input-label');
+            const tipEl = document.getElementById('validation-tip');
+            const hexPad = document.getElementById('hex-quick-pad');
+
+            const placeholders = {
+                en: {
+                    10: "Decimal Number... (e.g. 45.625)",
+                    2:  "Binary Number... (e.g. 101101.101)",
+                    8:  "Octal Number... (e.g. 55.5)",
+                    16: "Hexadecimal Number... (e.g. 2D.A)"
+                },
+                bn: {
+                    10: "ডেসিমাল সংখ্যা লিখুন... (যেমন: 45.625)",
+                    2:  "বাইনারি সংখ্যা লিখুন... (যেমন: 101101.101)",
+                    8:  "অক্টাল সংখ্যা লিখুন... (যেমন: 55.5)",
+                    16: "হেক্সাডেসিমাল সংখ্যা লিখুন... (যেমন: 2D.A)"
+                }
+            };
+
+            const labels = {
+                en: {
+                    10: "Enter Decimal Number (Base 10)",
+                    2:  "Enter Binary Number (Base 2)",
+                    8:  "Enter Octal Number (Base 8)",
+                    16: "Enter Hexadecimal Number (Base 16)"
+                },
+                bn: {
+                    10: "ডেসিমাল সংখ্যা লিখুন (Base 10)",
+                    2:  "বাইনারি সংখ্যা লিখুন (Base 2)",
+                    8:  "অক্টাল সংখ্যা লিখুন (Base 8)",
+                    16: "হেক্সাডেসিমাল সংখ্যা লিখুন (Base 16)"
+                }
+            };
+
+            const tips = {
+                en: {
+                    2:  "Allowed: 0, 1 and .",
+                    8:  "Allowed: 0-7 and .",
+                    10: "Allowed: 0-9 and .",
+                    16: "Allowed: 0-9, A-F and ."
+                },
+                bn: {
+                    2:  "অনুমোদিত: 0, 1 এবং .",
+                    8:  "অনুমোদিত: 0 থেকে 7 এবং .",
+                    10: "অনুমোদিত: 0 থেকে 9 এবং .",
+                    16: "অনুমোদিত: 0-9, A-F এবং ."
+                }
+            };
+
+            if (inputField) {
+                inputField.placeholder = placeholders[currentLang][sourceBase];
+                // Always open phone's numeric/decimal keyboard directly!
+                inputField.setAttribute('inputmode', 'decimal');
+            }
+            if (labelEl) labelEl.innerText = labels[currentLang][sourceBase];
+            if (tipEl) tipEl.innerText = tips[currentLang][sourceBase];
+
+            // Show Quick Hex Pad when Hexadecimal (16) is active so phone users can tap A-F while keeping numeric keypad
+            if (hexPad) {
+                if (sourceBase === 16) hexPad.classList.remove('hidden');
+                else hexPad.classList.add('hidden');
+            }
+        }
+
+        function insertMainInputChar(ch) {
+            playTone(520, 'sine', 0.04);
+            const inputField = document.getElementById('main-input');
+            if (ch === '.' && inputField.value.includes('.')) return;
+            inputField.value += ch;
+            validateAndCalculate();
+            inputField.focus();
+        }
+
+        function backspaceMainInput() {
+            playTone(320, 'sine', 0.04);
+            const inputField = document.getElementById('main-input');
+            inputField.value = inputField.value.slice(0, -1);
+            validateAndCalculate();
+            inputField.focus();
         }
 
         function toggleLanguage() {
@@ -1062,13 +1240,8 @@ reset_bits_toast: "বিটস সফলভাবে রিসেট করা 
                 }
             });
 
-            // Update placeholders
-            const inputField = document.getElementById('main-input');
-            if (currentLang === 'en') {
-                inputField.placeholder = "Decimal Number... (e.g. 45.625)";
-            } else {
-                inputField.placeholder = "ডেসিমাল সংখ্যা... (যেমন: 45.625)";
-            }
+            // Update input placeholder, label and validation tip dynamically
+            updateInputUIForBase();
 
             // Refresh dynamic areas
             validateAndCalculate();
@@ -1078,49 +1251,50 @@ reset_bits_toast: "বিটস সফলভাবে রিসেট করা 
 
         // Premium Theme Switcher System
         let isDarkMode = true;
-       function toggleTheme() {
-  playTone(600, 'sine', 0.05);
-  isDarkMode = !isDarkMode;
-  const body = document.body;
-  const themeIcon = document.getElementById('theme-icon');
-  const themeText = document.getElementById('theme-text');
-  
-  if (isDarkMode) {
-    body.classList.remove('theme-light');
-    themeIcon.setAttribute('data-lucide', 'sun');
-    themeIcon.className = "w-4 h-4 text-amber-400";
-    if(themeText) themeText.innerText = "Light Mode";
-  } else {
-    body.classList.add('theme-light');
-    themeIcon.setAttribute('data-lucide', 'moon');
-    themeIcon.className = "w-4 h-4 text-indigo-600";
-    if(themeText) themeText.innerText = "Dark Mode";
-  }
-  lucide.createIcons();
-  triggerWaveformDrawing();
-}
+        function toggleTheme() {
+            playTone(600, 'sine', 0.05);
+            isDarkMode = !isDarkMode;
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+            const themeText = document.getElementById('theme-text');
+            
+            if (isDarkMode) {
+                body.classList.remove('theme-light');
+                themeIcon.setAttribute('data-lucide', 'sun');
+                themeIcon.className = "w-4 h-4 text-amber-400";
+                if(themeText) themeText.innerText = "Light Mode";
+            } else {
+                body.classList.add('theme-light');
+                themeIcon.setAttribute('data-lucide', 'moon');
+                themeIcon.className = "w-4 h-4 text-indigo-600";
+                if(themeText) themeText.innerText = "Dark Mode";
+            }
+            lucide.createIcons();
+            triggerWaveformDrawing();
+            if (document.getElementById('graph-edit-modal').classList.contains('active')) {
+                renderDrawCanvas();
+            }
+        }
 
-// Hamburger Menu Logic
-function toggleMainMenu(e) {
-  e.stopPropagation(); // Prevent document click from closing it immediately
-  const dropdown = document.getElementById('main-dropdown');
-  dropdown.classList.toggle('active');
-}
+        // Hamburger Menu Logic
+        function toggleMainMenu(e) {
+            e.stopPropagation();
+            const dropdown = document.getElementById('main-dropdown');
+            dropdown.classList.toggle('active');
+        }
 
-// Close menu when clicking outside
-document.addEventListener('click', (e) => {
-  const container = document.getElementById('menu-container');
-  if (container && !container.contains(e.target)) {
-    document.getElementById('main-dropdown').classList.remove('active');
-  }
-});
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const container = document.getElementById('menu-container');
+            if (container && !container.contains(e.target)) {
+                document.getElementById('main-dropdown').classList.remove('active');
+            }
+        });
 
         // Share Website Function
         function shareWebsite() {
             playTone(700, 'sine', 0.08);
             const url = window.location.href;
-            
-            // Try modern clipboard API first, fallback to execCommand
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(url).then(() => {
                     triggerSuccessToast('share_link_copied');
@@ -1147,79 +1321,76 @@ document.addEventListener('click', (e) => {
         }
 
         // Tab Navigation Engine
-function switchTab(tabId) {
-  playTone(450, 'sine', 0.08);
-  document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
-  document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.className = "tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-slate-200 flex items-center gap-1.5";
-  });
-  if (tabId === 'converter-tab') {
-    document.getElementById('tab-converter').classList.remove('hidden');
-    document.getElementById('tab-btn-converter').className = "tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white flex items-center gap-1.5";
-    setTimeout(triggerWaveformDrawing, 100);
-  } else if (tabId === 'calculator-tab') {
-    document.getElementById('tab-calculator').classList.remove('hidden');
-    document.getElementById('tab-btn-calculator').className = "tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white flex items-center gap-1.5";
-  } else if (tabId === 'quiz-tab') {
-    document.getElementById('tab-quiz').classList.remove('hidden');
-    document.getElementById('tab-btn-quiz').className = "tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white flex items-center gap-1.5";
-    
-    // Reset quiz when entering the tab to prevent memorization
-    generateNewQuiz();
-    const feedbackEl = document.getElementById('quiz-feedback');
-    if (feedbackEl) feedbackEl.classList.add('hidden');
-  }
-}
+        function switchTab(tabId) {
+            playTone(450, 'sine', 0.08);
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.className = "tab-btn px-3.5 py-2 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-slate-200 flex items-center gap-1.5";
+            });
+            if (tabId === 'converter-tab') {
+                document.getElementById('tab-converter').classList.remove('hidden');
+                document.getElementById('tab-btn-converter').className = "tab-btn px-3.5 py-2 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white flex items-center gap-1.5 shadow";
+                setTimeout(triggerWaveformDrawing, 100);
+            } else if (tabId === 'calculator-tab') {
+                document.getElementById('tab-calculator').classList.remove('hidden');
+                document.getElementById('tab-btn-calculator').className = "tab-btn px-3.5 py-2 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white flex items-center gap-1.5 shadow";
+            } else if (tabId === 'quiz-tab') {
+                document.getElementById('tab-quiz').classList.remove('hidden');
+                document.getElementById('tab-btn-quiz').className = "tab-btn px-3.5 py-2 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white flex items-center gap-1.5 shadow";
+                generateNewQuiz();
+                const feedbackEl = document.getElementById('quiz-feedback');
+                if (feedbackEl) feedbackEl.classList.add('hidden');
+            }
+        }
 
         // Premium Speech Bubble Toast Logic
-let toastTimeout;
-function showToast(message, type = 'success') {
-  if (type === 'success') playTone(880, 'sine', 0.1);
-  else playTone(220, 'sawtooth', 0.25);
+        let toastTimeout;
+        function showToast(message, type = 'success') {
+            if (type === 'success') playTone(880, 'sine', 0.1);
+            else playTone(220, 'sawtooth', 0.25);
 
-  const toast = document.getElementById('dynamic-toast');
-  const toastContent = document.getElementById('toast-content');
-  const toastMessage = document.getElementById('toast-message');
-  const toastQuote = document.getElementById('toast-quote');
-  
-  if (toastTimeout) {
-    clearTimeout(toastTimeout);
-    toast.classList.remove('translate-x-0', 'opacity-100');
-    toast.classList.add('translate-x-[120%]', 'opacity-0');
-  }
+            const toast = document.getElementById('dynamic-toast');
+            const toastContent = document.getElementById('toast-content');
+            const toastMessage = document.getElementById('toast-message');
+            const toastQuote = document.getElementById('toast-quote');
+            
+            if (toastTimeout) {
+                clearTimeout(toastTimeout);
+                toast.classList.remove('translate-x-0', 'opacity-100');
+                toast.classList.add('translate-x-[120%]', 'opacity-0');
+            }
 
-  setTimeout(() => {
-    toastMessage.innerText = message;
-    
-    if (type === 'error') {
-      toastContent.classList.remove('border-emerald-500');
-      toastContent.classList.add('border-rose-500');
-      toastQuote.className = "absolute left-3 top-2 text-3xl font-['Poppins',serif] text-rose-500 opacity-80 leading-none";
-    } else {
-      toastContent.classList.remove('border-rose-500');
-      toastContent.classList.add('border-emerald-500');
-      toastQuote.className = "absolute left-3 top-2 text-3xl font-['Poppins',serif] text-emerald-500 opacity-80 leading-none";
-    }
+            setTimeout(() => {
+                toastMessage.innerText = message;
+                if (type === 'error') {
+                    toastContent.classList.remove('border-emerald-500');
+                    toastContent.classList.add('border-rose-500');
+                    toastQuote.className = "absolute left-3 top-2 text-3xl font-['Poppins',serif] text-rose-500 opacity-80 leading-none";
+                } else {
+                    toastContent.classList.remove('border-rose-500');
+                    toastContent.classList.add('border-emerald-500');
+                    toastQuote.className = "absolute left-3 top-2 text-3xl font-['Poppins',serif] text-emerald-500 opacity-80 leading-none";
+                }
 
-    toast.classList.remove('translate-x-[120%]', 'opacity-0');
-    toast.classList.add('translate-x-0', 'opacity-100');
+                toast.classList.remove('translate-x-[120%]', 'opacity-0');
+                toast.classList.add('translate-x-0', 'opacity-100');
 
-    toastTimeout = setTimeout(() => {
-      toast.classList.remove('translate-x-0', 'opacity-100');
-      toast.classList.add('translate-x-[120%]', 'opacity-0');
-    }, 3000);
-  }, 400);
-}
+                toastTimeout = setTimeout(() => {
+                    toast.classList.remove('translate-x-0', 'opacity-100');
+                    toast.classList.add('translate-x-[120%]', 'opacity-0');
+                }, 3000);
+            }, 400);
+        }
 
-function triggerSuccessToast(msgKey) {
-  const msg = translations[currentLang][msgKey] || msgKey;
-  showToast(msg, 'success');
-}
+        function triggerSuccessToast(msgKey) {
+            const msg = translations[currentLang][msgKey] || msgKey;
+            showToast(msg, 'success');
+        }
 
-function triggerErrorToast(msgKey) {
-  const msg = translations[currentLang][msgKey] || msgKey;
-  showToast(msg, 'error');
-}
+        function triggerErrorToast(msgKey) {
+            const msg = translations[currentLang][msgKey] || msgKey;
+            showToast(msg, 'error');
+        }
 
         // State variables
         let sourceBase = 10;
@@ -1242,46 +1413,53 @@ function triggerErrorToast(msgKey) {
             16: /^[0-9A-Fa-f]*\.?[0-9A-Fa-f]*$/
         };
 
-        // Converts fractional and integers from any base to base 10
+        // High-Precision Base -> Decimal Converter
         function baseToDecimalFractional(numStr, base) {
+            if (!numStr || numStr === ".") return 0;
             if (!numStr.includes('.')) {
                 return parseInt(numStr, base) || 0;
             }
             const parts = numStr.split('.');
             const intPart = parts[0];
-            const fracPart = parts[1];
+            const fracPart = parts[1] || "";
             
-            let decimalVal = parseInt(intPart, base) || 0;
+            let decimalVal = intPart ? (parseInt(intPart, base) || 0) : 0;
             
             for (let i = 0; i < fracPart.length; i++) {
                 const digit = parseInt(fracPart[i], base);
                 if (isNaN(digit)) continue;
                 decimalVal += digit * Math.pow(base, -(i + 1));
             }
-            return decimalVal;
+            return Number(decimalVal.toPrecision(15));
         }
 
-        // Converts decimal floating point to any base system
-        function decimalToBaseFractional(decVal, base, precision = 6) {
-            if (isNaN(decVal)) return "0";
-            
+        // High-Precision Decimal -> Any Base Converter (12-Bit Fractional Engine)
+        function decimalToBaseFractional(decVal, base, precision = 12) {
+            if (isNaN(decVal) || decVal === null) return "0";
+            const isNeg = decVal < 0;
+            decVal = Math.abs(decVal);
+
             const intPart = Math.floor(decVal);
-            let fracPart = decVal - intPart;
+            let fracPart = Number((decVal - intPart).toPrecision(15));
             
             let result = intPart.toString(base).toUpperCase();
             
-            if (fracPart > 0) {
-                result += '.';
+            if (fracPart > 1e-12) {
+                let fracChars = "";
                 let stepsCount = 0;
-                while (fracPart > 0 && stepsCount < precision) {
-                    fracPart *= base;
-                    const digit = Math.floor(fracPart);
-                    result += digit.toString(base).toUpperCase();
-                    fracPart -= digit;
+                while (fracPart > 1e-12 && stepsCount < precision) {
+                    let product = Number((fracPart * base).toPrecision(14));
+                    const digit = Math.floor(product);
+                    fracChars += digit.toString(base).toUpperCase();
+                    fracPart = Number((product - digit).toPrecision(14));
                     stepsCount++;
                 }
+                fracChars = fracChars.replace(/0+$/, "");
+                if (fracChars.length > 0) {
+                    result += '.' + fracChars;
+                }
             }
-            return result;
+            return (isNeg ? "-" : "") + result;
         }
 
         // Set Base handlers
@@ -1290,14 +1468,14 @@ function triggerErrorToast(msgKey) {
             sourceBase = base;
             
             document.querySelectorAll('.base-btn-src').forEach(btn => {
-                btn.className = "base-btn-src px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-bold transition-all border border-slate-700";
+                btn.className = "base-btn-src px-3 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs sm:text-sm font-bold transition-all border border-slate-700";
             });
             const activeBtn = document.getElementById(`src-base-${base}`);
             if (activeBtn) {
-                activeBtn.className = "base-btn-src px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-bold transition-all border border-indigo-500 shadow-md shadow-indigo-500/10";
+                activeBtn.className = "base-btn-src px-3 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs sm:text-sm font-bold transition-all border border-indigo-500 shadow-md shadow-indigo-500/10";
             }
 
-            document.getElementById('validation-tip').innerText = baseTips[base];
+            updateInputUIForBase();
             validateAndCalculate();
         }
 
@@ -1306,11 +1484,11 @@ function triggerErrorToast(msgKey) {
             targetBase = base;
 
             document.querySelectorAll('.base-btn-trg').forEach(btn => {
-                btn.className = "base-btn-trg px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-bold transition-all border border-slate-700";
+                btn.className = "base-btn-trg px-3 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs sm:text-sm font-bold transition-all border border-slate-700";
             });
             const activeBtn = document.getElementById(`trg-base-${base}`);
             if (activeBtn) {
-                activeBtn.className = "base-btn-trg px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-bold transition-all border border-indigo-500 shadow-md shadow-indigo-500/10";
+                activeBtn.className = "base-btn-trg px-3 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs sm:text-sm font-bold transition-all border border-indigo-500 shadow-md shadow-indigo-500/10";
             }
 
             validateAndCalculate();
@@ -1338,18 +1516,15 @@ function triggerErrorToast(msgKey) {
             const inputField = document.getElementById('main-input');
             let inputRaw = inputField.value.trim().toUpperCase();
             
-            if (inputRaw === "") {
+            if (inputRaw === "" || inputRaw === ".") {
                 clearOutputs();
                 showDefaultSolutionNote();
                 triggerWaveformDrawing();
                 return;
             }
 
-            // Verify with base regex. If invalid, trigger error toast and sanitize!
             if (!baseRegex[sourceBase].test(inputRaw)) {
                 triggerErrorToast('invalid_toast');
-                
-                // Sanitize input
                 const allowedSymbols = sourceBase === 2 ? '01.' : sourceBase === 8 ? '0-7.' : sourceBase === 10 ? '0-9.' : '0-9A-Fa-f.';
                 inputRaw = inputRaw.replace(new RegExp(`[^${allowedSymbols}]`, 'g'), '');
                 const dotCount = (inputRaw.match(/\./g) || []).length;
@@ -1391,13 +1566,13 @@ function triggerErrorToast(msgKey) {
 
         function showDefaultSolutionNote() {
             document.getElementById('solution-container').innerHTML = `
-                <div class="bg-slate-950/50 border border-slate-800/80 p-4 rounded-xl flex gap-3">
+                <div class="bg-slate-950/50 border border-slate-800/80 p-4 rounded-xl flex gap-3 light-mode-card-fix">
                     <div class="p-2 bg-indigo-500/10 text-indigo-400 rounded-lg self-start">
                         <i data-lucide="info" class="w-5 h-5"></i>
                     </div>
                     <div>
-                        <p class="font-semibold text-slate-200 mb-1" data-key="solution_title">Explanation Notes</p>
-                        <p class="text-slate-400 text-xs" data-key="no_input_note">${translations[currentLang].no_input_note}</p>
+                        <p class="font-semibold text-slate-200 mb-1" data-key="solution_title">${t('solution_title')}</p>
+                        <p class="text-slate-400 text-xs" data-key="no_input_note">${t('no_input_note')}</p>
                     </div>
                 </div>
             `;
@@ -1435,10 +1610,10 @@ function triggerErrorToast(msgKey) {
                 const btn = document.getElementById(`bit-${i}`);
                 if (bits[i] === 1) {
                     btn.innerText = "1";
-                    btn.className = "w-full aspect-square bg-indigo-600 border border-indigo-400 hover:border-indigo-300 rounded-lg flex items-center justify-center font-bold text-lg code-font text-white transition-all duration-150 shadow shadow-indigo-500/50 scale-105";
+                    btn.className = "w-full aspect-square bg-indigo-600 border border-indigo-400 hover:border-indigo-300 rounded-lg flex items-center justify-center font-bold text-base sm:text-lg code-font text-white transition-all duration-150 shadow shadow-indigo-500/50 scale-105";
                 } else {
                     btn.innerText = "0";
-                    btn.className = "w-full aspect-square bg-slate-800 border border-slate-700 hover:border-indigo-500 rounded-lg flex items-center justify-center font-bold text-lg code-font text-slate-400 transition-all duration-150 shadow";
+                    btn.className = "w-full aspect-square bg-slate-800 border border-slate-700 hover:border-indigo-500 rounded-lg flex items-center justify-center font-bold text-base sm:text-lg code-font text-slate-400 transition-all duration-150 shadow";
                 }
             }
 
@@ -1451,10 +1626,12 @@ function triggerErrorToast(msgKey) {
             document.getElementById('bit-oct-val').innerText = decSum.toString(8);
             document.getElementById('bit-hex-val').innerText = decSum.toString(16).toUpperCase().padStart(2, '0');
             
-            if (decSum >= 32 && decSum <= 126) {
+            if (decSum === 0) {
+                document.getElementById('bit-ascii-val').innerText = "[Null]";
+            } else if (decSum >= 32 && decSum <= 126) {
                 document.getElementById('bit-ascii-val').innerText = `'${String.fromCharCode(decSum)}'`;
             } else {
-                document.getElementById('bit-ascii-val').innerText = currentLang === 'en' ? "[Non-Printable]" : "[নন-প্রিন্ট]";
+                document.getElementById('bit-ascii-val').innerText = currentLang === 'en' ? "[Control]" : "[কন্ট্রোল]";
             }
         }
 
@@ -1492,7 +1669,7 @@ function triggerErrorToast(msgKey) {
             const height = rect.height;
 
             // Oscilloscope grids
-ctx.fillStyle = isDarkMode ? '#05070f' : '#ffffff';
+            ctx.fillStyle = isDarkMode ? '#05070f' : '#ffffff';
             ctx.fillRect(0, 0, width, height);
 
             ctx.strokeStyle = isDarkMode ? '#0f172a' : '#e2e8f0';
@@ -1585,8 +1762,8 @@ ctx.fillStyle = isDarkMode ? '#05070f' : '#ffffff';
             ctx.stroke();
 
             // Labels above wave
-ctx.shadowBlur = 0;
-ctx.fillStyle = isDarkMode ? '#94a3b8' : '#1e293b';
+            ctx.shadowBlur = 0;
+            ctx.fillStyle = isDarkMode ? '#94a3b8' : '#1e293b';
             ctx.font = '10px "Fira Code", monospace';
             
             currentX = startX;
@@ -1596,13 +1773,66 @@ ctx.fillStyle = isDarkMode ? '#94a3b8' : '#1e293b';
             });
         }
 
-        // Dynamic step generator including fractional conversions
+        // ==================== IN-DEPTH STEP-BY-STEP MATHEMATICAL BREAKDOWN ENGINE ====================
+        function generateBitGroupingShortcutHTML(decValue, srcBase, trgBase) {
+            // Shows direct 3-bit (Octal) or 4-bit (Hex) binary grouping table when converting among BIN (2), OCT (8), HEX (16)
+            if (![2, 8, 16].includes(srcBase) || ![2, 8, 16].includes(trgBase)) return "";
+            const binFull = decimalToBaseFractional(decValue, 2);
+            const parts = binFull.split('.');
+            let intBin = parts[0] || "0";
+            let fracBin = parts[1] || "";
+
+            const groupBase = (srcBase === 16 || trgBase === 16) ? 16 : 8;
+            const groupSize = groupBase === 16 ? 4 : 3;
+            const weightLabel = groupBase === 16 ? "8-4-2-1 (4-Bit)" : "4-2-1 (3-Bit)";
+
+            while (intBin.length % groupSize !== 0) intBin = "0" + intBin;
+            if (fracBin.length > 0) {
+                while (fracBin.length % groupSize !== 0) fracBin = fracBin + "0";
+            }
+
+            let intGroups = [];
+            for (let i = 0; i < intBin.length; i += groupSize) {
+                const chunk = intBin.slice(i, i + groupSize);
+                const digit = parseInt(chunk, 2).toString(groupBase).toUpperCase();
+                intGroups.push({ chunk, digit });
+            }
+
+            let fracGroups = [];
+            for (let i = 0; i < fracBin.length; i += groupSize) {
+                const chunk = fracBin.slice(i, i + groupSize);
+                const digit = parseInt(chunk, 2).toString(groupBase).toUpperCase();
+                fracGroups.push({ chunk, digit });
+            }
+
+            const allGroups = [
+                ...intGroups.map(g => `<div class="px-2.5 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-center"><div class="text-[11px] code-font text-indigo-400 font-bold">${g.chunk}</div><div class="text-[10px] text-slate-500">↓</div><div class="text-xs code-font text-emerald-400 font-bold">${g.digit}</div></div>`),
+                ...(fracGroups.length ? [`<div class="px-1.5 py-1.5 flex items-center justify-center font-bold text-amber-400 text-lg code-font">.</div>`] : []),
+                ...fracGroups.map(g => `<div class="px-2.5 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-center"><div class="text-[11px] code-font text-indigo-400 font-bold">${g.chunk}</div><div class="text-[10px] text-slate-500">↓</div><div class="text-xs code-font text-emerald-400 font-bold">${g.digit}</div></div>`)
+            ].join('');
+
+            const titleText = currentLang === 'en'
+                ? `💡 Shortcut Direct Bit-Grouping Method (${weightLabel})`
+                : `💡 শর্টকাট বিট-গ্রুপিং টেকনিক (${weightLabel} নিয়ম)`;
+            const descText = currentLang === 'en'
+                ? `In Base-${groupBase}, every single digit directly equals ${groupSize} binary bits (${weightLabel}). Grouping bits from the decimal point outward gives the answer instantly:`
+                : `বেস-${groupBase} এবং বাইনারির মধ্যে রূপান্তরের ক্ষেত্রে প্রতিটি অংক সমান ${groupSize}টি করে বাইনারি বিট (${weightLabel}) ধরে সরাসরি উত্তর বের করা যায়:`;
+
+            return `
+                <div class="bg-emerald-950/20 border border-emerald-500/30 p-4 rounded-xl">
+                    <span class="text-xs text-emerald-400 font-bold uppercase tracking-wider block mb-1">${titleText}</span>
+                    <p class="text-xs text-slate-400 mb-3">${descText}</p>
+                    <div class="flex flex-wrap items-center gap-2">${allGroups}</div>
+                </div>
+            `;
+        }
+
         function generateVisualBreakdown(rawVal, decValue) {
             const baseNames = {
-                2: currentLang === 'en' ? "Binary" : "বাইনারি",
-                8: currentLang === 'en' ? "Octal" : "অক্টাল",
-                10: currentLang === 'en' ? "Decimal" : "ডেসিমাল",
-                16: currentLang === 'en' ? "Hexadecimal" : "হেক্সাডেসিমাল"
+                2: currentLang === 'en' ? "Binary (2)" : "বাইনারি (২)",
+                8: currentLang === 'en' ? "Octal (8)" : "অক্টাল (৮)",
+                10: currentLang === 'en' ? "Decimal (10)" : "ডেসিমাল (১০)",
+                16: currentLang === 'en' ? "Hexadecimal (16)" : "হেক্সাডেসিমাল (১৬)"
             };
 
             document.getElementById('current-conversion-title').innerText = `${baseNames[sourceBase]} ➜ ${baseNames[targetBase]}`;
@@ -1631,50 +1861,86 @@ ctx.fillStyle = isDarkMode ? '#94a3b8' : '#1e293b';
 
         function generateToDecimalStepsFractional(rawVal, base, decValue) {
             const parts = rawVal.split('.');
-            const intDigits = parts[0].split('');
+            const intDigits = parts[0] ? parts[0].split('') : ['0'];
             const fracDigits = parts[1] ? parts[1].split('') : [];
 
             let expansionParts = [];
             let expansionTerms = [];
+            let tableRows = [];
 
             for (let i = 0; i < intDigits.length; i++) {
                 let p = intDigits.length - 1 - i;
                 let digitChar = intDigits[i];
+                let digitVal = parseInt(digitChar, base);
+                let weight = Math.pow(base, p);
+                let prod = digitVal * weight;
                 expansionParts.push(`(${digitChar} × ${base}<sup>${p}</sup>)`);
-                expansionTerms.push(`${parseInt(digitChar, base) * Math.pow(base, p)}`);
+                expansionTerms.push(`${prod}`);
+                tableRows.push(`
+                    <tr class="border-b border-slate-900 text-xs code-font">
+                        <td class="py-1.5 px-2 text-indigo-400 font-bold">${digitChar} ${digitVal >= 10 ? `<span class="text-[10px] text-slate-500">(${digitVal})</span>` : ''}</td>
+                        <td class="py-1.5 px-2 text-slate-400">${base}<sup>${p}</sup> = ${weight}</td>
+                        <td class="py-1.5 px-2 text-right text-emerald-400 font-bold">${digitVal} × ${weight} = ${prod}</td>
+                    </tr>
+                `);
             }
 
             for (let i = 0; i < fracDigits.length; i++) {
                 let p = -(i + 1);
                 let digitChar = fracDigits[i];
+                let digitVal = parseInt(digitChar, base);
+                let weight = Math.pow(base, p);
+                let prod = Number((digitVal * weight).toPrecision(10));
                 expansionParts.push(`(${digitChar} × ${base}<sup>${p}</sup>)`);
-                expansionTerms.push(`${parseInt(digitChar, base) * Math.pow(base, p)}`);
+                expansionTerms.push(`${prod}`);
+                tableRows.push(`
+                    <tr class="border-b border-slate-900 text-xs code-font">
+                        <td class="py-1.5 px-2 text-pink-400 font-bold">.${digitChar} ${digitVal >= 10 ? `<span class="text-[10px] text-slate-500">(${digitVal})</span>` : ''}</td>
+                        <td class="py-1.5 px-2 text-slate-400">${base}<sup>${p}</sup> = ${Number(weight.toPrecision(6))}</td>
+                        <td class="py-1.5 px-2 text-right text-emerald-400 font-bold">${digitVal} × ${Number(weight.toPrecision(6))} = ${prod}</td>
+                    </tr>
+                `);
             }
+
+            const tblHeaderDigit = currentLang === 'en' ? 'Digit' : 'অংক (Digit)';
+            const tblHeaderWeight = currentLang === 'en' ? 'Positional Power (Baseⁿ)' : 'স্থানীয় ঘাত (Baseⁿ)';
+            const tblHeaderVal = currentLang === 'en' ? 'Product Value' : 'গুণফল মান';
 
             return `
                 <div class="space-y-4">
-                    <p class="text-xs text-slate-400">
+                    <div class="bg-indigo-950/20 border border-indigo-500/20 p-3.5 rounded-xl text-xs text-slate-300 leading-relaxed">
+                        <strong class="text-indigo-400 block mb-1">📘 ${currentLang === 'en' ? 'Conversion Formula & Concept:' : 'রূপান্তরের সূত্র ও নিয়ম:'}</strong>
                         ${t('positional_exp')}
-                    </p>
+                    </div>
                     
                     <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 overflow-x-auto">
-                        <div class="text-[10px] text-slate-500 mb-2 font-mono">${t('math_expression')}:</div>
-                        <div class="text-xs sm:text-sm font-semibold text-slate-200 code-font leading-relaxed whitespace-nowrap">
+                        <div class="text-[10px] text-indigo-400 font-bold uppercase tracking-wider mb-2 font-mono">${t('math_expression')}:</div>
+                        <div class="text-xs sm:text-sm font-semibold text-slate-200 code-font leading-relaxed">
                             (${rawVal})<sub>${base}</sub> = ${expansionParts.join(" + ")}
                         </div>
                     </div>
 
-                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 overflow-x-auto">
                         <span class="text-xs text-emerald-400 font-semibold uppercase tracking-wider block mb-2">${t('step1_calc')}</span>
-                        <div class="text-sm code-font text-slate-300">
+                        <table class="w-full text-left border-collapse mb-3">
+                            <thead>
+                                <tr class="border-b border-slate-800 text-[10px] text-slate-500 uppercase">
+                                    <th class="py-1 px-2">${tblHeaderDigit}</th>
+                                    <th class="py-1 px-2">${tblHeaderWeight}</th>
+                                    <th class="py-1 px-2 text-right">${tblHeaderVal}</th>
+                                </tr>
+                            </thead>
+                            <tbody>${tableRows.join('')}</tbody>
+                        </table>
+                        <div class="text-xs sm:text-sm code-font text-slate-300 pt-2 border-t border-slate-900">
                             = ${expansionTerms.join(" + ")}
                         </div>
                     </div>
 
-                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                        <span class="text-xs text-indigo-400 font-semibold uppercase tracking-wider block mb-2">${t('step2_sum')}</span>
-                        <div class="text-sm code-font text-slate-200 font-bold">
-                            = ${decValue}<sub>10</sub>
+                    <div class="bg-gradient-to-r from-emerald-950/40 to-indigo-950/40 p-4 rounded-xl border border-emerald-500/30">
+                        <span class="text-xs text-emerald-400 font-semibold uppercase tracking-wider block mb-1">${t('step2_sum')}</span>
+                        <div class="text-base code-font text-white font-bold">
+                            (${rawVal})<sub>${base}</sub> = <span class="text-emerald-400">(${decValue})<sub>10</sub></span>
                         </div>
                     </div>
                 </div>
@@ -1683,7 +1949,7 @@ ctx.fillStyle = isDarkMode ? '#94a3b8' : '#1e293b';
 
         function generateFromDecimalStepsFractional(decValue, targetBase) {
             const intPart = Math.floor(decValue);
-            let fracPart = decValue - intPart;
+            let fracPart = Number((decValue - intPart).toPrecision(12));
 
             let tempDec = intPart;
             let divRows = [];
@@ -1691,85 +1957,95 @@ ctx.fillStyle = isDarkMode ? '#94a3b8' : '#1e293b';
                 let quotient = Math.floor(tempDec / targetBase);
                 let remainder = tempDec % targetBase;
                 let remainderChar = remainder.toString(targetBase).toUpperCase();
-                divRows.push({ dividend: tempDec, quotient, remainderChar });
+                divRows.push({ dividend: tempDec, quotient, remainder, remainderChar });
                 tempDec = quotient;
             }
             if (divRows.length === 0) {
-                divRows.push({ dividend: 0, quotient: 0, remainderChar: "0" });
+                divRows.push({ dividend: 0, quotient: 0, remainder: 0, remainderChar: "0" });
             }
             const intResult = divRows.map(r => r.remainderChar).reverse().join("");
 
             let multRows = [];
             let tempFrac = fracPart;
-            let precision = 6;
+            let precision = 8;
             let fracResult = "";
 
-            if (tempFrac > 0) {
+            if (tempFrac > 1e-10) {
                 let steps = 0;
-                while (tempFrac > 0 && steps < precision) {
+                while (tempFrac > 1e-10 && steps < precision) {
                     let prevFrac = tempFrac;
-                    let product = tempFrac * targetBase;
+                    let product = Number((tempFrac * targetBase).toPrecision(12));
                     let carry = Math.floor(product);
                     let carryChar = carry.toString(targetBase).toUpperCase();
                     
                     multRows.push({
-                        multiplicand: prevFrac.toFixed(4),
+                        multiplicand: Number(prevFrac.toFixed(6)),
                         base: targetBase,
-                        product: product.toFixed(4),
-                        carry: carryChar
+                        product: Number(product.toFixed(6)),
+                        carry: carry,
+                        carryChar: carryChar
                     });
 
                     fracResult += carryChar;
-                    tempFrac = product - carry;
+                    tempFrac = Number((product - carry).toPrecision(12));
                     steps++;
                 }
             }
 
             const totalConverted = fracResult ? `${intResult}.${fracResult}` : intResult;
 
-            let divTableRows = divRows.map((r) => `
+            let divTableRows = divRows.map((r, idx) => `
                 <tr class="border-b border-slate-900 code-font text-xs">
-                    <td class="px-3 py-1.5 text-slate-400">${r.dividend} &divide; ${targetBase}</td>
-                    <td class="px-3 py-1.5 text-slate-400">Quotient = ${r.quotient}</td>
-                    <td class="px-3 py-1.5 text-rose-400 font-bold">Remainder = ${r.remainderChar}</td>
+                    <td class="px-3 py-1.5 text-slate-300">${r.dividend} &divide; ${targetBase}</td>
+                    <td class="px-3 py-1.5 text-slate-400">${currentLang === 'en' ? 'Quotient' : 'ভাগফল'} = <b>${r.quotient}</b></td>
+                    <td class="px-3 py-1.5 text-rose-400 font-bold">${currentLang === 'en' ? 'Remainder' : 'ভাগশেষ'} = ${r.remainderChar} ${r.remainder >= 10 ? `<span class="text-[10px] text-slate-500">(${r.remainder})</span>` : ''} ${idx === 0 ? '<span class="text-[10px] text-amber-400 ml-1">[LSB]</span>' : ''}${idx === divRows.length - 1 ? '<span class="text-[10px] text-emerald-400 ml-1">[MSB]</span>' : ''}</td>
                 </tr>
             `).join('');
 
-            let multTableRows = multRows.map((r) => `
+            let multTableRows = multRows.map((r, idx) => `
                 <tr class="border-b border-slate-900 code-font text-xs">
-                    <td class="px-3 py-1.5 text-slate-400">${r.multiplicand} &times; ${r.base}</td>
-                    <td class="px-3 py-1.5 text-slate-400">Product = ${r.product}</td>
-                    <td class="px-3 py-1.5 text-emerald-400 font-bold">Integer Part = ${r.carry}</td>
+                    <td class="px-3 py-1.5 text-slate-300">${r.multiplicand} &times; ${r.base}</td>
+                    <td class="px-3 py-1.5 text-slate-400">${currentLang === 'en' ? 'Product' : 'গুণফল'} = ${r.product}</td>
+                    <td class="px-3 py-1.5 text-emerald-400 font-bold">${currentLang === 'en' ? 'Carry' : 'পূর্ণাংশ'} = ${r.carryChar} ${idx === 0 ? '<span class="text-[10px] text-emerald-400 ml-1">[MSB]</span>' : ''}</td>
                 </tr>
             `).join('');
+
+            const ruleExplain = currentLang === 'en'
+                ? `Divide the integer part successively by ${targetBase} and collect remainders from bottom-to-top (MSB to LSB). Multiply the fractional part by ${targetBase} repeatedly and collect integer carries from top-to-bottom.`
+                : `পূর্ণসংখ্যা অংশকে গন্তব্য বেস (${targetBase}) দিয়ে পর্যায়ক্রমে ভাগ করে ভাগশেষগুলো নিচ থেকে উপরে (MSB ↑ LSB) সাজাতে হয়। আর দশমিক ভগ্নাংশকে ${targetBase} দিয়ে বারবার গুণ করে পূর্ণসংখ্যাগুলো উপর থেকে নিচে (MSB ↓ LSB) সাজাতে হয়।`;
 
             let html = `
                 <div class="space-y-4">
-                    <div class="bg-slate-950/40 p-4 rounded-xl border border-slate-800">
+                    <div class="bg-indigo-950/20 border border-indigo-500/20 p-3.5 rounded-xl text-xs text-slate-300 leading-relaxed">
+                        <strong class="text-indigo-400 block mb-1">📘 ${currentLang === 'en' ? 'Method & Rule:' : 'রূপান্তরের নিয়ম:'}</strong>
+                        ${ruleExplain}
+                    </div>
+
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 overflow-x-auto">
                         <span class="text-xs text-indigo-400 font-bold uppercase tracking-wider block mb-2">1. ${t('int_part_title')} (${intPart}<sub>10</sub>): ${t('successive_div')}</span>
                         <table class="w-full text-left border-collapse">
                             <tbody>${divTableRows}</tbody>
                         </table>
-                        <div class="mt-2 text-xs text-slate-400">${t('remainder_bottom')}: <b>${intResult}</b></div>
+                        <div class="mt-2.5 pt-2 border-t border-slate-900 text-xs text-slate-300">${t('remainder_bottom')}: <b class="text-emerald-400 code-font">(${intResult})<sub>${targetBase}</sub></b></div>
                     </div>
             `;
 
             if (multRows.length > 0) {
                 html += `
-                    <div class="bg-slate-950/40 p-4 rounded-xl border border-slate-800">
-                        <span class="text-xs text-emerald-400 font-bold uppercase tracking-wider block mb-2">2. ${t('frac_part_title')} (${fracPart.toFixed(4)}<sub>10</sub>): ${t('successive_mult')}</span>
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 overflow-x-auto">
+                        <span class="text-xs text-emerald-400 font-bold uppercase tracking-wider block mb-2">2. ${t('frac_part_title')} (${Number(fracPart.toFixed(6))}<sub>10</sub>): ${t('successive_mult')}</span>
                         <table class="w-full text-left border-collapse">
                             <tbody>${multTableRows}</tbody>
                         </table>
-                        <div class="mt-2 text-xs text-slate-400">${t('integer_top')}: <b>.${fracResult}</b></div>
+                        <div class="mt-2.5 pt-2 border-t border-slate-900 text-xs text-slate-300">${t('integer_top')}: <b class="text-emerald-400 code-font">(.${fracResult})<sub>${targetBase}</sub></b></div>
                     </div>
                 `;
             }
 
             html += `
-                    <div class="bg-indigo-500/10 border border-indigo-500/20 rounded-xl p-3">
-                        <p class="text-xs text-indigo-300">
-                            ${t('cumulative_result')}: <strong>(${totalConverted})<sub>${targetBase}</sub></strong>
+                    <div class="bg-gradient-to-r from-indigo-500/15 to-emerald-500/15 border border-indigo-500/30 rounded-xl p-3.5">
+                        <p class="text-xs sm:text-sm text-indigo-200 code-font">
+                            ${t('cumulative_result')}: (${decValue})<sub>10</sub> = <strong class="text-emerald-400 text-base">(${totalConverted})<sub>${targetBase}</sub></strong>
                         </p>
                     </div>
                 </div>
@@ -1780,18 +2056,15 @@ ctx.fillStyle = isDarkMode ? '#94a3b8' : '#1e293b';
 
         function generateBridgeStepsFractional(rawVal, srcBase, trgBase, decValue) {
             const destVal = decimalToBaseFractional(decValue, trgBase);
-
-            // Step 1: Source -> Decimal (detailed positional expansion)
+            const shortcutHtml = generateBitGroupingShortcutHTML(decValue, srcBase, trgBase);
             const step1Html = generateToDecimalStepsFractional(rawVal, srcBase, decValue);
-
-            // Step 2: Decimal -> Target (detailed division/multiplication)
             const step2Html = generateFromDecimalStepsFractional(decValue, trgBase);
 
             return `
                 <div class="space-y-4">
-                    <p class="text-xs text-slate-400">
-                        ${t('bridge_intro')}
-                    </p>
+                    <p class="text-xs text-slate-400">${t('bridge_intro')}</p>
+
+                    ${shortcutHtml}
 
                     <div class="bg-slate-950 p-4 rounded-xl border border-slate-800/80">
                         <div class="flex items-center gap-2 mb-3 text-indigo-400">
@@ -1804,13 +2077,13 @@ ctx.fillStyle = isDarkMode ? '#94a3b8' : '#1e293b';
                     <div class="bg-slate-950 p-4 rounded-xl border border-slate-800/80">
                         <div class="flex items-center gap-2 mb-3 text-violet-400">
                             <span class="w-6 h-6 rounded-full bg-violet-500/20 text-violet-300 flex items-center justify-center font-bold text-xs">2</span>
-                            <span class="text-xs font-bold uppercase tracking-wider">${t('step2_bridge')}: ${decValue}<sub>10</sub> ➜ (${trgBase})</span>
+                            <span class="text-xs font-bold uppercase tracking-wider">${t('step2_bridge')}: ${decValue}<sub>10</sub> ➜ Base ${trgBase}</span>
                         </div>
                         ${step2Html}
                     </div>
 
-                    <div class="bg-gradient-to-r from-indigo-500/10 to-violet-500/10 border border-indigo-500/30 rounded-xl p-4">
-                        <p class="text-sm text-slate-200 font-bold code-font text-center">
+                    <div class="bg-gradient-to-r from-indigo-500/15 to-violet-500/15 border border-indigo-500/30 rounded-xl p-4">
+                        <p class="text-sm sm:text-base text-slate-200 font-bold code-font text-center">
                             (${rawVal})<sub>${srcBase}</sub> = <span class="text-emerald-400">(${destVal})<sub>${trgBase}</sub></span>
                         </p>
                     </div>
@@ -1839,7 +2112,6 @@ ctx.fillStyle = isDarkMode ? '#94a3b8' : '#1e293b';
 
         document.getElementById('main-input').addEventListener('input', validateAndCalculate);
 
-        // Bind Enter key inside input to trigger invalid warning if needed
         document.getElementById('main-input').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 const raw = e.target.value.trim();
@@ -1850,22 +2122,275 @@ ctx.fillStyle = isDarkMode ? '#94a3b8' : '#1e293b';
         });
 
 
-        // ==================== GRAPH EDIT MODAL ====================
+        // ==================== INTERACTIVE HAND-DRAWN WAVEFORM STUDIO ====================
+        let drawnBits = [1, 0, 1, 0, 1, 1, 0, 0];
+        let drawnDotIndex = -1; // -1 means no fractional dot; otherwise dot appears before index
+        let isDrawingWave = false;
+        let userStrokePoints = [];
+        let lastChangedSlot = -1;
+
+        function getDrawnBinaryString() {
+            if (drawnDotIndex > 0 && drawnDotIndex < drawnBits.length) {
+                return drawnBits.slice(0, drawnDotIndex).join('') + '.' + drawnBits.slice(drawnDotIndex).join('');
+            }
+            return drawnBits.join('');
+        }
+
+        function updateDrawnPreviewLabels() {
+            const binStr = getDrawnBinaryString();
+            const decVal = baseToDecimalFractional(binStr, 2);
+            document.getElementById('drawn-bin-preview').innerText = binStr;
+            document.getElementById('drawn-dec-preview').innerText = decVal;
+            document.getElementById('draw-bit-count-label').innerText = `${drawnBits.length} Bits`;
+
+            const dotBtn = document.getElementById('btn-draw-dot');
+            if (dotBtn) {
+                if (drawnDotIndex > 0) {
+                    dotBtn.className = "px-2.5 py-1.5 bg-amber-500 text-slate-950 rounded-lg text-[11px] font-bold border border-amber-400 transition-all";
+                } else {
+                    dotBtn.className = "px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-amber-400 rounded-lg text-[11px] font-bold border border-slate-700 transition-all";
+                }
+            }
+        }
+
+        function renderDrawCanvas() {
+            const canvas = document.getElementById('graph-draw-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const dpr = window.devicePixelRatio || 1;
+            const rect = canvas.getBoundingClientRect();
+            if (rect.width === 0 || rect.height === 0) return;
+
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            ctx.scale(dpr, dpr);
+
+            const w = rect.width;
+            const h = rect.height;
+            const midY = h / 2;
+            const highY = 30;
+            const lowY = h - 26;
+            const n = drawnBits.length;
+            const slotW = w / n;
+
+            // Background
+            ctx.fillStyle = isDarkMode ? '#040711' : '#f8fafc';
+            ctx.fillRect(0, 0, w, h);
+
+            // Upper HIGH (1) & Lower LOW (0) subtle zones
+            ctx.fillStyle = isDarkMode ? 'rgba(16, 185, 129, 0.05)' : 'rgba(16, 185, 129, 0.08)';
+            ctx.fillRect(0, 0, w, midY);
+            ctx.fillStyle = isDarkMode ? 'rgba(99, 102, 241, 0.05)' : 'rgba(99, 102, 241, 0.08)';
+            ctx.fillRect(0, midY, w, midY);
+
+            // Center threshold dashed line
+            ctx.save();
+            ctx.strokeStyle = isDarkMode ? 'rgba(148, 163, 184, 0.25)' : 'rgba(100, 116, 139, 0.3)';
+            ctx.setLineDash([5, 5]);
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(0, midY);
+            ctx.lineTo(w, midY);
+            ctx.stroke();
+            ctx.restore();
+
+            // Bit slot vertical dividers & bit labels
+            for (let i = 0; i < n; i++) {
+                const x = i * slotW;
+                ctx.strokeStyle = isDarkMode ? 'rgba(30, 41, 59, 0.85)' : 'rgba(203, 213, 225, 0.85)';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, h);
+                ctx.stroke();
+
+                // Bit badge at top of each column
+                ctx.fillStyle = drawnBits[i] === 1
+                    ? (isDarkMode ? '#34d399' : '#059669')
+                    : (isDarkMode ? '#818cf8' : '#4f46e5');
+                ctx.font = 'bold 12px "Fira Code", monospace';
+                ctx.textAlign = 'center';
+                ctx.fillText(drawnBits[i].toString(), x + slotW / 2, 16);
+            }
+
+            // Draw fractional dot divider if active
+            if (drawnDotIndex > 0 && drawnDotIndex < n) {
+                const dotX = drawnDotIndex * slotW;
+                ctx.save();
+                ctx.strokeStyle = '#f59e0b';
+                ctx.lineWidth = 2.5;
+                ctx.beginPath();
+                ctx.moveTo(dotX, 6);
+                ctx.lineTo(dotX, h - 6);
+                ctx.stroke();
+                ctx.fillStyle = '#f59e0b';
+                ctx.beginPath();
+                ctx.arc(dotX, midY, 5, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+
+            // Draw the resulting Digital Square Wave
+            ctx.save();
+            ctx.strokeStyle = '#22c55e';
+            ctx.shadowBlur = isDarkMode ? 10 : 0;
+            ctx.shadowColor = '#22c55e';
+            ctx.lineWidth = 3.5;
+            ctx.beginPath();
+
+            for (let i = 0; i < n; i++) {
+                const xStart = i * slotW;
+                const xEnd = (i + 1) * slotW;
+                const y = drawnBits[i] === 1 ? highY : lowY;
+
+                if (i === 0) {
+                    ctx.moveTo(xStart, y);
+                } else {
+                    ctx.lineTo(xStart, y);
+                }
+                ctx.lineTo(xEnd, y);
+            }
+            ctx.stroke();
+            ctx.restore();
+
+            // Draw user's live finger/mouse stroke trail for smooth tactile feedback
+            if (userStrokePoints.length > 1) {
+                ctx.save();
+                ctx.strokeStyle = '#ec4899';
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = '#ec4899';
+                ctx.lineWidth = 2.5;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+                ctx.beginPath();
+                ctx.moveTo(userStrokePoints[0].x, userStrokePoints[0].y);
+                for (let i = 1; i < userStrokePoints.length; i++) {
+                    ctx.lineTo(userStrokePoints[i].x, userStrokePoints[i].y);
+                }
+                ctx.stroke();
+                ctx.restore();
+            }
+        }
+
+        function handleDrawPointer(clientX, clientY) {
+            const canvas = document.getElementById('graph-draw-canvas');
+            if (!canvas) return;
+            const rect = canvas.getBoundingClientRect();
+            const x = Math.max(0, Math.min(rect.width - 1, clientX - rect.left));
+            const y = Math.max(0, Math.min(rect.height - 1, clientY - rect.top));
+
+            userStrokePoints.push({ x, y });
+            if (userStrokePoints.length > 40) userStrokePoints.shift();
+
+            const slotIndex = Math.min(drawnBits.length - 1, Math.max(0, Math.floor((x / rect.width) * drawnBits.length)));
+            const newBitVal = y < (rect.height / 2) ? 1 : 0;
+
+            if (drawnBits[slotIndex] !== newBitVal || lastChangedSlot !== slotIndex) {
+                drawnBits[slotIndex] = newBitVal;
+                if (lastChangedSlot !== slotIndex) {
+                    playTone(newBitVal === 1 ? 720 : 380, 'sine', 0.04);
+                    lastChangedSlot = slotIndex;
+                }
+                updateDrawnPreviewLabels();
+            }
+            renderDrawCanvas();
+        }
+
+        function initDrawWaveformCanvas() {
+            const canvas = document.getElementById('graph-draw-canvas');
+            if (!canvas || canvas.dataset.bound === "true") return;
+            canvas.dataset.bound = "true";
+
+            canvas.addEventListener('pointerdown', (e) => {
+                e.preventDefault();
+                isDrawingWave = true;
+                userStrokePoints = [];
+                lastChangedSlot = -1;
+                if (canvas.setPointerCapture) canvas.setPointerCapture(e.pointerId);
+                handleDrawPointer(e.clientX, e.clientY);
+            });
+
+            canvas.addEventListener('pointermove', (e) => {
+                if (!isDrawingWave) return;
+                e.preventDefault();
+                handleDrawPointer(e.clientX, e.clientY);
+            });
+
+            const stopDrawing = () => {
+                if (!isDrawingWave) return;
+                isDrawingWave = false;
+                userStrokePoints = [];
+                lastChangedSlot = -1;
+                renderDrawCanvas();
+            };
+
+            canvas.addEventListener('pointerup', stopDrawing);
+            canvas.addEventListener('pointercancel', stopDrawing);
+        }
+
+        function changeDrawBitCount(delta) {
+            playTone(500, 'sine', 0.05);
+            const nextLen = drawnBits.length + delta;
+            if (nextLen < 4 || nextLen > 16) return;
+            if (delta > 0) drawnBits.push(0);
+            else drawnBits.pop();
+            if (drawnDotIndex >= drawnBits.length) drawnDotIndex = -1;
+            updateDrawnPreviewLabels();
+            renderDrawCanvas();
+        }
+
+        function toggleDrawDecimalDot() {
+            playTone(620, 'triangle', 0.06);
+            if (drawnDotIndex === -1) {
+                drawnDotIndex = Math.floor(drawnBits.length / 2);
+            } else {
+                drawnDotIndex = -1;
+            }
+            updateDrawnPreviewLabels();
+            renderDrawCanvas();
+        }
+
+        function invertDrawnBits() {
+            playTone(580, 'sine', 0.07);
+            drawnBits = drawnBits.map(b => b === 1 ? 0 : 1);
+            updateDrawnPreviewLabels();
+            renderDrawCanvas();
+        }
+
+        function clearDrawnBits() {
+            playTone(260, 'sine', 0.08);
+            drawnBits = drawnBits.map(() => 0);
+            drawnDotIndex = -1;
+            updateDrawnPreviewLabels();
+            renderDrawCanvas();
+        }
+
         function openGraphEditModal() {
             playTone(550, 'sine', 0.08);
             const modal = document.getElementById('graph-edit-modal');
-            const input = document.getElementById('graph-edit-input');
             const validation = document.getElementById('graph-edit-validation');
-            
-            // Pre-fill with current binary value
-            const currentBin = document.getElementById('out-bin').innerText.trim();
-            input.value = (currentBin === "0" || currentBin === "") ? "" : currentBin;
-            
-            // Reset validation state
             validation.classList.remove('active', 'error', 'success');
-            
+
+            // Load current binary output into the interactive drawing pad
+            const currentBin = document.getElementById('out-bin').innerText.trim();
+            if (currentBin && currentBin !== "0") {
+                const dotPos = currentBin.indexOf('.');
+                const cleanDigits = currentBin.replace(/[^01]/g, '').slice(0, 16);
+                if (cleanDigits.length >= 4) {
+                    drawnBits = cleanDigits.split('').map(c => parseInt(c, 10));
+                } else {
+                    drawnBits = cleanDigits.padStart(8, '0').split('').map(c => parseInt(c, 10));
+                }
+                drawnDotIndex = (dotPos > 0 && dotPos < drawnBits.length) ? dotPos : -1;
+            } else {
+                drawnBits = bits.slice().reverse();
+                drawnDotIndex = -1;
+            }
+
             modal.classList.add('active');
-            setTimeout(() => input.focus(), 100);
+            initDrawWaveformCanvas();
+            updateDrawnPreviewLabels();
+            setTimeout(() => renderDrawCanvas(), 60);
         }
 
         function closeGraphEditModal() {
@@ -1875,55 +2400,42 @@ ctx.fillStyle = isDarkMode ? '#94a3b8' : '#1e293b';
         }
 
         function applyGraphEdit() {
-            const input = document.getElementById('graph-edit-input');
             const validation = document.getElementById('graph-edit-validation');
             const validationMsg = document.getElementById('graph-edit-validation-msg');
-            const rawValue = input.value.trim().toUpperCase();
+            let rawBin = getDrawnBinaryString();
 
-            // Validate: only 0, 1, and single dot allowed
-            const binaryRegex = /^[01]+\.?[01]*$|^[01]*\.[01]+$/;
-            
-            if (rawValue === "") {
-                validation.classList.add('active', 'error');
-                validation.classList.remove('success');
-                validationMsg.innerText = t('invalid_graph_edit');
-                playTone(220, 'sawtooth', 0.2);
-                return;
+            // Clean leading zeros for integer part while keeping "0" if all zeros
+            if (rawBin.includes('.')) {
+                const [iPart, fPart] = rawBin.split('.');
+                rawBin = (iPart.replace(/^0+/, '') || '0') + '.' + fPart;
+            } else {
+                rawBin = rawBin.replace(/^0+/, '') || '0';
             }
 
-            if (!binaryRegex.test(rawValue)) {
-                validation.classList.add('active', 'error');
-                validation.classList.remove('success');
-                validationMsg.innerText = t('invalid_graph_edit');
-                playTone(220, 'sawtooth', 0.2);
-                return;
-            }
-
-            // Valid input - apply changes
             playTone(800, 'sine', 0.1);
             setTimeout(() => playTone(1000, 'sine', 0.1), 80);
 
-            // Update main input and source base to binary
-            document.getElementById('main-input').value = rawValue;
-            setSourceBase(2);
+            // Apply drawn waveform to the Converter and Oscilloscope
+            sourceBase = 2;
+            document.querySelectorAll('.base-btn-src').forEach(btn => {
+                btn.className = "base-btn-src px-3 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs sm:text-sm font-bold transition-all border border-slate-700";
+            });
+            const binBtn = document.getElementById('src-base-2');
+            if (binBtn) {
+                binBtn.className = "base-btn-src px-3 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs sm:text-sm font-bold transition-all border border-indigo-500 shadow-md shadow-indigo-500/10";
+            }
+            updateInputUIForBase();
+            document.getElementById('main-input').value = rawBin;
+            validateAndCalculate();
 
-            // Show success validation
             validation.classList.add('active', 'success');
             validation.classList.remove('error');
             validationMsg.innerText = t('graph_edit_applied');
 
-            // Auto close after short delay
             setTimeout(() => {
                 closeGraphEditModal();
-            }, 1200);
+            }, 650);
         }
-
-        // Allow Enter key in graph edit input
-        document.getElementById('graph-edit-input').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                applyGraphEdit();
-            }
-        });
 
 
         // ==================== MULTI-OPERAND DYNAMIC CALCULATOR ====================
@@ -1986,7 +2498,7 @@ ctx.fillStyle = isDarkMode ? '#94a3b8' : '#1e293b';
 
                     <!-- Input Box -->
                     <div class="relative mt-1">
-                        <input oninput="updateRowValue(${index}, this.value)" type="text" value="${row.value}" placeholder="${row.base === 10 ? 'Decimal number...' : row.base === 2 ? 'Binary bits...' : row.base === 8 ? 'Octal value...' : 'Hex string...'}" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 tracking-wider code-font uppercase" />
+                       <input oninput="updateRowValue(${index}, this.value)" type="text" inputmode="${row.base === 16 ? 'text' : 'decimal'}" autocomplete="off" value="${row.value}" placeholder="${currentLang === 'en' ? (row.base === 10 ? 'Decimal number... (e.g. 25.5)' : row.base === 2 ? 'Binary number... (e.g. 1011)' : row.base === 8 ? 'Octal number... (e.g. 37)' : 'Hexadecimal... (e.g. 1F)') : (row.base === 10 ? 'ডেসিমাল সংখ্যা... (যেমন: 25.5)' : row.base === 2 ? 'বাইনারি সংখ্যা... (যেমন: 1011)' : row.base === 8 ? 'অক্টাল সংখ্যা... (যেমন: 37)' : 'হেক্সাডেসিমাল... (যেমন: 1F)')}" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2.5 text-sm font-bold text-slate-100 focus:outline-none focus:border-indigo-500 tracking-wider code-font uppercase" />
                     </div>
                 `;
 
