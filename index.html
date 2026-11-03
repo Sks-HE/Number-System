@@ -99,7 +99,7 @@ body:not(.theme-light) #header-tabs-bar {
   background-color: rgba(241, 245, 249, 0.72) !important;
 }
 
-/* ==================== CASIO fx-991CW CLASSWIZ AUTHENTIC STYLES ==================== */
+/* ====================  CLASSWIZ AUTHENTIC STYLES ==================== */
 .casio-body {
   background: linear-gradient(160deg, #1b202c 0%, #121620 55%, #0d1017 100%);
   border: 2px solid #2e3646;
@@ -349,7 +349,7 @@ body:not(.theme-light) #header-tabs-bar {
 .cw-btn-shift { border-color: #f59e0b; color: #fde68a !important; }
 .cw-btn-alpha { border-color: #ec4899; color: #fbcfe8 !important; }
 
-/* Lower Number & Main Operator Keys (fx-991CW Rounded Rectangular Keys) */
+/* Lower Number & Main Operator Keys ( Rounded Rectangular Keys) */
 .cw-btn-num {
   background: linear-gradient(180deg, #f1f5f9 0%, #cbd5e1 100%);
   border: 1px solid #94a3b8;
@@ -1230,17 +1230,17 @@ input, textarea, [contenteditable="true"] {
         </div>
 
 
-      <!-- ==================== TAB 2.5: CASIO fx-991CW SCIENTIFIC CALCULATOR WORKSPACE ==================== -->
+      <!-- ==================== TAB 2.5:  SCIENTIFIC CALCULATOR WORKSPACE ==================== -->
         <div id="tab-scientific" class="tab-content hidden flex flex-col gap-6 animate-fadeIn">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
 
-                <!-- LEFT / CENTER COLUMN: Authentic Casio fx-991CW ClassWiz Unit (6 Columns) -->
+                <!-- LEFT / CENTER COLUMN: Authentic  ClassWiz Unit (6 Columns) -->
                 <section class="lg:col-span-6 flex flex-col items-center">
                     <!-- Top Quick Bar: Optional Phone Keyboard Toggle & Active Mode -->
                     <div class="w-full max-w-[430px] custom-card border rounded-2xl p-3 mb-3 flex flex-wrap items-center justify-between gap-2">
                         <div class="flex items-center gap-2">
                             <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                            <span class="text-xs font-bold text-slate-200" data-key="cw_top_badge">Casio fx-991CW ClassWiz</span>
+                            <span class="text-xs font-bold text-slate-200" data-key="cw_top_badge">SCIENTIFIC CALCULATOR ClassWiz</span>
                         </div>
                         <button type="button" onclick="toggleCasioMobileKeyboard()" id="cw-kb-toggle-btn" class="px-3 py-1.5 rounded-xl text-[11px] font-bold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 flex items-center gap-1.5 transition-all">
                             <i data-lucide="keyboard" class="w-3.5 h-3.5 text-indigo-400"></i>
@@ -1257,13 +1257,13 @@ input, textarea, [contenteditable="true"] {
                         </div>
                     </div>
 
-                    <!-- THE CASIO fx-991CW HARDWARE SHELL -->
+                    <!-- THE SCIENTIFIC CALCULATOR HARDWARE SHELL -->
                     <div class="casio-body w-full">
                         <!-- Branding & Solar Panel Header -->
                         <div class="flex items-center justify-between mb-2.5 px-1">
                             <div>
                                 <div class="text-sm font-extrabold tracking-widest text-slate-100 font-['Orbitron',sans-serif]">CASIO</div>
-                                <div class="text-[10px] font-bold text-indigo-400 tracking-wider">fx-991CW <span class="text-[9px] text-amber-400 font-normal italic">CLASSWIZ</span></div>
+                                <div class="text-[10px] font-bold text-indigo-400 tracking-wider">CALCULATOR <span class="text-[9px] text-amber-400 font-normal italic">CLASSWIZ</span></div>
                             </div>
                             <div class="flex flex-col items-end gap-1">
                                 <div class="casio-solar" title="Two-Way Power Solar Cell"></div>
@@ -1591,12 +1591,12 @@ input, textarea, [contenteditable="true"] {
                         </div>
                     </div>
 
-                    <!-- Interactive Equation & Polynomial Solver Card (Casio fx-991CW Equation App) -->
+                    <!-- Interactive Equation & Polynomial Solver Card (SCIENTIFIC CALCULATOR Equation App) -->
                     <div class="custom-card border rounded-2xl p-5 sm:p-6 shadow-xl">
                         <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3 mb-4">
                             <h3 class="text-sm font-semibold text-slate-200 uppercase tracking-wider flex items-center gap-2">
                                 <i data-lucide="function-square" class="w-4 h-4 text-pink-400"></i>
-                                <span data-key="cw_eq_title">fx-991CW Equation & Polynomial Solver</span>
+                                <span data-key="cw_eq_title">SCIENTIFIC CALCULATOR Equation & Polynomial Solver</span>
                             </h3>
                             <select id="cw-eq-type" onchange="renderCwEquationInputs()" class="bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1 text-xs font-bold text-indigo-300 focus:outline-none">
                                 <option value="quad">ax² + bx + c = 0 (Quadratic)</option>
@@ -1638,7 +1638,7 @@ input, textarea, [contenteditable="true"] {
                     <div>
                         <h3 class="text-sm sm:text-base font-bold text-slate-100 uppercase tracking-wider flex items-center gap-2">
                             <i data-lucide="book-open" class="w-5 h-5 text-amber-400"></i>
-                            <span id="cw-manual-heading">Casio fx-991CW User Manual & Guide</span>
+                            <span id="cw-manual-heading">SCIENTIFIC CALCULATOR User Manual & Guide</span>
                         </h3>
                         <p id="cw-manual-subheading" class="text-xs text-slate-400 mt-0.5">Automatically tailored for your current device</p>
                     </div>
@@ -4206,9 +4206,9 @@ function initLoadingRain() {
     if (overlay) overlay.classList.add('fade-out');
   }, 2500);
 }
-// ==================== CASIO fx-991CW CLASSWIZ SCIENTIFIC ENGINE ====================
+// ==================== SCIENTIFIC CALCULATOR CLASSWIZ SCIENTIFIC ENGINE ====================
 Object.assign(translations.en, {
-    cw_top_badge: "Casio fx-991CW ClassWiz",
+    cw_top_badge: "SCIENTIFIC CALCULATOR ClassWiz",
     cw_kb_off: "Phone Keyboard: OFF",
     cw_kb_on: "Phone Keyboard: ON",
     cw_kb_label: "Type Math Expression with Phone Keyboard:",
@@ -4218,14 +4218,14 @@ Object.assign(translations.en, {
     cw_exact_frac: "Exact Fraction (d/c)",
     cw_mixed_frac: "Mixed Fraction (a b/c)",
     cw_sci_eng: "Scientific / ENG Notation",
-    cw_eq_title: "fx-991CW Equation & Polynomial Solver",
+    cw_eq_title: "SCIENTIFIC CALCULATOR Equation & Polynomial Solver",
     cw_solve_btn: "Solve Equation Roots",
     cw_hist_title: "Calculation Memory Tape",
     cw_man_phone_btn: "Phone Guide",
     cw_man_pc_btn: "Laptop / PC Shortcuts"
 });
 Object.assign(translations.bn, {
-    cw_top_badge: "ক্যাসিও fx-991CW ক্লাসউইজ",
+    cw_top_badge: "SCIENTIFIC CALCULATOR ক্লাসউইজ",
     cw_kb_off: "ফোনের কিবোর্ড: বন্ধ",
     cw_kb_on: "ফোনের কিবোর্ড: চালু",
     cw_kb_label: "ফোনের কিবোর্ড দিয়ে সরাসরি সমীকরণ লিখুন:",
@@ -4235,14 +4235,14 @@ Object.assign(translations.bn, {
     cw_exact_frac: "প্রকৃত/অপ্রকৃত ভগ্নাংশ (d/c)",
     cw_mixed_frac: "মিশ্র ভগ্নাংশ (a b/c)",
     cw_sci_eng: "বৈজ্ঞানিক / ENG নোটেশন",
-    cw_eq_title: "fx-991CW সমীকরণ ও বহুপদী সমাধানকারী",
+    cw_eq_title: "SCIENTIFIC CALCULATOR সমীকরণ ও বহুপদী সমাধানকারী",
     cw_solve_btn: "সমীকরণের মূল (Roots) বের করুন",
     cw_hist_title: "হিসাবের মেমোরি টেপ (History)",
     cw_man_phone_btn: "ফোনের ম্যানুয়াল",
     cw_man_pc_btn: "ল্যাপটপ / পিসি শর্টকাট"
 });
 
-// Casio fx-991CW Internal State & 2D AST Tree
+// SCIENTIFIC CALCULATOR Internal State & 2D AST Tree
 let cwState = {
     shift: false,
     alpha: false,
@@ -4682,7 +4682,7 @@ function cwCycleSDFormat() {
     }
 }
 
-// Handle All Casio fx-991CW Key Presses
+// Handle All SCIENTIFIC CALCULATOR Key Presses
 function cwPress(key) {
     playTone(620, 'sine', 0.04);
     const overlay = document.getElementById('cw-screen-overlay');
@@ -4918,7 +4918,7 @@ function cwOpenMenu(menuType) {
     if (menuType === 'SETTINGS') {
         overlay.innerHTML = `
             <div class="flex items-center justify-between border-b border-slate-700 pb-1 mb-1.5">
-                <span class="font-bold text-amber-400">⚙️ fx-991CW SETTINGS</span>
+                <span class="font-bold text-amber-400">⚙️ SCIENTIFIC CALCULATOR SETTINGS</span>
                 <button onclick="document.getElementById('cw-screen-overlay').classList.add('hidden')" class="text-rose-400 font-bold px-1">✕</button>
             </div>
             <div class="space-y-1.5 text-[11px]">
@@ -5138,7 +5138,7 @@ function solveCwEquation() {
     }
 }
 
-// Laptop / Desktop Physical Keyboard Shortcuts for Casio fx-991CW
+// Laptop / Desktop Physical Keyboard Shortcuts for SCIENTIFIC CALCULATOR
 document.addEventListener('keydown', (e) => {
     if (currentActiveTab !== 'scientific-tab') return;
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
@@ -5194,7 +5194,7 @@ function renderCasioManual() {
 
     if (manualDeviceMode === 'mobile') {
         if (currentLang === 'en') {
-            headEl.innerText = "📱 Casio fx-991CW Mobile Touch Manual";
+            headEl.innerText = "📱 SCIENTIFIC CALCULATOR Mobile Touch Manual";
             subEl.innerText = "Optimized for Smartphone Touchscreens (Default: On-Screen Casio Keys Active)";
             contentEl.innerHTML = `
                 <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
@@ -5211,7 +5211,7 @@ function renderCasioManual() {
                 </div>
             `;
         } else {
-            headEl.innerText = "📱 ক্যাসিও fx-991CW মোবাইল ব্যবহার নির্দেশিকা (ম্যানুয়াল)";
+            headEl.innerText = "📱 ক্SCIENTIFIC CALCULATOR মোবাইল ব্যবহার নির্দেশিকা (ম্যানুয়াল)";
             subEl.innerText = "স্মার্টফোনের টাচস্ক্রিনের জন্য বিশেষভাবে সাজানো (ডিফল্ট: ক্যালকুলেটরের নিজস্ব বাটন সক্রিয়)";
             contentEl.innerHTML = `
                 <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
@@ -5230,7 +5230,7 @@ function renderCasioManual() {
         }
     } else {
         if (currentLang === 'en') {
-            headEl.innerText = "💻 Casio fx-991CW Laptop / Desktop Keyboard Shortcuts & Manual";
+            headEl.innerText = "💻 SCIENTIFIC CALCULATOR Laptop / Desktop Keyboard Shortcuts & Manual";
             subEl.innerText = "Full Physical Keyboard Shortcut Support + On-Screen Natural Textbook Controls";
             contentEl.innerHTML = `
                 <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
@@ -5258,7 +5258,7 @@ function renderCasioManual() {
                 </div>
             `;
         } else {
-            headEl.innerText = "💻 ক্যাসিও fx-991CW ল্যাপটপ / ডেক্সটপ কিবোর্ড শর্টকাট ও ম্যানুয়াল";
+            headEl.innerText = "💻 SCIENTIFIC CALCULATOR ল্যাপটপ / ডেক্সটপ কিবোর্ড শর্টকাট ও ম্যানুয়াল";
             subEl.innerText = "ল্যাপটপের কিবোর্ড দিয়ে দ্রুত অংক করার শর্টকাট তালিকা এবং সম্পূর্ণ নিয়মাবলি";
             contentEl.innerHTML = `
                 <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
@@ -5363,7 +5363,7 @@ window.onload = function() {
   showDefaultSolutionNote();
   updateScoreDisplay();
 
-  // Initialize Casio fx-991CW Scientific Calculator & Smart Manual
+  // Initialize Scientific Calculator & Smart Manual
   cwRenderDisplay();
   renderCwEquationInputs();
   renderCwHistory();
