@@ -74,21 +74,357 @@ body::before {
 .theme-light #loading-overlay {
   background-color: #f8fafc; /* লাইট মোডের ব্যাকগ্রাউন্ড */
 }
-
-/* Premium Glassmorphism Cards */
+/* Premium Glassmorphism Cards (Slightly Reduced Visibility for Better Matrix Wallpaper View) */
 .custom-card {
-  background-color: rgba(15, 23, 42, 0.65) !important;
-  border-color: rgba(255, 255, 255, 0.08) !important;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  background-color: rgba(15, 23, 42, 0.52) !important;
+  border-color: rgba(255, 255, 255, 0.09) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
 }
 .theme-light .custom-card {
-  background-color: rgba(255, 255, 255, 0.75) !important;
-  border-color: rgba(226, 232, 240, 0.9) !important;
+  background-color: rgba(255, 255, 255, 0.64) !important;
+  border-color: rgba(226, 232, 240, 0.85) !important;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
 }
+/* Make inner dark boxes slightly translucent so Matrix Rain shines through on mobile & desktop */
+body:not(.theme-light) .custom-card .bg-slate-950 {
+  background-color: rgba(2, 6, 23, 0.72) !important;
+}
+body:not(.theme-light) #header-tabs-bar {
+  background-color: rgba(15, 23, 42, 0.62) !important;
+  backdrop-filter: blur(8px);
+}
+.theme-light #header-tabs-bar {
+  background-color: rgba(241, 245, 249, 0.72) !important;
+}
 
+/* ==================== CASIO fx-991CW CLASSWIZ AUTHENTIC STYLES ==================== */
+.casio-body {
+  background: linear-gradient(160deg, #1b202c 0%, #121620 55%, #0d1017 100%);
+  border: 2px solid #2e3646;
+  border-radius: 28px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65), inset 0 2px 3px rgba(255, 255, 255, 0.12);
+  padding: 18px 16px 22px;
+  max-width: 430px;
+  margin: 0 auto;
+  position: relative;
+}
+.theme-light .casio-body {
+  background: linear-gradient(160deg, #272e3f 0%, #1a202c 60%, #111622 100%);
+  border-color: #475569;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.35), inset 0 2px 3px rgba(255, 255, 255, 0.15);
+}
+.casio-solar {
+  width: 78px;
+  height: 22px;
+  background: linear-gradient(90deg, #2b1d1d 0%, #3b2823 25%, #291b18 50%, #3b2823 75%, #2b1d1d 100%);
+  border: 1.5px solid #475569;
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.8);
+}
+.casio-solar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(90deg, transparent, transparent 18px, rgba(255,255,255,0.12) 18px, rgba(255,255,255,0.12) 19px);
+}
+/* Natural Textbook 4-Gradation LCD Screen */
+.casio-lcd-bezel {
+  background: #090c12;
+  border: 3px solid #2d3748;
+  border-radius: 14px;
+  padding: 8px;
+  box-shadow: inset 0 4px 12px rgba(0,0,0,0.85);
+}
+.casio-lcd {
+  background: #d7e2d5;
+  color: #0f172a;
+  border-radius: 8px;
+  padding: 8px 10px;
+  min-height: 122px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: 'Fira Code', monospace;
+  position: relative;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.22);
+  transition: all 0.25s ease;
+  overflow: hidden;
+}
+.casio-lcd.lcd-cyber {
+  background: linear-gradient(180deg, #071318 0%, #0a1922 100%);
+  color: #38bdf8;
+  box-shadow: inset 0 0 18px rgba(56, 189, 248, 0.12);
+}
+.casio-lcd.lcd-amber {
+  background: #f5d69b;
+  color: #291502;
+}
+.casio-lcd-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 9.5px;
+  font-weight: 700;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.15);
+  padding-bottom: 3px;
+  margin-bottom: 4px;
+  letter-spacing: 0.03em;
+}
+.casio-lcd.lcd-cyber .casio-lcd-status {
+  border-bottom-color: rgba(56, 189, 248, 0.2);
+}
+.casio-badge-on {
+  background: #0f172a;
+  color: #d7e2d5;
+  padding: 0 4px;
+  border-radius: 3px;
+}
+.casio-lcd.lcd-cyber .casio-badge-on {
+  background: #38bdf8;
+  color: #041017;
+}
+/* 2D Natural Textbook Expression Area */
+.casio-expr-area {
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 4px 2px;
+  gap: 1px;
+  scrollbar-width: thin;
+}
+.casio-res-area {
+  text-align: right;
+  font-size: 20px;
+  font-weight: 800;
+  min-height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  overflow-x: auto;
+  padding-top: 2px;
+  border-top: 1px dashed rgba(15, 23, 42, 0.12);
+}
+.casio-lcd.lcd-cyber .casio-res-area {
+  border-top-color: rgba(56, 189, 248, 0.18);
+  color: #34d399;
+}
+/* 2D Stacked Fraction & Math Templates */
+.cw-frac {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  vertical-align: middle;
+  margin: 0 3px;
+  font-size: 0.88em;
+}
+.cw-frac-num {
+  border-bottom: 1.6px solid currentColor;
+  padding: 0 4px 1px;
+  min-width: 18px;
+  text-align: center;
+}
+.cw-frac-den {
+  padding: 1px 4px 0;
+  min-width: 18px;
+  text-align: center;
+}
+.cw-sup {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: super;
+  font-size: 0.74em;
+  margin-left: 1px;
+  transform: translateY(-5px);
+}
+.cw-sub {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: sub;
+  font-size: 0.72em;
+  margin-left: 1px;
+  transform: translateY(4px);
+}
+.cw-sqrt {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  margin: 0 2px;
+}
+.cw-sqrt-sign {
+  font-size: 1.15em;
+  font-weight: 800;
+  line-height: 1;
+}
+.cw-sqrt-body {
+  border-top: 1.6px solid currentColor;
+  padding: 1px 3px 0;
+  min-width: 14px;
+}
+.cw-box-empty {
+  display: inline-block;
+  width: 11px;
+  height: 14px;
+  border: 1.3px dotted currentColor;
+  vertical-align: middle;
+  margin: 0 1px;
+  opacity: 0.65;
+}
+.cw-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.15em;
+  background-color: #ef4444;
+  vertical-align: middle;
+  animation: cwBlink 0.9s steps(2, start) infinite;
+  margin: 0 0.5px;
+}
+@keyframes cwBlink { to { visibility: hidden; } }
+
+/* Casio Buttons Grid */
+.cw-btn-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cw-sub-label {
+  font-size: 8.5px;
+  font-weight: 700;
+  line-height: 1.1;
+  min-height: 10px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 2px;
+  margin-bottom: 2px;
+  font-family: 'Poppins', sans-serif;
+  white-space: nowrap;
+}
+.cw-shift-txt { color: #f59e0b; }
+.cw-alpha-txt { color: #ec4899; }
+
+.cw-btn {
+  width: 100%;
+  border-radius: 9px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.08s ease, background 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 3px 0 #090c12, 0 4px 6px rgba(0,0,0,0.4);
+  user-select: none;
+  cursor: pointer;
+}
+.cw-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #090c12;
+}
+/* Dark Function Keys (Upper Pad) */
+.cw-btn-fn {
+  background: linear-gradient(180deg, #2d3748 0%, #1e2633 100%);
+  border: 1px solid #4a5568;
+  color: #f8fafc !important;
+  height: 32px;
+  font-size: 11px;
+}
+.cw-btn-fn:hover { background: linear-gradient(180deg, #384459 0%, #252f3f 100%); }
+
+/* Top Control Pill Keys */
+.cw-btn-ctrl {
+  background: linear-gradient(180deg, #374151 0%, #1f2937 100%);
+  border: 1px solid #6b7280;
+  color: #f3f4f6 !important;
+  height: 28px;
+  border-radius: 999px;
+  font-size: 10px;
+}
+.cw-btn-shift { border-color: #f59e0b; color: #fde68a !important; }
+.cw-btn-alpha { border-color: #ec4899; color: #fbcfe8 !important; }
+
+/* Lower Number & Main Operator Keys (fx-991CW Rounded Rectangular Keys) */
+.cw-btn-num {
+  background: linear-gradient(180deg, #f1f5f9 0%, #cbd5e1 100%);
+  border: 1px solid #94a3b8;
+  color: #0f172a !important;
+  height: 38px;
+  font-size: 15px;
+  font-family: 'Poppins', sans-serif;
+}
+.cw-btn-num:hover { background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 100%); }
+
+.cw-btn-op {
+  background: linear-gradient(180deg, #334155 0%, #1e293b 100%);
+  border: 1px solid #64748b;
+  color: #ffffff !important;
+  height: 38px;
+  font-size: 14px;
+}
+.cw-btn-del {
+  background: linear-gradient(180deg, #d97706 0%, #b45309 100%);
+  border: 1px solid #f59e0b;
+  color: #ffffff !important;
+  height: 38px;
+  font-size: 12px;
+}
+.cw-btn-ac {
+  background: linear-gradient(180deg, #e11d48 0%, #be123c 100%);
+  border: 1px solid #fb7185;
+  color: #ffffff !important;
+  height: 38px;
+  font-size: 12px;
+}
+.cw-btn-exe {
+  background: linear-gradient(180deg, #4f46e5 0%, #3730a3 100%);
+  border: 1px solid #818cf8;
+  color: #ffffff !important;
+  height: 38px;
+  font-size: 15px;
+}
+
+/* Circular D-Pad Center */
+.cw-dpad {
+  width: 96px;
+  height: 82px;
+  position: relative;
+  margin: 0 auto;
+  background: radial-gradient(circle, #1e293b 0%, #0f172a 100%);
+  border-radius: 999px;
+  border: 2px solid #475569;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.6), 0 4px 10px rgba(0,0,0,0.4);
+}
+.cw-dpad-btn {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #e2e8f0 !important;
+  font-size: 10px;
+  font-weight: 800;
+  cursor: pointer;
+  user-select: none;
+  min-height: 22px !important;
+}
+.cw-dpad-btn:hover { color: #38bdf8 !important; }
+.cw-dpad-up { top: 2px; left: 50%; transform: translateX(-50%); width: 34px; height: 22px; }
+.cw-dpad-down { bottom: 2px; left: 50%; transform: translateX(-50%); width: 34px; height: 22px; }
+.cw-dpad-left { left: 3px; top: 50%; transform: translateY(-50%); width: 24px; height: 30px; }
+.cw-dpad-right { right: 3px; top: 50%; transform: translateY(-50%); width: 24px; height: 30px; }
+.cw-dpad-ok {
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 30px; height: 28px;
+  border-radius: 999px;
+  background: #334155;
+  border: 1px solid #64748b;
+  font-size: 9px;
+}
 /* --- LIGHT MODE MASTER OVERRIDE (Fixing Gray on Gray) --- */
 .theme-light .bg-slate-950, .theme-light .bg-slate-900, .theme-light .bg-slate-800 {
   background-color: rgba(255, 255, 255, 0.9) !important;
@@ -489,14 +825,17 @@ input, textarea, [contenteditable="true"] {
     </div>
 
     <!-- Navigation Tabs -->
-    <div class="flex items-center justify-center gap-1.5 bg-slate-900/90 p-1.5 rounded-xl border border-slate-800 w-full md:w-auto md:order-2">
-      <button onclick="switchTab('converter-tab')" id="tab-btn-converter" class="tab-btn px-3.5 py-2 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white flex items-center gap-1.5 shadow">
+    <div id="header-tabs-bar" class="flex flex-wrap items-center justify-center gap-1.5 bg-slate-900/65 p-1.5 rounded-xl border border-slate-800/80 w-full md:w-auto md:order-2">
+      <button onclick="switchTab('converter-tab')" id="tab-btn-converter" class="tab-btn px-3 py-2 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white flex items-center gap-1.5 shadow">
         <i data-lucide="shuffle" class="w-3.5 h-3.5"></i> <span data-key="tab_converter">Converter & Waves</span>
       </button>
-      <button onclick="switchTab('calculator-tab')" id="tab-btn-calculator" class="tab-btn px-3.5 py-2 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-slate-200 flex items-center gap-1.5">
-        <i data-lucide="calculator" class="w-3.5 h-3.5"></i> <span data-key="tab_calculator">Multi-Calculator</span>
+      <button onclick="switchTab('calculator-tab')" id="tab-btn-calculator" class="tab-btn px-3 py-2 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-slate-200 flex items-center gap-1.5">
+        <i data-lucide="binary" class="w-3.5 h-3.5"></i> <span data-key="tab_calculator">Number System Calculator</span>
       </button>
-      <button onclick="switchTab('quiz-tab')" id="tab-btn-quiz" class="tab-btn px-3.5 py-2 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-slate-200 flex items-center gap-1.5">
+      <button onclick="switchTab('scientific-tab')" id="tab-btn-scientific" class="tab-btn px-3 py-2 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-slate-200 flex items-center gap-1.5">
+        <i data-lucide="Cpu" class="w-3.5 h-3.5"></i> <span data-key="tab_scientific">Scientific (fx-991CW)</span>
+      </button>
+      <button onclick="switchTab('quiz-tab')" id="tab-btn-quiz" class="tab-btn px-3 py-2 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-slate-200 flex items-center gap-1.5">
         <i data-lucide="gamepad-2" class="w-3.5 h-3.5"></i> <span data-key="tab_quiz">Quiz</span>
       </button>
     </div>
@@ -891,6 +1230,436 @@ input, textarea, [contenteditable="true"] {
         </div>
 
 
+      <!-- ==================== TAB 2.5: CASIO fx-991CW SCIENTIFIC CALCULATOR WORKSPACE ==================== -->
+        <div id="tab-scientific" class="tab-content hidden flex flex-col gap-6 animate-fadeIn">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+                <!-- LEFT / CENTER COLUMN: Authentic Casio fx-991CW ClassWiz Unit (6 Columns) -->
+                <section class="lg:col-span-6 flex flex-col items-center">
+                    <!-- Top Quick Bar: Optional Phone Keyboard Toggle & Active Mode -->
+                    <div class="w-full max-w-[430px] custom-card border rounded-2xl p-3 mb-3 flex flex-wrap items-center justify-between gap-2">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                            <span class="text-xs font-bold text-slate-200" data-key="cw_top_badge">Casio fx-991CW ClassWiz</span>
+                        </div>
+                        <button type="button" onclick="toggleCasioMobileKeyboard()" id="cw-kb-toggle-btn" class="px-3 py-1.5 rounded-xl text-[11px] font-bold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 flex items-center gap-1.5 transition-all">
+                            <i data-lucide="keyboard" class="w-3.5 h-3.5 text-indigo-400"></i>
+                            <span id="cw-kb-toggle-text" data-key="cw_kb_off">Phone Keyboard: OFF</span>
+                        </button>
+                    </div>
+
+                    <!-- Optional Mobile Keyboard Input Box (Hidden by Default) -->
+                    <div id="cw-mobile-kb-box" class="hidden w-full max-w-[430px] mb-3 custom-card border rounded-xl p-3">
+                        <label class="block text-[10px] font-bold text-indigo-400 uppercase mb-1" data-key="cw_kb_label">Type Math Expression with Phone Keyboard:</label>
+                        <div class="flex gap-2">
+                            <input id="cw-mobile-kb-input" type="text" autocomplete="off" placeholder="e.g. sin(30)+sqrt(16) or (25+15)/4" class="flex-1 bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm font-bold text-white code-font focus:outline-none focus:border-indigo-500" />
+                            <button type="button" onclick="evalFromMobileKbInput()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-lg">=</button>
+                        </div>
+                    </div>
+
+                    <!-- THE CASIO fx-991CW HARDWARE SHELL -->
+                    <div class="casio-body w-full">
+                        <!-- Branding & Solar Panel Header -->
+                        <div class="flex items-center justify-between mb-2.5 px-1">
+                            <div>
+                                <div class="text-sm font-extrabold tracking-widest text-slate-100 font-['Orbitron',sans-serif]">CASIO</div>
+                                <div class="text-[10px] font-bold text-indigo-400 tracking-wider">fx-991CW <span class="text-[9px] text-amber-400 font-normal italic">CLASSWIZ</span></div>
+                            </div>
+                            <div class="flex flex-col items-end gap-1">
+                                <div class="casio-solar" title="Two-Way Power Solar Cell"></div>
+                                <span class="text-[8px] text-slate-400 uppercase tracking-widest">Natural-V.P.A.M.</span>
+                            </div>
+                        </div>
+
+                        <!-- 4-Gradation Natural Textbook LCD Screen -->
+                        <div class="casio-lcd-bezel mb-3">
+                            <div id="casio-lcd" class="casio-lcd">
+                                <!-- Top Status Indicators -->
+                                <div class="casio-lcd-status">
+                                    <div class="flex items-center gap-1.5">
+                                        <span id="cw-ind-shift" class="opacity-25">S</span>
+                                        <span id="cw-ind-alpha" class="opacity-25">A</span>
+                                        <span id="cw-ind-mem" class="opacity-25">M</span>
+                                        <span id="cw-ind-angle" class="casio-badge-on">D</span>
+                                        <span id="cw-ind-fmt" class="px-1 rounded border border-current text-[8.5px]">Norm1</span>
+                                    </div>
+                                    <div class="flex items-center gap-1.5">
+                                        <span id="cw-ind-mode" class="font-bold">Math√□</span>
+                                        <span>🔋</span>
+                                    </div>
+                                </div>
+
+                                <!-- Interactive Overlay Menu (Settings / Home / Catalog / Equation Solver) -->
+                                <div id="cw-screen-overlay" class="hidden absolute inset-1.5 bg-slate-950/95 text-slate-100 rounded-md p-2.5 z-20 flex flex-col justify-between overflow-y-auto text-xs">
+                                    <!-- Injected dynamically when SETTINGS, HOME, or CATALOG is pressed -->
+                                </div>
+
+                                <!-- 2D Textbook Expression Line (With Movable Cursor) -->
+                                <div id="cw-expr-display" class="casio-expr-area">
+                                    <span class="cw-cursor"></span>
+                                </div>
+
+                                <!-- Bottom Result Line -->
+                                <div id="cw-res-display" class="casio-res-area">0</div>
+                            </div>
+                        </div>
+
+                        <!-- Control Zone: SHIFT, ALPHA, D-PAD, HOME, SETTINGS -->
+                        <div class="grid grid-cols-12 gap-1.5 items-center mb-3">
+                            <!-- Left Control Column -->
+                            <div class="col-span-4 grid grid-cols-2 gap-1.5">
+                                <div class="cw-btn-wrap">
+                                    <div class="cw-sub-label"><span class="cw-shift-txt">SHIFT</span></div>
+                                    <button type="button" onclick="cwPress('SHIFT')" class="cw-btn cw-btn-ctrl cw-btn-shift">SHIFT</button>
+                                </div>
+                                <div class="cw-btn-wrap">
+                                    <div class="cw-sub-label"><span class="cw-alpha-txt">ALPHA</span></div>
+                                    <button type="button" onclick="cwPress('ALPHA')" class="cw-btn cw-btn-ctrl cw-btn-alpha">ALPHA</button>
+                                </div>
+                                <div class="cw-btn-wrap">
+                                    <div class="cw-sub-label"><span class="text-slate-400">APPS</span></div>
+                                    <button type="button" onclick="cwOpenMenu('HOME')" class="cw-btn cw-btn-ctrl">HOME</button>
+                                </div>
+                                <div class="cw-btn-wrap">
+                                    <div class="cw-sub-label"><span class="cw-shift-txt">SETUP</span></div>
+                                    <button type="button" onclick="cwOpenMenu('SETTINGS')" class="cw-btn cw-btn-ctrl">⚙️ SET</button>
+                                </div>
+                            </div>
+
+                            <!-- Center Circular 5-Key Cursor D-Pad -->
+                            <div class="col-span-4 flex justify-center">
+                                <div class="cw-dpad">
+                                    <button type="button" onclick="cwMoveCursor('UP')" class="cw-dpad-btn cw-dpad-up" title="Up">▲</button>
+                                    <button type="button" onclick="cwMoveCursor('LEFT')" class="cw-dpad-btn cw-dpad-left" title="Left">◀</button>
+                                    <button type="button" onclick="cwPress('=')" class="cw-dpad-btn cw-dpad-ok" title="OK">OK</button>
+                                    <button type="button" onclick="cwMoveCursor('RIGHT')" class="cw-dpad-btn cw-dpad-right" title="Right">▶</button>
+                                    <button type="button" onclick="cwMoveCursor('DOWN')" class="cw-dpad-btn cw-dpad-down" title="Down">▼</button>
+                                </div>
+                            </div>
+
+                            <!-- Right Control Column -->
+                            <div class="col-span-4 grid grid-cols-2 gap-1.5">
+                                <div class="cw-btn-wrap">
+                                    <div class="cw-sub-label"><span class="text-slate-400">UNDO</span></div>
+                                    <button type="button" onclick="cwPress('BACK')" class="cw-btn cw-btn-ctrl">↶ BACK</button>
+                                </div>
+                                <div class="cw-btn-wrap">
+                                    <div class="cw-sub-label"><span class="text-emerald-400">RESET</span></div>
+                                    <button type="button" onclick="cwPress('ON')" class="cw-btn cw-btn-ctrl border-emerald-500/50">ON</button>
+                                </div>
+                                <div class="cw-btn-wrap">
+                                    <div class="cw-sub-label"><span class="cw-shift-txt">CONST</span></div>
+                                    <button type="button" onclick="cwOpenMenu('CATALOG')" class="cw-btn cw-btn-ctrl">CATLG</button>
+                                </div>
+                                <div class="cw-btn-wrap">
+                                    <div class="cw-sub-label"><span class="cw-alpha-txt">SOLVE</span></div>
+                                    <button type="button" onclick="cwOpenMenu('SOLVER')" class="cw-btn cw-btn-ctrl">TOOLS</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Scientific Function Keys Grid (6 Columns × 4 Rows) -->
+                        <div class="grid grid-cols-6 gap-1.5 mb-3">
+                            <!-- Row 1: Fraction, Sqrt, x², x^y, log_a(b), ln -->
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">a b/c</span></div>
+                                <button type="button" onclick="cwPress('FRAC')" class="cw-btn cw-btn-fn" title="Stacked Fraction (Shortcut: f)">믐</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">³√□</span></div>
+                                <button type="button" onclick="cwPress('SQRT')" class="cw-btn cw-btn-fn" title="Square Root (Shortcut: r)">√□</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">x³</span></div>
+                                <button type="button" onclick="cwPress('SQ')" class="cw-btn cw-btn-fn">x²</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">ˣ√□</span></div>
+                                <button type="button" onclick="cwPress('POW')" class="cw-btn cw-btn-fn" title="Power (Shortcut: ^)">x□</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">10ˣ</span></div>
+                                <button type="button" onclick="cwPress('LOG')" class="cw-btn cw-btn-fn">log</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">eˣ</span><span class="cw-alpha-txt">e</span></div>
+                                <button type="button" onclick="cwPress('LN')" class="cw-btn cw-btn-fn">ln</button>
+                            </div>
+
+                            <!-- Row 2: (-), DMS, x⁻¹, sin, cos, tan -->
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">logₐb</span><span class="cw-alpha-txt">A</span></div>
+                                <button type="button" onclick="cwPress('NEG')" class="cw-btn cw-btn-fn">(-)</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">←DMS</span><span class="cw-alpha-txt">B</span></div>
+                                <button type="button" onclick="cwPress('DMS')" class="cw-btn cw-btn-fn">° ' ”</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">x!</span><span class="cw-alpha-txt">C</span></div>
+                                <button type="button" onclick="cwPress('INV')" class="cw-btn cw-btn-fn">x⁻¹</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">sin⁻¹</span><span class="cw-alpha-txt">D</span></div>
+                                <button type="button" onclick="cwPress('SIN')" class="cw-btn cw-btn-fn">sin</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">cos⁻¹</span><span class="cw-alpha-txt">E</span></div>
+                                <button type="button" onclick="cwPress('COS')" class="cw-btn cw-btn-fn">cos</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">tan⁻¹</span><span class="cw-alpha-txt">F</span></div>
+                                <button type="button" onclick="cwPress('TAN')" class="cw-btn cw-btn-fn">tan</button>
+                            </div>
+
+                            <!-- Row 3: STO/RCL, ENG, (, ), S⇔D, M+ -->
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">RCL</span><span class="cw-alpha-txt">i</span></div>
+                                <button type="button" onclick="cwPress('STO')" class="cw-btn cw-btn-fn">STO</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">|x|</span></div>
+                                <button type="button" onclick="cwPress('ENG')" class="cw-btn cw-btn-fn">ENG</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">%</span></div>
+                                <button type="button" onclick="cwPress('(')" class="cw-btn cw-btn-fn">(</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">,</span><span class="cw-alpha-txt">x</span></div>
+                                <button type="button" onclick="cwPress(')')" class="cw-btn cw-btn-fn">)</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">FORMAT</span></div>
+                                <button type="button" onclick="cwPress('SD')" class="cw-btn cw-btn-fn border-indigo-500/60 text-indigo-300">S⇔D</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">M-</span><span class="cw-alpha-txt">M</span></div>
+                                <button type="button" onclick="cwPress('M+')" class="cw-btn cw-btn-fn">M+</button>
+                            </div>
+
+                            <!-- Row 4: Calculus & Advanced Row (∫dx, d/dx, Σ, nPr, nCr, Pol/Rec) -->
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">Area</span></div>
+                                <button type="button" onclick="cwPress('INTG')" class="cw-btn cw-btn-fn text-emerald-300">∫dx</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">Slope</span></div>
+                                <button type="button" onclick="cwPress('DERIV')" class="cw-btn cw-btn-fn text-emerald-300">d/dx</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">Sum</span></div>
+                                <button type="button" onclick="cwPress('SIGMA')" class="cw-btn cw-btn-fn text-amber-300">∑x</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">Perm</span></div>
+                                <button type="button" onclick="cwPress('NPR')" class="cw-btn cw-btn-fn">nPr</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">Comb</span></div>
+                                <button type="button" onclick="cwPress('NCR')" class="cw-btn cw-btn-fn">nCr</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">Rec(</span></div>
+                                <button type="button" onclick="cwPress('POL')" class="cw-btn cw-btn-fn">Pol(</button>
+                            </div>
+                        </div>
+
+                        <!-- Main Number & Arithmetic Pad (5 Columns × 4 Rows) -->
+                        <div class="grid grid-cols-5 gap-2">
+                            <!-- Row 1: 7, 8, 9, DEL, AC -->
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">CONST</span></div>
+                                <button type="button" onclick="cwPress('7')" class="cw-btn cw-btn-num">7</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">CONV</span></div>
+                                <button type="button" onclick="cwPress('8')" class="cw-btn cw-btn-num">8</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">CLR</span></div>
+                                <button type="button" onclick="cwPress('9')" class="cw-btn cw-btn-num">9</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">INS</span></div>
+                                <button type="button" onclick="cwPress('DEL')" class="cw-btn cw-btn-del">DEL</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">OFF</span></div>
+                                <button type="button" onclick="cwPress('AC')" class="cw-btn cw-btn-ac">AC</button>
+                            </div>
+
+                            <!-- Row 2: 4, 5, 6, ×, ÷ -->
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">sinh</span></div>
+                                <button type="button" onclick="cwPress('4')" class="cw-btn cw-btn-num">4</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">cosh</span></div>
+                                <button type="button" onclick="cwPress('5')" class="cw-btn cw-btn-num">5</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">tanh</span></div>
+                                <button type="button" onclick="cwPress('6')" class="cw-btn cw-btn-num">6</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">GCD</span></div>
+                                <button type="button" onclick="cwPress('*')" class="cw-btn cw-btn-op">×</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">LCM</span></div>
+                                <button type="button" onclick="cwPress('/')" class="cw-btn cw-btn-op">÷</button>
+                            </div>
+
+                            <!-- Row 3: 1, 2, 3, +, - -->
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">stat</span></div>
+                                <button type="button" onclick="cwPress('1')" class="cw-btn cw-btn-num">1</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">cmplx</span></div>
+                                <button type="button" onclick="cwPress('2')" class="cw-btn cw-btn-num">2</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">dist</span></div>
+                                <button type="button" onclick="cwPress('3')" class="cw-btn cw-btn-num">3</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">Pol</span></div>
+                                <button type="button" onclick="cwPress('+')" class="cw-btn cw-btn-op">+</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">Rec</span></div>
+                                <button type="button" onclick="cwPress('-')" class="cw-btn cw-btn-op">−</button>
+                            </div>
+
+                            <!-- Row 4: 0, ., ×10ˣ, Ans, = -->
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">Rnd</span></div>
+                                <button type="button" onclick="cwPress('0')" class="cw-btn cw-btn-num">0</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">Ran#</span></div>
+                                <button type="button" onclick="cwPress('.')" class="cw-btn cw-btn-num">.</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">π</span><span class="cw-alpha-txt">e</span></div>
+                                <button type="button" onclick="cwPress('EXP')" class="cw-btn cw-btn-op text-xs">×10ˣ</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">PreAns</span></div>
+                                <button type="button" onclick="cwPress('ANS')" class="cw-btn cw-btn-op text-xs">Ans</button>
+                            </div>
+                            <div class="cw-btn-wrap">
+                                <div class="cw-sub-label"><span class="cw-shift-txt">≈</span></div>
+                                <button type="button" onclick="cwPress('=')" class="cw-btn cw-btn-exe">=</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- RIGHT COLUMN: Live Calculation Tape, Built-in Equation Solver & Quick Formats (6 Columns) -->
+                <section class="lg:col-span-6 flex flex-col gap-6">
+                    <!-- Multi-Format Output Inspector (Fraction, Mixed, Surd/Pi, Engineering, Decimal) -->
+                    <div class="custom-card border rounded-2xl p-5 sm:p-6 shadow-xl">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+                            <h3 class="text-sm font-semibold text-slate-200 uppercase tracking-wider flex items-center gap-2">
+                                <i data-lucide="layers" class="w-4 h-4 text-indigo-400"></i>
+                                <span data-key="cw_fmt_panel_title">ClassWiz Multi-Format Result (S⇔D)</span>
+                            </h3>
+                            <button type="button" onclick="copyToClipboard('cw-fmt-dec')" class="px-2.5 py-1 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-lg text-[11px] text-slate-300 flex items-center gap-1">
+                                <i data-lucide="copy" class="w-3 h-3"></i> <span data-key="cw_copy_ans">Copy Ans</span>
+                            </button>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+                                <span class="text-[10px] font-bold text-emerald-400 uppercase block mb-1" data-key="cw_std_dec">Standard Decimal</span>
+                                <div id="cw-fmt-dec" class="text-base font-bold code-font text-slate-100 break-all">0</div>
+                            </div>
+                            <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+                                <span class="text-[10px] font-bold text-indigo-400 uppercase block mb-1" data-key="cw_exact_frac">Exact Fraction (d/c)</span>
+                                <div id="cw-fmt-frac" class="text-base font-bold code-font text-indigo-300 break-all">0</div>
+                            </div>
+                            <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+                                <span class="text-[10px] font-bold text-amber-400 uppercase block mb-1" data-key="cw_mixed_frac">Mixed Fraction (a b/c)</span>
+                                <div id="cw-fmt-mixed" class="text-base font-bold code-font text-amber-300 break-all">0</div>
+                            </div>
+                            <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+                                <span class="text-[10px] font-bold text-pink-400 uppercase block mb-1" data-key="cw_sci_eng">Scientific / ENG Notation</span>
+                                <div id="cw-fmt-eng" class="text-base font-bold code-font text-pink-300 break-all">0 × 10⁰</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Equation & Polynomial Solver Card (Casio fx-991CW Equation App) -->
+                    <div class="custom-card border rounded-2xl p-5 sm:p-6 shadow-xl">
+                        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3 mb-4">
+                            <h3 class="text-sm font-semibold text-slate-200 uppercase tracking-wider flex items-center gap-2">
+                                <i data-lucide="function-square" class="w-4 h-4 text-pink-400"></i>
+                                <span data-key="cw_eq_title">fx-991CW Equation & Polynomial Solver</span>
+                            </h3>
+                            <select id="cw-eq-type" onchange="renderCwEquationInputs()" class="bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1 text-xs font-bold text-indigo-300 focus:outline-none">
+                                <option value="quad">ax² + bx + c = 0 (Quadratic)</option>
+                                <option value="cubic">ax³ + bx² + cx + d = 0 (Cubic)</option>
+                                <option value="sim2">a₁x + b₁y = c₁ & a₂x + b₂y = c₂</option>
+                            </select>
+                        </div>
+                        <div id="cw-eq-inputs" class="grid grid-cols-3 gap-2.5 mb-3">
+                            <!-- Injected dynamically -->
+                        </div>
+                        <button type="button" onclick="solveCwEquation()" class="w-full py-2.5 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white text-xs font-bold rounded-xl shadow-lg transition-all flex items-center justify-center gap-1.5">
+                            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                            <span data-key="cw_solve_btn">Solve Equation Roots</span>
+                        </button>
+                        <div id="cw-eq-result" class="mt-3 bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs code-font text-emerald-400">
+                            Enter coefficients above and press Solve.
+                        </div>
+                    </div>
+
+                    <!-- Calculation History Tape -->
+                    <div class="custom-card border rounded-2xl p-5 sm:p-6 shadow-xl flex-1 flex flex-col">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
+                            <h3 class="text-sm font-semibold text-slate-200 uppercase tracking-wider flex items-center gap-2">
+                                <i data-lucide="history" class="w-4 h-4 text-emerald-400"></i>
+                                <span data-key="cw_hist_title">Calculation Memory Tape</span>
+                            </h3>
+                            <button type="button" onclick="clearCwHistory()" class="text-xs text-slate-400 hover:text-rose-400" data-key="clear_wave">Clear</button>
+                        </div>
+                        <div id="cw-history-list" class="space-y-2 max-h-[210px] overflow-y-auto pr-1 text-xs code-font">
+                            <!-- History items injected here -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- BOTTOM SMART DEVICE-AWARE USER MANUAL (Auto-Detects Phone vs Laptop/Desktop + EN/BN) -->
+            <div class="custom-card border rounded-2xl p-5 sm:p-6 shadow-xl">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4 mb-4">
+                    <div>
+                        <h3 class="text-sm sm:text-base font-bold text-slate-100 uppercase tracking-wider flex items-center gap-2">
+                            <i data-lucide="book-open" class="w-5 h-5 text-amber-400"></i>
+                            <span id="cw-manual-heading">Casio fx-991CW User Manual & Guide</span>
+                        </h3>
+                        <p id="cw-manual-subheading" class="text-xs text-slate-400 mt-0.5">Automatically tailored for your current device</p>
+                    </div>
+                    <!-- Device Mode Switcher (Auto-detected by default, user can also preview) -->
+                    <div class="flex items-center gap-1.5 bg-slate-950 p-1 rounded-xl border border-slate-800 self-start sm:self-auto">
+                        <button type="button" onclick="setManualDeviceMode('mobile')" id="btn-man-mobile" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5">
+                            <span>📱</span> <span data-key="cw_man_phone_btn">Phone Guide</span>
+                        </button>
+                        <button type="button" onclick="setManualDeviceMode('desktop')" id="btn-man-desktop" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5">
+                            <span>💻</span> <span data-key="cw_man_pc_btn">Laptop / PC Shortcuts</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Dynamic Manual Body -->
+                <div id="cw-manual-content" class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs leading-relaxed">
+                    <!-- Populated automatically by renderCasioManual() -->
+                </div>
+            </div>
+        </div>
+
         <!-- ==================== TAB 3: QUIZ & CHALLENGE WORKSPACE ==================== -->
         <div id="tab-quiz" class="tab-content hidden max-w-2xl mx-auto flex flex-col gap-6 animate-fadeIn">
             
@@ -995,7 +1764,8 @@ input, textarea, [contenteditable="true"] {
         const translations = {
             en: {
                 tab_converter: "Converter & Waves",
-                tab_calculator: "Multi-Calculator",
+                tab_calculator: "Number System Calculator",
+                tab_scientific: "Scientific (fx-991CW)",
                 tab_quiz: "Quiz",
                 header_subtitle: "Decimal conversion, live digital wave & multi-operand math engine",
                 bit_board_title: "8-Bit Register",
@@ -1067,7 +1837,8 @@ input, textarea, [contenteditable="true"] {
             },
             bn: {
                 tab_converter: "রূপান্তর ও তরঙ্গ",
-                tab_calculator: "গাণিতিক ক্যালকুলেটর",
+                tab_calculator: "নাম্বার সিস্টেম ক্যালকুলেটর",
+                tab_scientific: "সায়েন্টিফিক (fx-991CW)",
                 tab_quiz: "কুইজ কর্নার",
                 header_subtitle: "ডেসিমাল রূপান্তর, লাইভ ডিজিটাল ওয়েভ ও মাল্টি-অপারেন্ড ম্যাথ ইঞ্জিন",
                 bit_board_title: "৮-বিট রেজিস্টার (পূর্ণসংখ্যা)",
@@ -1320,29 +2091,35 @@ input, textarea, [contenteditable="true"] {
             }
         }
 
-        // Tab Navigation Engine
+// Tab Navigation Engine
+        let currentActiveTab = 'converter-tab';
         function switchTab(tabId) {
             playTone(450, 'sine', 0.08);
+            currentActiveTab = tabId;
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
             document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.className = "tab-btn px-3.5 py-2 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-slate-200 flex items-center gap-1.5";
+                btn.className = "tab-btn px-3 py-2 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-slate-200 flex items-center gap-1.5";
             });
             if (tabId === 'converter-tab') {
                 document.getElementById('tab-converter').classList.remove('hidden');
-                document.getElementById('tab-btn-converter').className = "tab-btn px-3.5 py-2 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white flex items-center gap-1.5 shadow";
+                document.getElementById('tab-btn-converter').className = "tab-btn px-3 py-2 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white flex items-center gap-1.5 shadow";
                 setTimeout(triggerWaveformDrawing, 100);
             } else if (tabId === 'calculator-tab') {
                 document.getElementById('tab-calculator').classList.remove('hidden');
-                document.getElementById('tab-btn-calculator').className = "tab-btn px-3.5 py-2 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white flex items-center gap-1.5 shadow";
+                document.getElementById('tab-btn-calculator').className = "tab-btn px-3 py-2 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white flex items-center gap-1.5 shadow";
+            } else if (tabId === 'scientific-tab') {
+                document.getElementById('tab-scientific').classList.remove('hidden');
+                document.getElementById('tab-btn-scientific').className = "tab-btn px-3 py-2 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white flex items-center gap-1.5 shadow";
+                cwRenderDisplay();
+                renderCasioManual();
             } else if (tabId === 'quiz-tab') {
                 document.getElementById('tab-quiz').classList.remove('hidden');
-                document.getElementById('tab-btn-quiz').className = "tab-btn px-3.5 py-2 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white flex items-center gap-1.5 shadow";
+                document.getElementById('tab-btn-quiz').className = "tab-btn px-3 py-2 rounded-lg text-xs font-bold transition-all bg-indigo-600 text-white flex items-center gap-1.5 shadow";
                 generateNewQuiz();
                 const feedbackEl = document.getElementById('quiz-feedback');
                 if (feedbackEl) feedbackEl.classList.add('hidden');
             }
         }
-
         // Premium Speech Bubble Toast Logic
         let toastTimeout;
         function showToast(message, type = 'success') {
@@ -2536,8 +3313,11 @@ input, textarea, [contenteditable="true"] {
             renderCalculatorRows();
         }
 
+let hasCalculatedArithmetic = false;
+
         function resetCalculator() {
             playTone(250, 'sine', 0.15);
+            hasCalculatedArithmetic = false;
             calculatorRows = [
                 { value: '', base: 10, operator: '+' },
                 { value: '', base: 10, operator: '+' }
@@ -2550,29 +3330,353 @@ input, textarea, [contenteditable="true"] {
             document.getElementById('calc-out-hex').innerText = '0';
             
             document.getElementById('calc-steps-container').innerHTML = `
-<div class="bg-slate-950/50 border border-slate-800/80 p-4 rounded-xl flex gap-3 light-mode-card-fix">
+                <div class="bg-slate-950/50 border border-slate-800/80 p-4 rounded-xl flex gap-3 light-mode-card-fix">
                     <div class="p-2 bg-indigo-500/10 text-indigo-400 rounded-lg self-start">
                         <i data-lucide="info" class="w-5 h-5"></i>
                     </div>
                     <div>
-                        <p class="font-semibold text-slate-200 mb-1" data-key="solution_title">Calculator Notes</p>
-                        <p class="text-slate-400 text-xs" data-key="calc_assistant_ready">${translations[currentLang].calc_assistant_ready}</p>
+                        <p class="font-semibold text-slate-200 mb-1" data-key="solution_title">${t('solution_title')}</p>
+                        <p class="text-slate-400 text-xs" data-key="calc_assistant_ready">${t('calc_assistant_ready')}</p>
                     </div>
                 </div>
             `;
             lucide.createIcons();
-
-            // Show reset success toast
             triggerSuccessToast('reset_calculator_toast');
         }
 
-        // Cumulative calculation evaluation
-        function runArithmetic() {
-            // Check if any fields are empty or invalid
+        // Helper 1: Beginner-Friendly Step-by-Step Base -> Decimal Breakdown for Each Calculator Row
+        function buildCalcRowToDecHTML(rawStr, base, decVal, rowNum) {
+            const cleanStr = rawStr.trim().toUpperCase();
+            const baseNames = {
+                2: currentLang === 'en' ? 'Binary (Base 2)' : 'বাইনারি (Base 2)',
+                8: currentLang === 'en' ? 'Octal (Base 8)' : 'অক্টাল (Base 8)',
+                10: currentLang === 'en' ? 'Decimal (Base 10)' : 'ডেসিমাল (Base 10)',
+                16: currentLang === 'en' ? 'Hexadecimal (Base 16)' : 'হেক্সাডেসিমাল (Base 16)'
+            };
+
+            if (base === 10) {
+                return `
+                    <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800 space-y-1.5">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-indigo-400">${currentLang === 'en' ? `Number #${rowNum}: (${cleanStr})₁₀ [${baseNames[base]}]` : `${rowNum} নং সংখ্যা: (${cleanStr})₁₀ [${baseNames[base]}]`}</span>
+                            <span class="text-xs code-font font-bold text-emerald-400">= ${decVal}<sub>10</sub></span>
+                        </div>
+                        <p class="text-[11px] text-slate-400">
+                            ${currentLang === 'en'
+                                ? `Since this number is already in Decimal (Base 10), no conversion is needed. Its value is directly <b>${decVal}</b>.`
+                                : `এই সংখ্যাটি আগে থেকেই ডেসিমাল (Base 10) পদ্ধতিতে আছে, তাই এটিকে আলাদা করে রূপান্তর করার প্রয়োজন নেই। এর মান সরাসরি <b>${decVal}</b>।`}
+                        </p>
+                    </div>
+                `;
+            }
+
+            const parts = cleanStr.split('.');
+            const intChars = parts[0] ? parts[0].split('') : ['0'];
+            const fracChars = parts[1] ? parts[1].split('') : [];
+
+            let formulaTerms = [];
+            let multTerms = [];
+            let valTerms = [];
+            let hexNotes = [];
+
+            for (let i = 0; i < intChars.length; i++) {
+                const p = intChars.length - 1 - i;
+                const ch = intChars[i];
+                const dVal = parseInt(ch, base);
+                const weight = Math.pow(base, p);
+                const prod = dVal * weight;
+                if (base === 16 && isNaN(Number(ch))) hexNotes.push(`${ch}=${dVal}`);
+                formulaTerms.push(`(${ch} × ${base}<sup>${p}</sup>)`);
+                multTerms.push(`(${dVal} × ${weight})`);
+                valTerms.push(`${prod}`);
+            }
+
+            for (let i = 0; i < fracChars.length; i++) {
+                const p = -(i + 1);
+                const ch = fracChars[i];
+                const dVal = parseInt(ch, base);
+                const weight = Number(Math.pow(base, p).toPrecision(8));
+                const prod = Number((dVal * weight).toPrecision(10));
+                if (base === 16 && isNaN(Number(ch))) hexNotes.push(`${ch}=${dVal}`);
+                formulaTerms.push(`(${ch} × ${base}<sup>${p}</sup>)`);
+                multTerms.push(`(${dVal} × ${weight})`);
+                valTerms.push(`${prod}`);
+            }
+
+            const uniqueHex = [...new Set(hexNotes)];
+            const hexHintHtml = uniqueHex.length > 0
+                ? `<div class="text-[11px] text-pink-400 font-mono">${currentLang === 'en' ? `Hex letter values used: ${uniqueHex.join(', ')}` : `এখানে ব্যবহৃত হেক্সাডেসিমাল অক্ষরের মান: ${uniqueHex.join(', ')}`}</div>`
+                : '';
+
+            return `
+                <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800 space-y-2 overflow-x-auto">
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-900 pb-1.5">
+                        <span class="text-xs font-bold text-indigo-400">${currentLang === 'en' ? `Number #${rowNum}: (${cleanStr})<sub>${base}</sub> ➜ Decimal (Base 10)` : `${rowNum} নং সংখ্যা: (${cleanStr})<sub>${base}</sub> থেকে ডেসিমালে রূপান্তর`}</span>
+                        <span class="text-xs code-font font-bold text-emerald-400">= (${decVal})<sub>10</sub></span>
+                    </div>
+                    <p class="text-[11px] text-slate-400">
+                        ${currentLang === 'en'
+                            ? `Multiply each digit of <b>(${cleanStr})<sub>${base}</sub></b> by powers of <b>${base}</b> (from right to left starting at ${base}⁰ = 1):`
+                            : `<b>(${cleanStr})<sub>${base}</sub></b>-এর প্রতিটি অংককে ডান দিক থেকে বাম দিকে <b>${base}</b>-এর ঘাত (${base}⁰, ${base}¹, ${base}²...) দিয়ে গুণ করে যোগ করি:`}
+                    </p>
+                    ${hexHintHtml}
+                    <div class="text-xs code-font text-slate-300 space-y-1 bg-slate-900/60 p-2.5 rounded-lg border border-slate-800/80">
+                        <div>= ${formulaTerms.join(' + ')}</div>
+                        <div class="text-slate-400">= ${multTerms.join(' + ')}</div>
+                        <div class="text-indigo-300">= ${valTerms.join(' + ')}</div>
+                        <div class="text-emerald-400 font-bold pt-1 border-t border-slate-800">= ${decVal}<sub>10</sub></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Helper 2: Column-by-Column Binary & Decimal Step-by-Step Arithmetic Explanation (With Carry / Borrow!)
+        function buildPairOperationDetailHTML(prevDec, nextDec, op, stepNum, rowBase, rawNextVal) {
+            const opNames = {
+                '+': { en: 'Addition (+)', bn: 'যোগ (+)', sym: '+' },
+                '-': { en: 'Subtraction (−)', bn: 'বিয়োগ (−)', sym: '−' },
+                '*': { en: 'Multiplication (×)', bn: 'গুণ (×)', sym: '×' },
+                '/': { en: 'Division (÷)', bn: 'ভাগ (÷)', sym: '÷' }
+            };
+
+            let resDec = 0;
+            if (op === '+') resDec = Number((prevDec + nextDec).toPrecision(14));
+            else if (op === '-') resDec = Number((prevDec - nextDec).toPrecision(14));
+            else if (op === '*') resDec = Number((prevDec * nextDec).toPrecision(14));
+            else if (op === '/') resDec = Number((prevDec / nextDec).toPrecision(14));
+
+            const binA = decimalToBaseFractional(prevDec, 2);
+            const binB = decimalToBaseFractional(nextDec, 2);
+            const binRes = decimalToBaseFractional(resDec, 2);
+
+            // Beginner Rule Guide Box per Operator
+            let ruleBoxHtml = '';
+            if (op === '+') {
+                ruleBoxHtml = currentLang === 'en'
+                    ? `<div class="text-[11px] bg-indigo-950/30 border border-indigo-500/30 p-2.5 rounded-lg text-slate-300">
+                        <strong class="text-indigo-300 block mb-0.5">💡 Binary Addition Rules (Used Column-by-Column):</strong>
+                        <span class="code-font">0 + 0 = 0</span> &nbsp;|&nbsp; <span class="code-font">0 + 1 = 1</span> &nbsp;|&nbsp; <span class="code-font">1 + 0 = 1</span> &nbsp;|&nbsp; <span class="code-font">1 + 1 = 10₂</span> (Write <b>0</b>, Carry <b>1</b>) &nbsp;|&nbsp; <span class="code-font">1 + 1 + 1 = 11₂</span> (Write <b>1</b>, Carry <b>1</b>)
+                       </div>`
+                    : `<div class="text-[11px] bg-indigo-950/30 border border-indigo-500/30 p-2.5 rounded-lg text-slate-300">
+                        <strong class="text-indigo-300 block mb-0.5">💡 বাইনারি যোগের সহজ সূত্র (ডান থেকে বামে প্রতিটি কলামের জন্য):</strong>
+                        <span class="code-font">0 + 0 = 0</span> &nbsp;|&nbsp; <span class="code-font">0 + 1 = 1</span> &nbsp;|&nbsp; <span class="code-font">1 + 0 = 1</span> &nbsp;|&nbsp; <span class="code-font">1 + 1 = 10₂</span> (যোগফল বসে <b>0</b>, হাতে থাকে বা Carry <b>1</b>) &nbsp;|&nbsp; <span class="code-font">1 + 1 + 1 = 11₂</span> (যোগফল বসে <b>1</b>, হাতে থাকে <b>1</b>)
+                       </div>`;
+            } else if (op === '-') {
+                ruleBoxHtml = currentLang === 'en'
+                    ? `<div class="text-[11px] bg-indigo-950/30 border border-indigo-500/30 p-2.5 rounded-lg text-slate-300">
+                        <strong class="text-indigo-300 block mb-0.5">💡 Binary Subtraction Rules:</strong>
+                        <span class="code-font">0 − 0 = 0</span> &nbsp;|&nbsp; <span class="code-font">1 − 0 = 1</span> &nbsp;|&nbsp; <span class="code-font">1 − 1 = 0</span> &nbsp;|&nbsp; <span class="code-font">0 − 1 = 1</span> (Borrow <b>1</b> from the left column so <span class="code-font">0</span> becomes <span class="code-font">10₂ = 2</span>, and <span class="code-font">2 − 1 = 1</span>)
+                       </div>`
+                    : `<div class="text-[11px] bg-indigo-950/30 border border-indigo-500/30 p-2.5 rounded-lg text-slate-300">
+                        <strong class="text-indigo-300 block mb-0.5">💡 বাইনারি বিয়োগের সহজ সূত্র:</strong>
+                        <span class="code-font">0 − 0 = 0</span> &nbsp;|&nbsp; <span class="code-font">1 − 0 = 1</span> &nbsp;|&nbsp; <span class="code-font">1 − 1 = 0</span> &nbsp;|&nbsp; <span class="code-font">0 − 1 = 1</span> (উপরে 0 ছোট হওয়ায় বাম পাশের ঘর থেকে <b>1</b> ধার বা Borrow নিলে <span class="code-font">10₂ = 2</span> হয়, আর <span class="code-font">2 − 1 = 1</span> বসে)
+                       </div>`;
+            } else if (op === '*') {
+                ruleBoxHtml = currentLang === 'en'
+                    ? `<div class="text-[11px] bg-indigo-950/30 border border-indigo-500/30 p-2.5 rounded-lg text-slate-300">
+                        <strong class="text-indigo-300 block mb-0.5">💡 Binary & Base Multiplication Rule:</strong>
+                        <span class="code-font">0 × 0 = 0</span>, <span class="code-font">0 × 1 = 0</span>, <span class="code-font">1 × 1 = 1</span>. Multiply each digit and shift left by 1 position for each next multiplier bit, then add the partial products.
+                       </div>`
+                    : `<div class="text-[11px] bg-indigo-950/30 border border-indigo-500/30 p-2.5 rounded-lg text-slate-300">
+                        <strong class="text-indigo-300 block mb-0.5">💡 বাইনারি ও সংখ্যা পদ্ধতির গুণের নিয়ম:</strong>
+                        সাধারণ গুণের মতোই <span class="code-font">0 × 0 = 0</span>, <span class="code-font">0 × 1 = 0</span>, <span class="code-font">1 × 1 = 1</span>। নিচের প্রতিটি অংক দিয়ে উপরের সংখ্যাকে গুণ করে এক ঘর করে বামে সরিয়ে সবগুলো আংশিক গুণফল যোগ করা হয়।
+                       </div>`;
+            } else {
+                ruleBoxHtml = currentLang === 'en'
+                    ? `<div class="text-[11px] bg-indigo-950/30 border border-indigo-500/30 p-2.5 rounded-lg text-slate-300">
+                        <strong class="text-indigo-300 block mb-0.5">💡 Division Rule:</strong>
+                        Divide the dividend (${prevDec}) by the divisor (${nextDec}). The quotient is <b>${resDec}</b> (Integer Quotient = ${Math.trunc(prevDec / nextDec)}, Remainder = ${Number((prevDec % nextDec).toPrecision(8))}).
+                       </div>`
+                    : `<div class="text-[11px] bg-indigo-950/30 border border-indigo-500/30 p-2.5 rounded-lg text-slate-300">
+                        <strong class="text-indigo-300 block mb-0.5">💡 ভাগের নিয়ম:</strong>
+                        ভাজ্যকে (${prevDec}) ভাজক (${nextDec}) দিয়ে ভাগ করা হয়েছে। পূর্ণ ভাগফল = <b>${Math.trunc(prevDec / nextDec)}</b>, ভাগশেষ = <b>${Number((prevDec % nextDec).toPrecision(8))}</b> এবং সম্পূর্ণ দশমিক ভাগফল = <b>${resDec}</b>।
+                       </div>`;
+            }
+
+            // Generate Column-by-Column Bit Explanation when both numbers are non-negative integers (most common learning case!)
+            let colBreakdownHtml = '';
+            const isIntPair = Number.isInteger(prevDec) && Number.isInteger(nextDec) && prevDec >= 0 && nextDec >= 0 && prevDec <= 65535 && nextDec <= 65535;
+
+            if (isIntPair && (op === '+' || (op === '-' && prevDec >= nextDec))) {
+                const maxLen = Math.max(binA.length, binB.length, binRes.length);
+                const padA = binA.padStart(maxLen, '0');
+                const padB = binB.padStart(maxLen, '0');
+                const padR = binRes.padStart(maxLen, '0');
+
+                let colNotes = [];
+                if (op === '+') {
+                    let carry = 0;
+                    let carryRow = Array(maxLen).fill(' ');
+                    for (let i = maxLen - 1; i >= 0; i--) {
+                        const bit1 = parseInt(padA[i], 10);
+                        const bit2 = parseInt(padB[i], 10);
+                        const sum = bit1 + bit2 + carry;
+                        const resBit = sum % 2;
+                        const nextCarry = Math.floor(sum / 2);
+                        const colNo = maxLen - i;
+                        if (i > 0 && nextCarry > 0) carryRow[i - 1] = '1';
+
+                        if (currentLang === 'en') {
+                            colNotes.push(`<li><b>Column ${colNo} (from right):</b> <span class="code-font">${bit1} + ${bit2}${carry ? ` + 1 (Carry)` : ''} = ${sum}₁₀ = (${ sum.toString(2) })₂</span> ➜ Write <b class="text-emerald-400">${resBit}</b>, Carry <b class="text-amber-400">${nextCarry}</b></li>`);
+                        } else {
+                            colNotes.push(`<li><b>ডান দিক থেকে ${colNo} নং কলাম:</b> <span class="code-font">${bit1} + ${bit2}${carry ? ` + 1 (হাতে থাকা)` : ''} = ${sum}₁₀ = (${ sum.toString(2) })₂</span> ➜ নিচে বসলো <b class="text-emerald-400">${resBit}</b>, হাতে রইল (Carry) <b class="text-amber-400">${nextCarry}</b></li>`);
+                        }
+                        carry = nextCarry;
+                    }
+                    colBreakdownHtml = `
+                        <div class="mt-2 bg-slate-900/70 p-3 rounded-lg border border-slate-800 space-y-2">
+                            <div class="text-[11px] font-bold text-amber-400">${currentLang === 'en' ? '📌 Column-by-Column Binary Addition (Right to Left):' : '📌 ডান দিক থেকে বাম দিকে প্রতিটি কলামের বাইনারি যোগের ব্যাখ্যা:'}</div>
+                            <ul class="text-[11px] text-slate-300 space-y-1 list-disc list-inside">${colNotes.join('')}</ul>
+                        </div>
+                    `;
+                } else if (op === '-') {
+                    let borrow = 0;
+                    for (let i = maxLen - 1; i >= 0; i--) {
+                        let bit1 = parseInt(padA[i], 10) - borrow;
+                        const origBit1 = parseInt(padA[i], 10);
+                        const bit2 = parseInt(padB[i], 10);
+                        const prevBorrow = borrow;
+                        if (bit1 < bit2) {
+                            bit1 += 2;
+                            borrow = 1;
+                        } else {
+                            borrow = 0;
+                        }
+                        const resBit = bit1 - bit2;
+                        const colNo = maxLen - i;
+                        if (currentLang === 'en') {
+                            colNotes.push(`<li><b>Column ${colNo} (from right):</b> <span class="code-font">${origBit1}${prevBorrow ? ' − 1 (Borrowed)' : ''} − ${bit2}</span> ${borrow ? `(Borrowed 1 from left ➜ ${bit1} − ${bit2})` : ''} = Write <b class="text-emerald-400">${resBit}</b></li>`);
+                        } else {
+                            colNotes.push(`<li><b>ডান দিক থেকে ${colNo} নং কলাম:</b> <span class="code-font">${origBit1}${prevBorrow ? ' − 1 (ধার দেওয়া)' : ''} − ${bit2}</span> ${borrow ? `(বাম ঘর থেকে 1 ধার নিয়ে ${bit1} − ${bit2})` : ''} = নিচে বসলো <b class="text-emerald-400">${resBit}</b></li>`);
+                        }
+                    }
+                    colBreakdownHtml = `
+                        <div class="mt-2 bg-slate-900/70 p-3 rounded-lg border border-slate-800 space-y-2">
+                            <div class="text-[11px] font-bold text-amber-400">${currentLang === 'en' ? '📌 Column-by-Column Binary Subtraction (Right to Left):' : '📌 ডান দিক থেকে বাম দিকে প্রতিটি কলামের বাইনারি বিয়োগের ব্যাখ্যা:'}</div>
+                            <ul class="text-[11px] text-slate-300 space-y-1 list-disc list-inside">${colNotes.join('')}</ul>
+                        </div>
+                    `;
+                }
+            }
+
+            return `
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-900 pb-2">
+                        <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">
+                            ${currentLang === 'en' ? `Operation #${stepNum}: ${opNames[op].en}` : `গাণিতিক ধাপ #${stepNum}: ${opNames[op].bn}`}
+                        </span>
+                        <span class="text-xs font-mono text-slate-400">${prevDec} ${opNames[op].sym} ${nextDec} = <b class="text-emerald-400">${resDec}</b></span>
+                    </div>
+
+                    ${ruleBoxHtml}
+
+                    <!-- Side-by-Side Vertical Alignment (Binary Alignment & Decimal Alignment) -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+                            <div class="text-[10px] font-bold text-indigo-400 uppercase mb-1.5">${currentLang === 'en' ? 'Binary Vertical Alignment (Base 2)' : 'বাইনারি পদ্ধতিতে উপর-নিচে হিসাব (Base 2)'}</div>
+                            <div class="code-font text-xs sm:text-sm text-right space-y-0.5 pr-2">
+                                <div class="text-slate-200">${binA}<sub>2</sub></div>
+                                <div class="text-pink-400 border-b border-slate-700 pb-1">${opNames[op].sym} ${binB}<sub>2</sub></div>
+                                <div class="text-emerald-400 font-bold pt-1">= ${binRes}<sub>2</sub></div>
+                            </div>
+                        </div>
+                        <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+                            <div class="text-[10px] font-bold text-emerald-400 uppercase mb-1.5">${currentLang === 'en' ? 'Decimal Verification (Base 10)' : 'ডেসিমাল পদ্ধতিতে যাচাই (Base 10)'}</div>
+                            <div class="code-font text-xs sm:text-sm text-right space-y-0.5 pr-2">
+                                <div class="text-slate-200">${prevDec}<sub>10</sub></div>
+                                <div class="text-pink-400 border-b border-slate-700 pb-1">${opNames[op].sym} ${nextDec}<sub>10</sub></div>
+                                <div class="text-emerald-400 font-bold pt-1">= ${resDec}<sub>10</sub></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    ${colBreakdownHtml}
+                </div>
+            `;
+        }
+
+        // Helper 3: Full Step-by-Step Conversion of the Final Decimal Answer into Target Base (2, 8, 16)
+        function buildFinalResultBaseConversionHTML(decVal, targetBase) {
+            const baseNames = {
+                2: { en: 'Binary (Base 2)', bn: 'বাইনারি (Base 2)', color: 'text-indigo-400' },
+                8: { en: 'Octal (Base 8)', bn: 'অক্টাল (Base 8)', color: 'text-violet-400' },
+                16: { en: 'Hexadecimal (Base 16)', bn: 'হেক্সাডেসিমাল (Base 16)', color: 'text-pink-400' }
+            };
+            const isNeg = decVal < 0;
+            const absVal = Math.abs(decVal);
+            const intPart = Math.floor(absVal);
+            let fracPart = Number((absVal - intPart).toPrecision(12));
+
+            let tempInt = intPart;
+            let divSteps = [];
+            while (tempInt > 0) {
+                const q = Math.floor(tempInt / targetBase);
+                const r = tempInt % targetBase;
+                const rChar = r.toString(targetBase).toUpperCase();
+                divSteps.push(`${tempInt} ÷ ${targetBase} = ${currentLang === 'en' ? 'Quotient' : 'ভাগফল'} <b>${q}</b>, ${currentLang === 'en' ? 'Remainder' : 'ভাগশেষ'} <b class="text-rose-400">${rChar}</b>${r >= 10 ? ` (${r})` : ''}`);
+                tempInt = q;
+            }
+            if (divSteps.length === 0) {
+                divSteps.push(`0 ÷ ${targetBase} = ${currentLang === 'en' ? 'Quotient' : 'ভাগফল'} <b>0</b>, ${currentLang === 'en' ? 'Remainder' : 'ভাগশেষ'} <b class="text-rose-400">0</b>`);
+            }
+
+            let fracSteps = [];
+            let tempFrac = fracPart;
+            let steps = 0;
+            while (tempFrac > 1e-10 && steps < 6) {
+                const prev = Number(tempFrac.toFixed(6));
+                const prod = Number((tempFrac * targetBase).toPrecision(12));
+                const carry = Math.floor(prod);
+                const cChar = carry.toString(targetBase).toUpperCase();
+                fracSteps.push(`${prev} × ${targetBase} = ${Number(prod.toFixed(6))} ➜ ${currentLang === 'en' ? 'Integer' : 'পূর্ণাংশ'} <b class="text-emerald-400">${cChar}</b>`);
+                tempFrac = Number((prod - carry).toPrecision(12));
+                steps++;
+            }
+
+            const finalStr = decimalToBaseFractional(decVal, targetBase);
+            let twoCompNote = '';
+            if (isNeg && targetBase === 2 && Number.isInteger(absVal) && absVal <= 128) {
+                const twos = ((256 - absVal) & 0xFF).toString(2).padStart(8, '0');
+                twoCompNote = `<div class="text-[11px] text-amber-300 mt-1">${currentLang === 'en' ? `ℹ️ Signed 8-Bit 2's Complement of ${decVal} is: <b>${twos}₂</b>` : `ℹ️ ঋণাত্মক সংখ্যাটির ৮-বিট ২-এর পরিপূরক (2's Complement) মান: <b>${twos}₂</b>`}</div>`;
+            }
+
+            return `
+                <div class="bg-slate-900/70 p-3.5 rounded-xl border border-slate-800 space-y-2">
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-1.5">
+                        <span class="text-xs font-bold ${baseNames[targetBase].color}">
+                            ${currentLang === 'en' ? `➜ Convert Result (${decVal})₁₀ to ${baseNames[targetBase].en}` : `➜ ফলাফল (${decVal})₁₀-কে ${baseNames[targetBase].bn}-এ রূপান্তর`}
+                        </span>
+                        <span class="text-xs code-font font-bold text-white">= (${finalStr})<sub>${targetBase}</sub></span>
+                    </div>
+                    <div class="text-[11px] text-slate-400">
+                        ${currentLang === 'en'
+                            ? `Divide ${intPart} successively by ${targetBase} and read remainders from <b>Bottom to Top (↑)</b>:`
+                            : `পূর্ণসংখ্যা ${intPart}-কে ${targetBase} দিয়ে পর্যায়ক্রমে ভাগ করে ভাগশেষগুলো <b>নিচ থেকে উপরে (↑)</b> সাজিয়ে পাই:`}
+                    </div>
+                    <div class="text-xs code-font text-slate-300 space-y-1 pl-2 border-l-2 border-indigo-500/40">
+                        ${divSteps.map(s => `<div>${s}</div>`).join('')}
+                    </div>
+                    ${fracSteps.length > 0 ? `
+                        <div class="text-[11px] text-slate-400 pt-1">
+                            ${currentLang === 'en'
+                                ? `Multiply fractional part by ${targetBase} and read integers from <b>Top to Bottom (↓)</b>:`
+                                : `দশমিক ভগ্নাংশকে ${targetBase} দিয়ে গুণ করে পূর্ণাংশগুলো <b>উপর থেকে নিচে (↓)</b> সাজিয়ে পাই:`}
+                        </div>
+                        <div class="text-xs code-font text-slate-300 space-y-1 pl-2 border-l-2 border-emerald-500/40">
+                            ${fracSteps.map(s => `<div>${s}</div>`).join('')}
+                        </div>
+                    ` : ''}
+                    ${twoCompNote}
+                </div>
+            `;
+        }
+
+        // Complete Beginner-Friendly Multi-Operand Calculation & Explanation Engine
+        function runArithmetic(silent = false) {
             let hasError = false;
             let firstEmpty = false;
 
-            calculatorRows.forEach((row, i) => {
+            calculatorRows.forEach((row) => {
                 if (row.value === "") {
                     firstEmpty = true;
                     return;
@@ -2583,108 +3687,162 @@ input, textarea, [contenteditable="true"] {
             });
 
             if (firstEmpty) {
-                triggerErrorToast(currentLang === 'en' ? "Please fill all numbers!" : "দয়া করে প্রতিটি সংখ্যা ফিল্ড পূরণ করুন!");
+                if (!silent) triggerErrorToast(currentLang === 'en' ? "Please fill all numbers!" : "দয়া করে প্রতিটি সংখ্যা ফিল্ড পূরণ করুন!");
                 return;
             }
 
             if (hasError) {
-                triggerErrorToast('invalid_toast');
+                if (!silent) triggerErrorToast('invalid_toast');
                 return;
             }
 
-            playTone(650, 'sine', 0.12);
-
-            // Step explanation generation starts
-            let stepsHtml = `<div class="space-y-4">
-                <p class="text-xs text-slate-400">
-                    ${currentLang === 'en' ? 'To perform dynamic multi-operand arithmetic operations reliably, every number in the expression is converted into the standard Decimal system. Operations are processed sequentially, and the cumulative output is converted back into all representation bases.' : 'আনলিমিটেড বহু-সংখ্যার হিসাব সম্পন্ন করার সবচেয়ে নির্ভুল ও বৈজ্ঞানিক পদ্ধতি হলো প্রত্যেকটি পদকে প্রথমে ডেসিমাল সংখ্যা পদ্ধতিতে রূপান্তর করা, পর্যায়ক্রমে সমীকরণ সমাধান করা এবং প্রাপ্ত ফলাফলকে পুনরায় রূপান্তর করা।'}
-                </p>
-            `;
-
-            let currentDecResult = 0;
-            let equationExpression = "";
-
-            calculatorRows.forEach((row, index) => {
-                const decVal = baseToDecimalFractional(row.value, row.base);
-                
-                stepsHtml += `
-                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                        <span class="text-xs text-indigo-400 font-bold block mb-1">Row #${index + 1} System Translation</span>
-                        <div class="text-xs code-font text-slate-300">
-                            (${row.value})<sub>${row.base}</sub> ➜ <b>${decVal}</b><sub>10</sub>
-                        </div>
-                    </div>
-                `;
-
-                if (index === 0) {
-                    currentDecResult = decVal;
-                    equationExpression += `${decVal}`;
-                } else {
-                    const op = row.operator;
-                    equationExpression += ` ${op} ${decVal}`;
-                    
-                    if (op === '+') currentDecResult += decVal;
-                    else if (op === '-') currentDecResult -= decVal;
-                    else if (op === '*') currentDecResult *= decVal;
-                    else if (op === '/') {
-                        if (decVal === 0) {
-                            triggerErrorToast(currentLang === 'en' ? "Math error: Divide by zero!" : "গাণিতিক ত্রুটি: শূন্য দ্বারা ভাগ অসম্ভব!");
-                            return;
-                        }
-                        currentDecResult /= decVal;
-                    }
+            for (let i = 1; i < calculatorRows.length; i++) {
+                if (calculatorRows[i].operator === '/' && baseToDecimalFractional(calculatorRows[i].value, calculatorRows[i].base) === 0) {
+                    if (!silent) triggerErrorToast(currentLang === 'en' ? "Math error: Divide by zero!" : "গাণিতিক ত্রুটি: শূন্য দ্বারা ভাগ অসম্ভব!");
+                    return;
                 }
+            }
+
+            if (!silent) playTone(650, 'sine', 0.12);
+            hasCalculatedArithmetic = true;
+
+            const opSyms = { '+': '+', '-': '−', '*': '×', '/': '÷' };
+            const fullProblemStr = calculatorRows.map((r, i) => `${i > 0 ? ` <span class="text-pink-400 font-bold">${opSyms[r.operator]}</span> ` : ''}(${r.value.toUpperCase()})<sub>${r.base}</sub>`).join('');
+
+            // Phase 1: Convert every input number to Decimal with full positional expansion
+            let phase1Html = '';
+            let decValues = [];
+            calculatorRows.forEach((row, index) => {
+                const dVal = baseToDecimalFractional(row.value.toUpperCase(), row.base);
+                decValues.push(dVal);
+                phase1Html += buildCalcRowToDecHTML(row.value, row.base, dVal, index + 1);
             });
 
-            // Update UI
-            document.getElementById('calc-out-dec').innerText = decimalToBaseFractional(currentDecResult, 10);
-            document.getElementById('calc-out-bin').innerText = decimalToBaseFractional(currentDecResult, 2);
-            document.getElementById('calc-out-oct').innerText = decimalToBaseFractional(currentDecResult, 8);
-            document.getElementById('calc-out-hex').innerText = decimalToBaseFractional(currentDecResult, 16);
+            // Phase 2: Sequential Pairwise Operations (With Binary Vertical Alignment & Column-by-Column Carry/Borrow!)
+            let phase2Html = '';
+            let runningDec = decValues[0];
+            for (let i = 1; i < calculatorRows.length; i++) {
+                const op = calculatorRows[i].operator;
+                const nextDec = decValues[i];
+                phase2Html += buildPairOperationDetailHTML(runningDec, nextDec, op, i, calculatorRows[i].base, calculatorRows[i].value);
+                if (op === '+') runningDec = Number((runningDec + nextDec).toPrecision(14));
+                else if (op === '-') runningDec = Number((runningDec - nextDec).toPrecision(14));
+                else if (op === '*') runningDec = Number((runningDec * nextDec).toPrecision(14));
+                else if (op === '/') runningDec = Number((runningDec / nextDec).toPrecision(14));
+            }
 
-            stepsHtml += `
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                    <span class="text-xs text-emerald-400 font-bold block mb-1">${currentLang === 'en' ? 'Sequential Evaluation' : 'পর্যায়ক্রমিক গাণিতিক সমাধান'}</span>
-                    <div class="text-sm font-semibold code-font text-slate-200">
-                        ${equationExpression} = <span class="text-emerald-400 font-bold">${currentDecResult}</span>
+            const outDecStr = decimalToBaseFractional(runningDec, 10);
+            const outBinStr = decimalToBaseFractional(runningDec, 2);
+            const outOctStr = decimalToBaseFractional(runningDec, 8);
+            const outHexStr = decimalToBaseFractional(runningDec, 16);
+
+            // Update Top Result Cards
+            document.getElementById('calc-out-dec').innerText = outDecStr;
+            document.getElementById('calc-out-bin').innerText = outBinStr;
+            document.getElementById('calc-out-oct').innerText = outOctStr;
+            document.getElementById('calc-out-hex').innerText = outHexStr;
+
+            // Phase 3: Convert Final Result from Decimal into Binary (2), Octal (8), and Hexadecimal (16)
+            const phase3Html = `
+                ${buildFinalResultBaseConversionHTML(runningDec, 2)}
+                ${buildFinalResultBaseConversionHTML(runningDec, 8)}
+                ${buildFinalResultBaseConversionHTML(runningDec, 16)}
+            `;
+
+            // Assemble Full Beginner-Friendly Master Guide
+            const stepsHtml = `
+                <div class="space-y-5">
+                    <!-- Overview Banner -->
+                    <div class="bg-gradient-to-r from-indigo-950/60 to-violet-950/60 border border-indigo-500/30 p-4 rounded-xl">
+                        <div class="text-[11px] font-bold text-indigo-300 uppercase tracking-wider mb-1">
+                            ${currentLang === 'en' ? '🎯 Your Input Equation:' : '🎯 আপনার দেওয়া গাণিতিক সমীকরণ:'}
+                        </div>
+                        <div class="text-sm sm:text-base font-bold code-font text-white break-all">
+                            ${fullProblemStr} = <span class="text-emerald-400">(${outBinStr})<sub>2</sub></span> = <span class="text-amber-300">(${outDecStr})<sub>10</sub></span>
+                        </div>
+                        <p class="text-xs text-slate-300 mt-2 leading-relaxed">
+                            ${currentLang === 'en'
+                                ? 'Below is the complete, beginner-friendly step-by-step guide showing how each number is converted, how the calculation is performed column-by-column, and how the final answer is expressed in all bases.'
+                                : 'যারা সংখ্যা পদ্ধতি একদমই বোঝেন না, তারাও যেন সহজেই বুঝতে পারেন সেজন্য নিচে ৩টি পর্বে প্রতিটি সংখ্যার রূপান্তর, কলাম অনুযায়ী হাতে রাখা (Carry/Borrow) হিসাব এবং চূড়ান্ত উত্তরের ভাগ প্রক্রিয়া ধাপে ধাপে দেওয়া হলো:'}
+                        </p>
+                    </div>
+
+                    <!-- PHASE 1: Input Numbers Breakdown -->
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-2 text-indigo-400 font-bold text-xs uppercase tracking-wider">
+                            <span class="w-6 h-6 rounded-full bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center">1</span>
+                            <span>${currentLang === 'en' ? 'Phase 1: Understand & Convert Each Input Number to Decimal (Base 10)' : '১ম পর্ব: প্রতিটি ইনপুট সংখ্যাকে ডেসিমালে (Base 10) রূপান্তর ও মান নির্ণয়'}</span>
+                        </div>
+                        ${phase1Html}
+                    </div>
+
+                    <!-- PHASE 2: Direct Binary Column Alignment & Step-by-Step Operation -->
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-2 text-emerald-400 font-bold text-xs uppercase tracking-wider">
+                            <span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center">2</span>
+                            <span>${currentLang === 'en' ? 'Phase 2: Step-by-Step Calculation (Column-by-Column Binary & Decimal)' : '২য় পর্ব: কলাম অনুযায়ী সরাসরি বাইনারি ও ডেসিমাল গাণিতিক সমাধান'}</span>
+                        </div>
+                        ${phase2Html}
+                    </div>
+
+                    <!-- PHASE 3: Converting Final Answer to Binary, Octal & Hex -->
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-2 text-pink-400 font-bold text-xs uppercase tracking-wider">
+                            <span class="w-6 h-6 rounded-full bg-pink-500/20 border border-pink-500/40 flex items-center justify-center">3</span>
+                            <span>${currentLang === 'en' ? 'Phase 3: Convert Final Answer into Binary (2), Octal (8) & Hexadecimal (16)' : '৩য় পর্ব: প্রাপ্ত ফলাফলকে বাইনারি (২), অক্টাল (৮) ও হেক্সাডেসিমালে (১৬) রূপান্তর'}</span>
+                        </div>
+                        ${phase3Html}
+                    </div>
+
+                    <!-- Final Summary Table -->
+                    <div class="bg-slate-950 p-4 rounded-xl border border-emerald-500/30">
+                        <span class="text-xs text-emerald-400 font-bold uppercase tracking-wider block mb-2">
+                            ${currentLang === 'en' ? '✅ Final Verified Answer in All 4 Number Systems' : '✅ সকল সংখ্যা পদ্ধতিতে চূড়ান্ত নির্ণীত ফলাফল ছক'}
+                        </span>
+                        <table class="w-full text-xs text-left border-collapse">
+                            <thead>
+                                <tr class="border-b border-slate-800 text-slate-400 font-mono">
+                                    <th class="py-1.5">${currentLang === 'en' ? 'Number System (Base)' : 'সংখ্যা পদ্ধতি (Base)'}</th>
+                                    <th class="py-1.5 text-right">${currentLang === 'en' ? 'Final Answer' : 'চূড়ান্ত ফলাফল'}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-slate-900 font-mono">
+                                    <td class="py-1.5 text-slate-300">Decimal (Base 10)</td>
+                                    <td class="py-1.5 text-right font-bold text-emerald-400">(${outDecStr})<sub>10</sub></td>
+                                </tr>
+                                <tr class="border-b border-slate-900 font-mono">
+                                    <td class="py-1.5 text-slate-300">Binary (Base 2)</td>
+                                    <td class="py-1.5 text-right font-bold text-indigo-400">(${outBinStr})<sub>2</sub></td>
+                                </tr>
+                                <tr class="border-b border-slate-900 font-mono">
+                                    <td class="py-1.5 text-slate-300">Octal (Base 8)</td>
+                                    <td class="py-1.5 text-right font-bold text-violet-400">(${outOctStr})<sub>8</sub></td>
+                                </tr>
+                                <tr class="border-b border-slate-900 font-mono">
+                                    <td class="py-1.5 text-slate-300">Hexadecimal (Base 16)</td>
+                                    <td class="py-1.5 text-right font-bold text-pink-400">(${outHexStr})<sub>16</sub></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
+            `;
 
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                    <span class="text-xs text-pink-400 font-bold block mb-2">${currentLang === 'en' ? 'Final Output Conversion values' : 'চূড়ান্ত ডেসিমাল মানের রূপান্তর ছক'}</span>
-                    <table class="w-full text-xs text-left border-collapse">
-                        <thead>
-                            <tr class="border-b border-slate-800 text-slate-500 font-mono">
-                                <th class="py-1">System Base</th>
-                                <th class="py-1 text-right">Value Output</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="border-b border-slate-900 font-mono">
-                                <td class="py-1.5 text-slate-400">Decimal (10)</td>
-                                <td class="py-1.5 text-right font-bold text-slate-200">${decimalToBaseFractional(currentDecResult, 10)}<sub>10</sub></td>
-                            </tr>
-                            <tr class="border-b border-slate-900 font-mono">
-                                <td class="py-1.5 text-slate-400">Binary (2)</td>
-                                <td class="py-1.5 text-right font-bold text-indigo-400">${decimalToBaseFractional(currentDecResult, 2)}<sub>2</sub></td>
-                            </tr>
-                            <tr class="border-b border-slate-900 font-mono">
-                                <td class="py-1.5 text-slate-400">Octal (8)</td>
-                                <td class="py-1.5 text-right font-bold text-violet-400">${decimalToBaseFractional(currentDecResult, 8)}<sub>8</sub></td>
-                            </tr>
-                            <tr class="border-b border-slate-900 font-mono">
-                                <td class="py-1.5 text-slate-400">Hexadecimal (16)</td>
-                                <td class="py-1.5 text-right font-bold text-pink-400">${decimalToBaseFractional(currentDecResult, 16)}<sub>16</sub></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>`;
-
-            document.getElementById('calc-steps-container').innerHTML = stepsHtml;
+            const containerEl = document.getElementById('calc-steps-container');
+            containerEl.style.maxHeight = "560px";
+            containerEl.innerHTML = stepsHtml;
             lucide.createIcons();
         }
 
+        // Automatically translate the step-by-step arithmetic explanation whenever language is toggled!
+        const _prevToggleLangForCalc = toggleLanguage;
+        toggleLanguage = function() {
+            _prevToggleLangForCalc();
+            if (hasCalculatedArithmetic) {
+                runArithmetic(true);
+            }
+        };
 
         // ==================== QUIZ CHALLENGE ENGINE ====================
         let quizScore = 0;
@@ -3048,7 +4206,1098 @@ function initLoadingRain() {
     if (overlay) overlay.classList.add('fade-out');
   }, 2500);
 }
-// Matrix Binary Rain Background Engine
+// ==================== CASIO fx-991CW CLASSWIZ SCIENTIFIC ENGINE ====================
+Object.assign(translations.en, {
+    cw_top_badge: "Casio fx-991CW ClassWiz",
+    cw_kb_off: "Phone Keyboard: OFF",
+    cw_kb_on: "Phone Keyboard: ON",
+    cw_kb_label: "Type Math Expression with Phone Keyboard:",
+    cw_fmt_panel_title: "ClassWiz Multi-Format Result (S⇔D)",
+    cw_copy_ans: "Copy Ans",
+    cw_std_dec: "Standard Decimal",
+    cw_exact_frac: "Exact Fraction (d/c)",
+    cw_mixed_frac: "Mixed Fraction (a b/c)",
+    cw_sci_eng: "Scientific / ENG Notation",
+    cw_eq_title: "fx-991CW Equation & Polynomial Solver",
+    cw_solve_btn: "Solve Equation Roots",
+    cw_hist_title: "Calculation Memory Tape",
+    cw_man_phone_btn: "Phone Guide",
+    cw_man_pc_btn: "Laptop / PC Shortcuts"
+});
+Object.assign(translations.bn, {
+    cw_top_badge: "ক্যাসিও fx-991CW ক্লাসউইজ",
+    cw_kb_off: "ফোনের কিবোর্ড: বন্ধ",
+    cw_kb_on: "ফোনের কিবোর্ড: চালু",
+    cw_kb_label: "ফোনের কিবোর্ড দিয়ে সরাসরি সমীকরণ লিখুন:",
+    cw_fmt_panel_title: "ক্লাসউইজ মাল্টি-ফরম্যাট ফলাফল (S⇔D)",
+    cw_copy_ans: "উত্তর কপি",
+    cw_std_dec: "দশমিক মান (Decimal)",
+    cw_exact_frac: "প্রকৃত/অপ্রকৃত ভগ্নাংশ (d/c)",
+    cw_mixed_frac: "মিশ্র ভগ্নাংশ (a b/c)",
+    cw_sci_eng: "বৈজ্ঞানিক / ENG নোটেশন",
+    cw_eq_title: "fx-991CW সমীকরণ ও বহুপদী সমাধানকারী",
+    cw_solve_btn: "সমীকরণের মূল (Roots) বের করুন",
+    cw_hist_title: "হিসাবের মেমোরি টেপ (History)",
+    cw_man_phone_btn: "ফোনের ম্যানুয়াল",
+    cw_man_pc_btn: "ল্যাপটপ / পিসি শর্টকাট"
+});
+
+// Casio fx-991CW Internal State & 2D AST Tree
+let cwState = {
+    shift: false,
+    alpha: false,
+    angleUnit: 'DEG', // 'DEG', 'RAD', 'GRAD'
+    numFormat: 'Norm1', // 'Norm1', 'Fix3', 'Sci4'
+    lcdTheme: 'paper', // 'paper', 'cyber', 'amber'
+    memoryM: 0,
+    ans: 0,
+    preAns: 0,
+    lastNumericResult: 0,
+    sdMode: 0, // 0: Decimal, 1: Improper Frac, 2: Mixed Frac, 3: Pi/Surd, 4: ENG
+    mobileKbEnabled: false,
+    history: [],
+    undoStack: []
+};
+
+// 2D Token Tree: root is an array of nodes. Cursor is { list: Array, index: Number }
+let cwRootList = [];
+let cwCursor = { list: cwRootList, index: 0 };
+let cwParentMap = new WeakMap();
+
+function cwRebuildParents(list, parentInfo = null) {
+    if (parentInfo) cwParentMap.set(list, parentInfo);
+    list.forEach(node => {
+        if (node.type === 'frac') {
+            cwRebuildParents(node.num, { parentList: list, node, slot: 'num' });
+            cwRebuildParents(node.den, { parentList: list, node, slot: 'den' });
+        } else if (node.type === 'sqrt') {
+            cwRebuildParents(node.rad, { parentList: list, node, slot: 'rad' });
+        } else if (node.type === 'nthroot') {
+            cwRebuildParents(node.deg, { parentList: list, node, slot: 'deg' });
+            cwRebuildParents(node.rad, { parentList: list, node, slot: 'rad' });
+        } else if (node.type === 'sup') {
+            cwRebuildParents(node.exp, { parentList: list, node, slot: 'exp' });
+        } else if (node.type === 'logab') {
+            cwRebuildParents(node.base, { parentList: list, node, slot: 'base' });
+            cwRebuildParents(node.arg, { parentList: list, node, slot: 'arg' });
+        } else if (node.type === 'intg') {
+            cwRebuildParents(node.low, { parentList: list, node, slot: 'low' });
+            cwRebuildParents(node.high, { parentList: list, node, slot: 'high' });
+            cwRebuildParents(node.body, { parentList: list, node, slot: 'body' });
+        } else if (node.type === 'deriv') {
+            cwRebuildParents(node.body, { parentList: list, node, slot: 'body' });
+            cwRebuildParents(node.at, { parentList: list, node, slot: 'at' });
+        } else if (node.type === 'sigma') {
+            cwRebuildParents(node.low, { parentList: list, node, slot: 'low' });
+            cwRebuildParents(node.high, { parentList: list, node, slot: 'high' });
+            cwRebuildParents(node.body, { parentList: list, node, slot: 'body' });
+        }
+    });
+}
+
+function cwSaveUndo() {
+    try {
+        cwState.undoStack.push(JSON.stringify(cwRootList));
+        if (cwState.undoStack.length > 20) cwState.undoStack.shift();
+    } catch (e) {}
+}
+
+function cwInsertNode(node) {
+    cwSaveUndo();
+    cwCursor.list.splice(cwCursor.index, 0, node);
+    cwCursor.index++;
+    cwRebuildParents(cwRootList);
+}
+
+function cwInsertText(txt, evalTxt = txt) {
+    cwInsertNode({ type: 'text', val: txt, eval: evalTxt });
+}
+
+// Render 2D Natural Textbook Expression HTML
+function cwRenderListHTML(list) {
+    let html = '';
+    if (list.length === 0 && cwCursor.list !== list) {
+        return `<span class="cw-box-empty"></span>`;
+    }
+    for (let i = 0; i <= list.length; i++) {
+        if (cwCursor.list === list && cwCursor.index === i) {
+            html += `<span class="cw-cursor"></span>`;
+        }
+        if (i < list.length) {
+            const n = list[i];
+            if (n.type === 'text') {
+                html += `<span>${n.val}</span>`;
+            } else if (n.type === 'frac') {
+                html += `<span class="cw-frac"><span class="cw-frac-num">${cwRenderListHTML(n.num)}</span><span class="cw-frac-den">${cwRenderListHTML(n.den)}</span></span>`;
+            } else if (n.type === 'sqrt') {
+                html += `<span class="cw-sqrt"><span class="cw-sqrt-sign">√</span><span class="cw-sqrt-body">${cwRenderListHTML(n.rad)}</span></span>`;
+            } else if (n.type === 'nthroot') {
+                html += `<span class="cw-sqrt"><span class="cw-sup">${cwRenderListHTML(n.deg)}</span><span class="cw-sqrt-sign">√</span><span class="cw-sqrt-body">${cwRenderListHTML(n.rad)}</span></span>`;
+            } else if (n.type === 'sup') {
+                html += `<span class="cw-sup">${cwRenderListHTML(n.exp)}</span>`;
+            } else if (n.type === 'logab') {
+                html += `<span>log</span><span class="cw-sub">${cwRenderListHTML(n.base)}</span><span>(</span>${cwRenderListHTML(n.arg)}<span>)</span>`;
+            } else if (n.type === 'intg') {
+                html += `<span class="inline-flex items-center mx-0.5"><span class="text-lg font-serif">∫</span><span class="inline-flex flex-col text-[9px] -ml-0.5 mr-1"><span>${cwRenderListHTML(n.high)}</span><span>${cwRenderListHTML(n.low)}</span></span><span>(${cwRenderListHTML(n.body)})dx</span></span>`;
+            } else if (n.type === 'deriv') {
+                html += `<span class="inline-flex items-center mx-0.5"><span class="cw-frac"><span class="cw-frac-num">d</span><span class="cw-frac-den">dx</span></span><span>(${cwRenderListHTML(n.body)})|</span><span class="cw-sub">x=${cwRenderListHTML(n.at)}</span></span>`;
+            } else if (n.type === 'sigma') {
+                html += `<span class="inline-flex items-center mx-0.5"><span class="text-base font-serif">∑</span><span class="inline-flex flex-col text-[9px] mr-1"><span>${cwRenderListHTML(n.high)}</span><span>x=${cwRenderListHTML(n.low)}</span></span><span>(${cwRenderListHTML(n.body)})</span></span>`;
+            }
+        }
+    }
+    return html;
+}
+
+function cwRenderDisplay() {
+    cwRebuildParents(cwRootList);
+    const exprEl = document.getElementById('cw-expr-display');
+    if (exprEl) exprEl.innerHTML = cwRenderListHTML(cwRootList);
+
+    // Status indicators
+    const sEl = document.getElementById('cw-ind-shift');
+    const aEl = document.getElementById('cw-ind-alpha');
+    const mEl = document.getElementById('cw-ind-mem');
+    const angEl = document.getElementById('cw-ind-angle');
+    const fmtEl = document.getElementById('cw-ind-fmt');
+
+    if (sEl) sEl.className = cwState.shift ? 'casio-badge-on' : 'opacity-25';
+    if (aEl) aEl.className = cwState.alpha ? 'casio-badge-on' : 'opacity-25';
+    if (mEl) mEl.className = cwState.memoryM !== 0 ? 'casio-badge-on' : 'opacity-25';
+    if (angEl) angEl.innerText = cwState.angleUnit === 'DEG' ? 'D' : cwState.angleUnit === 'RAD' ? 'R' : 'G';
+    if (fmtEl) fmtEl.innerText = cwState.numFormat;
+}
+
+// 5-Key Cursor D-Pad Navigation across 2D Fractions, Powers, Roots, and Integrals
+function cwMoveCursor(dir) {
+    playTone(540, 'sine', 0.03);
+    cwRebuildParents(cwRootList);
+    const list = cwCursor.list;
+    const idx = cwCursor.index;
+
+    if (dir === 'LEFT') {
+        if (idx > 0) {
+            const prevNode = list[idx - 1];
+            if (prevNode.type === 'frac') { cwCursor.list = prevNode.den; cwCursor.index = prevNode.den.length; }
+            else if (prevNode.type === 'sqrt') { cwCursor.list = prevNode.rad; cwCursor.index = prevNode.rad.length; }
+            else if (prevNode.type === 'nthroot') { cwCursor.list = prevNode.rad; cwCursor.index = prevNode.rad.length; }
+            else if (prevNode.type === 'sup') { cwCursor.list = prevNode.exp; cwCursor.index = prevNode.exp.length; }
+            else if (prevNode.type === 'logab') { cwCursor.list = prevNode.arg; cwCursor.index = prevNode.arg.length; }
+            else if (prevNode.type === 'intg' || prevNode.type === 'sigma') { cwCursor.list = prevNode.body; cwCursor.index = prevNode.body.length; }
+            else if (prevNode.type === 'deriv') { cwCursor.list = prevNode.at; cwCursor.index = prevNode.at.length; }
+            else { cwCursor.index--; }
+        } else {
+            const pInfo = cwParentMap.get(list);
+            if (pInfo) {
+                const nodeIdx = pInfo.parentList.indexOf(pInfo.node);
+                cwCursor.list = pInfo.parentList;
+                cwCursor.index = nodeIdx;
+            }
+        }
+    } else if (dir === 'RIGHT') {
+        if (idx < list.length) {
+            const nextNode = list[idx];
+            if (nextNode.type === 'frac') { cwCursor.list = nextNode.num; cwCursor.index = 0; }
+            else if (nextNode.type === 'sqrt') { cwCursor.list = nextNode.rad; cwCursor.index = 0; }
+            else if (nextNode.type === 'nthroot') { cwCursor.list = nextNode.deg; cwCursor.index = 0; }
+            else if (nextNode.type === 'sup') { cwCursor.list = nextNode.exp; cwCursor.index = 0; }
+            else if (nextNode.type === 'logab') { cwCursor.list = nextNode.base; cwCursor.index = 0; }
+            else if (nextNode.type === 'intg' || nextNode.type === 'sigma') { cwCursor.list = nextNode.low; cwCursor.index = 0; }
+            else if (nextNode.type === 'deriv') { cwCursor.list = nextNode.body; cwCursor.index = 0; }
+            else { cwCursor.index++; }
+        } else {
+            const pInfo = cwParentMap.get(list);
+            if (pInfo) {
+                if (pInfo.node.type === 'frac' && pInfo.slot === 'num') {
+                    cwCursor.list = pInfo.node.den; cwCursor.index = 0;
+                } else if (pInfo.node.type === 'nthroot' && pInfo.slot === 'deg') {
+                    cwCursor.list = pInfo.node.rad; cwCursor.index = 0;
+                } else if (pInfo.node.type === 'logab' && pInfo.slot === 'base') {
+                    cwCursor.list = pInfo.node.arg; cwCursor.index = 0;
+                } else if ((pInfo.node.type === 'intg' || pInfo.node.type === 'sigma') && pInfo.slot === 'low') {
+                    cwCursor.list = pInfo.node.high; cwCursor.index = 0;
+                } else if ((pInfo.node.type === 'intg' || pInfo.node.type === 'sigma') && pInfo.slot === 'high') {
+                    cwCursor.list = pInfo.node.body; cwCursor.index = 0;
+                } else if (pInfo.node.type === 'deriv' && pInfo.slot === 'body') {
+                    cwCursor.list = pInfo.node.at; cwCursor.index = 0;
+                } else {
+                    const nodeIdx = pInfo.parentList.indexOf(pInfo.node);
+                    cwCursor.list = pInfo.parentList;
+                    cwCursor.index = nodeIdx + 1;
+                }
+            }
+        }
+    } else if (dir === 'DOWN') {
+        const pInfo = cwParentMap.get(list);
+        if (pInfo && pInfo.node.type === 'frac' && pInfo.slot === 'num') {
+            cwCursor.list = pInfo.node.den;
+            cwCursor.index = Math.min(idx, pInfo.node.den.length);
+        } else if (pInfo && (pInfo.node.type === 'intg' || pInfo.node.type === 'sigma') && pInfo.slot === 'high') {
+            cwCursor.list = pInfo.node.low;
+            cwCursor.index = pInfo.node.low.length;
+        } else if (idx > 0 && list[idx - 1].type === 'frac') {
+            cwCursor.list = list[idx - 1].den;
+            cwCursor.index = 0;
+        }
+    } else if (dir === 'UP') {
+        const pInfo = cwParentMap.get(list);
+        if (pInfo && pInfo.node.type === 'frac' && pInfo.slot === 'den') {
+            cwCursor.list = pInfo.node.num;
+            cwCursor.index = Math.min(idx, pInfo.node.num.length);
+        } else if (pInfo && (pInfo.node.type === 'intg' || pInfo.node.type === 'sigma') && pInfo.slot === 'low') {
+            cwCursor.list = pInfo.node.high;
+            cwCursor.index = pInfo.node.high.length;
+        } else if (idx > 0 && list[idx - 1].type === 'frac') {
+            cwCursor.list = list[idx - 1].num;
+            cwCursor.index = 0;
+        }
+    }
+    cwRenderDisplay();
+}
+
+// Convert 2D AST into Evaluable JS Math Expression
+function cwListToJS(list) {
+    if (!list || list.length === 0) return '0';
+    let out = '';
+    for (let i = 0; i < list.length; i++) {
+        const n = list[i];
+        const prev = i > 0 ? list[i - 1] : null;
+        // Implicit multiplication (e.g. 2sin(30), 5π, )( )
+        const prevIsVal = prev && (
+            (prev.type === 'text' && (/^[0-9\)\πe!]$/.test(prev.val) || prev.val === 'Ans')) ||
+            ['frac', 'sqrt', 'nthroot', 'sup', 'logab', 'intg', 'deriv', 'sigma'].includes(prev.type)
+        );
+        const currStartsVal = (
+            (n.type === 'text' && (/^(sin|cos|tan|asin|acos|atan|sinh|cosh|tanh|log|ln|Pol|Rec|GCD|LCM|abs|\(|\π|e|Ans)/.test(n.val))) ||
+            ['frac', 'sqrt', 'nthroot', 'logab', 'intg', 'deriv', 'sigma'].includes(n.type)
+        );
+        if (prevIsVal && currStartsVal) {
+            out += '*';
+        }
+
+        if (n.type === 'text') {
+            out += n.eval;
+        } else if (n.type === 'frac') {
+            out += `((${cwListToJS(n.num)})/(${cwListToJS(n.den)}))`;
+        } else if (n.type === 'sqrt') {
+            out += `Math.sqrt(${cwListToJS(n.rad)})`;
+        } else if (n.type === 'nthroot') {
+            out += `Math.pow(${cwListToJS(n.rad)}, 1/(${cwListToJS(n.deg)}))`;
+        } else if (n.type === 'sup') {
+            out += `**(${cwListToJS(n.exp)})`;
+        } else if (n.type === 'logab') {
+            out += `(Math.log(${cwListToJS(n.arg)})/Math.log(${cwListToJS(n.base)}))`;
+        } else if (n.type === 'intg') {
+            out += `cwNumIntegral((x)=>(${cwListToJS(n.body)}), (${cwListToJS(n.low)}), (${cwListToJS(n.high)}))`;
+        } else if (n.type === 'deriv') {
+            out += `cwNumDerivative((x)=>(${cwListToJS(n.body)}), (${cwListToJS(n.at)}))`;
+        } else if (n.type === 'sigma') {
+            out += `cwNumSigma((x)=>(${cwListToJS(n.body)}), (${cwListToJS(n.low)}), (${cwListToJS(n.high)}))`;
+        }
+    }
+    return out;
+}
+
+// Helper Math Functions for Casio Engine
+function cwToRad(v) {
+    if (cwState.angleUnit === 'DEG') return v * Math.PI / 180;
+    if (cwState.angleUnit === 'GRAD') return v * Math.PI / 200;
+    return v;
+}
+function cwFromRad(r) {
+    if (cwState.angleUnit === 'DEG') return r * 180 / Math.PI;
+    if (cwState.angleUnit === 'GRAD') return r * 200 / Math.PI;
+    return r;
+}
+function cwSin(x) { return Math.abs(cwToRad(x) % Math.PI) < 1e-14 ? 0 : Math.sin(cwToRad(x)); }
+function cwCos(x) { return Math.abs((cwToRad(x) - Math.PI/2) % Math.PI) < 1e-14 ? 0 : Math.cos(cwToRad(x)); }
+function cwTan(x) { return cwSin(x) / cwCos(x); }
+function cwAsin(x) { return cwFromRad(Math.asin(x)); }
+function cwAcos(x) { return cwFromRad(Math.acos(x)); }
+function cwAtan(x) { return cwFromRad(Math.atan(x)); }
+function cwFact(n) {
+    if (n < 0 || !Number.isInteger(n)) return NaN;
+    if (n > 170) return Infinity;
+    let r = 1;
+    for (let i = 2; i <= n; i++) r *= i;
+    return r;
+}
+function cwNPR(n, r) { return cwFact(n) / cwFact(n - r); }
+function cwNCR(n, r) { return cwFact(n) / (cwFact(r) * cwFact(n - r)); }
+function cwGCD(a, b) { a = Math.abs(Math.round(a)); b = Math.abs(Math.round(b)); while (b) { let t = b; b = a % b; a = t; } return a; }
+function cwLCM(a, b) { return Math.abs(a * b) / (cwGCD(a, b) || 1); }
+function cwPol(x, y) { const r = Math.hypot(x, y); const th = cwFromRad(Math.atan2(y, x)); cwState.lastPolTh = th; return r; }
+function cwRec(r, th) { const x = r * cwCos(th); const y = r * cwSin(th); cwState.lastRecY = y; return x; }
+function cwNumIntegral(fn, a, b) {
+    const N = 200;
+    const h = (b - a) / N;
+    let s = fn(a) + fn(b);
+    for (let i = 1; i < N; i++) s += fn(a + i * h) * (i % 2 === 0 ? 2 : 4);
+    return (h / 3) * s;
+}
+function cwNumDerivative(fn, x0) {
+    const h = 1e-6;
+    return (fn(x0 + h) - fn(x0 - h)) / (2 * h);
+}
+function cwNumSigma(fn, low, high) {
+    let sum = 0;
+    for (let x = Math.round(low); x <= Math.round(high); x++) sum += fn(x);
+    return sum;
+}
+
+// Convert Decimal to Exact Rational Fraction (Continued Fractions Algorithm)
+function cwDecToFraction(val, maxDen = 1000000) {
+    if (!isFinite(val)) return null;
+    const sign = val < 0 ? -1 : 1;
+    val = Math.abs(val);
+    if (Math.abs(val - Math.round(val)) < 1e-11) {
+        return { n: sign * Math.round(val), d: 1 };
+    }
+    let h1 = 1, h2 = 0, k1 = 0, k2 = 1, b = val;
+    do {
+        let a = Math.floor(b);
+        let aux = h1; h1 = a * h1 + h2; h2 = aux;
+        aux = k1; k1 = a * k1 + k2; k2 = aux;
+        if (Math.abs(b - a) < 1e-12) break;
+        b = 1 / (b - a);
+    } while (Math.abs(val - h1 / k1) > val * 1e-10 && k1 <= maxDen);
+    if (k1 > maxDen) return null;
+    return { n: sign * h1, d: k1 };
+}
+
+function cwFormatNumber(val) {
+    if (!isFinite(val)) return isNaN(val) ? "Math ERROR" : "Overflow";
+    const clean = Math.abs(val) < 1e-13 ? 0 : Number(val.toPrecision(12));
+    if (cwState.numFormat === 'Fix3') return clean.toFixed(3);
+    if (cwState.numFormat === 'Sci4') return clean.toExponential(3).replace('e+', '×10^').replace('e', '×10^');
+    return clean.toString();
+}
+
+function cwUpdateFormatCards(val) {
+    const decEl = document.getElementById('cw-fmt-dec');
+    const fracEl = document.getElementById('cw-fmt-frac');
+    const mixEl = document.getElementById('cw-fmt-mixed');
+    const engEl = document.getElementById('cw-fmt-eng');
+    if (!isFinite(val)) return;
+
+    const clean = Math.abs(val) < 1e-13 ? 0 : Number(val.toPrecision(12));
+    if (decEl) decEl.innerText = clean.toString();
+
+    const f = cwDecToFraction(clean);
+    if (f && f.d !== 1) {
+        if (fracEl) fracEl.innerText = `${f.n} / ${f.d}`;
+        const absN = Math.abs(f.n);
+        if (absN > f.d) {
+            const whole = (f.n < 0 ? -1 : 1) * Math.floor(absN / f.d);
+            const rem = absN % f.d;
+            if (mixEl) mixEl.innerText = `${whole}  ${rem}/${f.d}`;
+        } else {
+            if (mixEl) mixEl.innerText = `${f.n} / ${f.d}`;
+        }
+    } else {
+        if (fracEl) fracEl.innerText = `${clean}`;
+        if (mixEl) mixEl.innerText = `${clean}`;
+    }
+
+    if (clean === 0) {
+        if (engEl) engEl.innerText = "0 × 10⁰";
+    } else {
+        const exp3 = Math.floor(Math.log10(Math.abs(clean)) / 3) * 3;
+        const mant = Number((clean / Math.pow(10, exp3)).toPrecision(8));
+        if (engEl) engEl.innerText = `${mant} × 10^(${exp3})`;
+    }
+}
+
+function cwEvaluateCurrent() {
+    if (cwRootList.length === 0) return;
+    try {
+        let jsExpr = cwListToJS(cwRootList);
+        // Balance unclosed parentheses automatically like real Casio calculators
+        const openP = (jsExpr.match(/\(/g) || []).length;
+        const closeP = (jsExpr.match(/\)/g) || []).length;
+        if (openP > closeP) jsExpr += ')'.repeat(openP - closeP);
+
+        // Replace postfix factorial (!) and nPr/nCr operators
+        jsExpr = jsExpr.replace(/(\d+|\([^\)]+\))!/g, 'cwFact($1)');
+        jsExpr = jsExpr.replace(/(\d+(?:\.\d+)?)P(\d+(?:\.\d+)?)/g, 'cwNPR($1,$2)');
+        jsExpr = jsExpr.replace(/(\d+(?:\.\d+)?)C(\d+(?:\.\d+)?)/g, 'cwNCR($1,$2)');
+
+        const fn = new Function('cwSin','cwCos','cwTan','cwAsin','cwAcos','cwAtan','cwFact','cwNPR','cwNCR','cwGCD','cwLCM','cwPol','cwRec','cwNumIntegral','cwNumDerivative','cwNumSigma','Ans','PreAns','M', `return (${jsExpr});`);
+        const res = fn(cwSin, cwCos, cwTan, cwAsin, cwAcos, cwAtan, cwFact, cwNPR, cwNCR, cwGCD, cwLCM, cwPol, cwRec, cwNumIntegral, cwNumDerivative, cwNumSigma, cwState.ans, cwState.preAns, cwState.memoryM);
+
+        if (typeof res !== 'number' || isNaN(res) || !isFinite(res)) {
+            document.getElementById('cw-res-display').innerText = "Math ERROR";
+            playTone(200, 'sawtooth', 0.2);
+            return;
+        }
+
+        cwState.preAns = cwState.ans;
+        cwState.ans = res;
+        cwState.lastNumericResult = res;
+        cwState.sdMode = 0;
+
+        const formatted = cwFormatNumber(res);
+        document.getElementById('cw-res-display').innerHTML = formatted;
+        cwUpdateFormatCards(res);
+
+        // Add to History Tape
+        const plainExpr = document.getElementById('cw-expr-display').innerText.trim() || jsExpr;
+        cwState.history.unshift({ expr: plainExpr, res: formatted });
+        if (cwState.history.length > 15) cwState.history.pop();
+        renderCwHistory();
+    } catch (err) {
+        document.getElementById('cw-res-display').innerText = "Syntax ERROR";
+        playTone(200, 'sawtooth', 0.2);
+    }
+}
+
+function cwCycleSDFormat() {
+    const val = cwState.lastNumericResult;
+    const resEl = document.getElementById('cw-res-display');
+    if (!resEl || !isFinite(val)) return;
+
+    cwState.sdMode = (cwState.sdMode + 1) % 4;
+    const clean = Math.abs(val) < 1e-13 ? 0 : Number(val.toPrecision(12));
+    const f = cwDecToFraction(clean);
+
+    if (cwState.sdMode === 1 && f && f.d !== 1) {
+        resEl.innerHTML = `<span class="cw-frac text-base"><span class="cw-frac-num">${f.n}</span><span class="cw-frac-den">${f.d}</span></span>`;
+    } else if (cwState.sdMode === 2 && f && f.d !== 1 && Math.abs(f.n) > f.d) {
+        const whole = (f.n < 0 ? -1 : 1) * Math.floor(Math.abs(f.n) / f.d);
+        const rem = Math.abs(f.n) % f.d;
+        resEl.innerHTML = `<span>${whole}</span><span class="cw-frac text-base"><span class="cw-frac-num">${rem}</span><span class="cw-frac-den">${f.d}</span></span>`;
+    } else if (cwState.sdMode === 3) {
+        const piRatio = clean / Math.PI;
+        const pf = cwDecToFraction(piRatio, 1000);
+        if (pf && Math.abs(piRatio) > 1e-6 && pf.d <= 120) {
+            resEl.innerHTML = pf.d === 1 ? `${pf.n}π` : `<span class="cw-frac text-base"><span class="cw-frac-num">${pf.n}π</span><span class="cw-frac-den">${pf.d}</span></span>`;
+        } else {
+            const exp3 = clean === 0 ? 0 : Math.floor(Math.log10(Math.abs(clean)) / 3) * 3;
+            const mant = clean === 0 ? 0 : Number((clean / Math.pow(10, exp3)).toPrecision(7));
+            resEl.innerHTML = `${mant}×10<sup>${exp3}</sup>`;
+        }
+    } else {
+        cwState.sdMode = 0;
+        resEl.innerHTML = cwFormatNumber(clean);
+    }
+}
+
+// Handle All Casio fx-991CW Key Presses
+function cwPress(key) {
+    playTone(620, 'sine', 0.04);
+    const overlay = document.getElementById('cw-screen-overlay');
+    if (overlay && !overlay.classList.contains('hidden') && key !== 'ON' && key !== 'AC') {
+        overlay.classList.add('hidden');
+    }
+
+    if (key === 'SHIFT') {
+        cwState.shift = !cwState.shift;
+        if (cwState.shift) cwState.alpha = false;
+        cwRenderDisplay();
+        return;
+    }
+    if (key === 'ALPHA') {
+        cwState.alpha = !cwState.alpha;
+        if (cwState.alpha) cwState.shift = false;
+        cwRenderDisplay();
+        return;
+    }
+
+    const isShift = cwState.shift;
+    const isAlpha = cwState.alpha;
+    cwState.shift = false;
+    cwState.alpha = false;
+
+    if (key === 'ON' || key === 'AC') {
+        cwRootList = [];
+        cwCursor = { list: cwRootList, index: 0 };
+        document.getElementById('cw-res-display').innerText = '0';
+        if (overlay) overlay.classList.add('hidden');
+        cwRenderDisplay();
+        return;
+    }
+
+    if (key === 'BACK') {
+        if (cwState.undoStack.length > 0) {
+            cwRootList = JSON.parse(cwState.undoStack.pop());
+            cwCursor = { list: cwRootList, index: cwRootList.length };
+            cwRenderDisplay();
+        }
+        return;
+    }
+
+    if (key === 'DEL') {
+        if (cwCursor.index > 0) {
+            cwSaveUndo();
+            cwCursor.list.splice(cwCursor.index - 1, 1);
+            cwCursor.index--;
+            cwRenderDisplay();
+        }
+        return;
+    }
+
+    if (key === '=') {
+        cwEvaluateCurrent();
+        cwRenderDisplay();
+        return;
+    }
+
+    if (key === 'SD') {
+        if (isShift) cwOpenMenu('SETTINGS');
+        else cwCycleSDFormat();
+        cwRenderDisplay();
+        return;
+    }
+
+    if (key === 'FRAC') {
+        const node = { type: 'frac', num: [], den: [] };
+        cwInsertNode(node);
+        cwCursor.list = node.num;
+        cwCursor.index = 0;
+    } else if (key === 'SQRT') {
+        if (isShift) {
+            const node = { type: 'nthroot', deg: [{ type: 'text', val: '3', eval: '3' }], rad: [] };
+            cwInsertNode(node);
+            cwCursor.list = node.rad;
+            cwCursor.index = 0;
+        } else {
+            const node = { type: 'sqrt', rad: [] };
+            cwInsertNode(node);
+            cwCursor.list = node.rad;
+            cwCursor.index = 0;
+        }
+    } else if (key === 'SQ') {
+        const expVal = isShift ? '3' : '2';
+        cwInsertNode({ type: 'sup', exp: [{ type: 'text', val: expVal, eval: expVal }] });
+    } else if (key === 'POW') {
+        if (isShift) {
+            const node = { type: 'nthroot', deg: [], rad: [] };
+            cwInsertNode(node);
+            cwCursor.list = node.deg;
+            cwCursor.index = 0;
+        } else {
+            const node = { type: 'sup', exp: [] };
+            cwInsertNode(node);
+            cwCursor.list = node.exp;
+            cwCursor.index = 0;
+        }
+    } else if (key === 'LOG') {
+        if (isShift) {
+            cwInsertText('10', '10');
+            const node = { type: 'sup', exp: [] };
+            cwInsertNode(node);
+            cwCursor.list = node.exp;
+            cwCursor.index = 0;
+        } else {
+            cwInsertText('log(', 'Math.log10(');
+        }
+    } else if (key === 'LN') {
+        if (isShift) {
+            cwInsertText('e', 'Math.E');
+            const node = { type: 'sup', exp: [] };
+            cwInsertNode(node);
+            cwCursor.list = node.exp;
+            cwCursor.index = 0;
+        } else if (isAlpha) {
+            cwInsertText('e', 'Math.E');
+        } else {
+            cwInsertText('ln(', 'Math.log(');
+        }
+    } else if (key === 'NEG') {
+        if (isShift) {
+            const node = { type: 'logab', base: [], arg: [] };
+            cwInsertNode(node);
+            cwCursor.list = node.base;
+            cwCursor.index = 0;
+        } else {
+            cwInsertText('-', '-');
+        }
+    } else if (key === 'DMS') {
+        const val = cwState.lastNumericResult;
+        const deg = Math.trunc(val);
+        const minFull = Math.abs((val - deg) * 60);
+        const min = Math.trunc(minFull);
+        const sec = ((minFull - min) * 60).toFixed(2);
+        document.getElementById('cw-res-display').innerText = `${deg}° ${min}' ${sec}"`;
+    } else if (key === 'INV') {
+        if (isShift) cwInsertText('!', '!');
+        else cwInsertNode({ type: 'sup', exp: [{ type: 'text', val: '-1', eval: '-1' }] });
+    } else if (key === 'SIN') {
+        if (isShift) cwInsertText('sin⁻¹(', 'cwAsin(');
+        else cwInsertText('sin(', 'cwSin(');
+    } else if (key === 'COS') {
+        if (isShift) cwInsertText('cos⁻¹(', 'cwAcos(');
+        else cwInsertText('cos(', 'cwCos(');
+    } else if (key === 'TAN') {
+        if (isShift) cwInsertText('tan⁻¹(', 'cwAtan(');
+        else cwInsertText('tan(', 'cwTan(');
+    } else if (key === 'STO') {
+        if (isShift) {
+            cwInsertText('M', 'M');
+        } else {
+            cwState.memoryM = cwState.lastNumericResult;
+            showToast(currentLang === 'en' ? `Stored ${cwState.memoryM} to Memory [M]` : `মেমোরি [M]-এ ${cwState.memoryM} সংরক্ষিত হয়েছে`);
+        }
+    } else if (key === 'ENG') {
+        if (isShift) cwInsertText('abs(', 'Math.abs(');
+        else { cwState.sdMode = 2; cwCycleSDFormat(); }
+    } else if (key === '(') {
+        if (isShift) cwInsertText('%', '*0.01');
+        else cwInsertText('(', '(');
+    } else if (key === ')') {
+        if (isShift) cwInsertText(',', ',');
+        else if (isAlpha) cwInsertText('x', 'x');
+        else cwInsertText(')', ')');
+    } else if (key === 'M+') {
+        if (isShift) {
+            cwState.memoryM -= cwState.lastNumericResult;
+            showToast(`M- (${cwState.memoryM})`);
+        } else {
+            cwState.memoryM += cwState.lastNumericResult;
+            showToast(`M+ (${cwState.memoryM})`);
+        }
+    } else if (key === 'INTG') {
+        const node = { type: 'intg', low: [], high: [], body: [] };
+        cwInsertNode(node);
+        cwCursor.list = node.low;
+        cwCursor.index = 0;
+    } else if (key === 'DERIV') {
+        const node = { type: 'deriv', body: [], at: [] };
+        cwInsertNode(node);
+        cwCursor.list = node.body;
+        cwCursor.index = 0;
+    } else if (key === 'SIGMA') {
+        const node = { type: 'sigma', low: [{ type: 'text', val: '1', eval: '1' }], high: [{ type: 'text', val: '5', eval: '5' }], body: [] };
+        cwInsertNode(node);
+        cwCursor.list = node.body;
+        cwCursor.index = 0;
+    } else if (key === 'NPR') {
+        cwInsertText('P', 'P');
+    } else if (key === 'NCR') {
+        cwInsertText('C', 'C');
+    } else if (key === 'POL') {
+        if (isShift) cwInsertText('Rec(', 'cwRec(');
+        else cwInsertText('Pol(', 'cwPol(');
+    } else if (key === 'EXP') {
+        if (isShift) cwInsertText('π', 'Math.PI');
+        else if (isAlpha) cwInsertText('e', 'Math.E');
+        else cwInsertText('×10^', '*10**');
+    } else if (key === 'ANS') {
+        if (isShift) cwInsertText('PreAns', 'PreAns');
+        else cwInsertText('Ans', 'Ans');
+    } else if (key === '.' && isShift) {
+        const rnd = Number(Math.random().toFixed(3));
+        cwInsertText(rnd.toString(), rnd.toString());
+    } else if (key === '4' && isShift) {
+        cwInsertText('sinh(', 'Math.sinh(');
+    } else if (key === '5' && isShift) {
+        cwInsertText('cosh(', 'Math.cosh(');
+    } else if (key === '6' && isShift) {
+        cwInsertText('tanh(', 'Math.tanh(');
+    } else if (key === '*' && isShift) {
+        cwInsertText('GCD(', 'cwGCD(');
+    } else if (key === '/' && isShift) {
+        cwInsertText('LCM(', 'cwLCM(');
+    } else if (key === '7' && isShift) {
+        cwOpenMenu('CATALOG');
+    } else if (['0','1','2','3','4','5','6','7','8','9','.','+','-','*','/'].includes(key)) {
+        const dispMap = { '*': '×', '/': '÷', '-': '−' };
+        cwInsertText(dispMap[key] || key, key);
+    }
+
+    cwRenderDisplay();
+}
+
+// On-Screen Casio Menus (SETTINGS, HOME, CATALOG, SOLVER)
+function cwOpenMenu(menuType) {
+    playTone(580, 'sine', 0.06);
+    const overlay = document.getElementById('cw-screen-overlay');
+    if (!overlay) return;
+    overlay.classList.remove('hidden');
+
+    if (menuType === 'SETTINGS') {
+        overlay.innerHTML = `
+            <div class="flex items-center justify-between border-b border-slate-700 pb-1 mb-1.5">
+                <span class="font-bold text-amber-400">⚙️ fx-991CW SETTINGS</span>
+                <button onclick="document.getElementById('cw-screen-overlay').classList.add('hidden')" class="text-rose-400 font-bold px-1">✕</button>
+            </div>
+            <div class="space-y-1.5 text-[11px]">
+                <div class="flex items-center justify-between">
+                    <span>Angle Unit:</span>
+                    <div class="flex gap-1">
+                        <button onclick="cwSetAngle('DEG')" class="px-2 py-0.5 rounded ${cwState.angleUnit==='DEG'?'bg-indigo-600 text-white':'bg-slate-800'}">Deg (D)</button>
+                        <button onclick="cwSetAngle('RAD')" class="px-2 py-0.5 rounded ${cwState.angleUnit==='RAD'?'bg-indigo-600 text-white':'bg-slate-800'}">Rad (R)</button>
+                        <button onclick="cwSetAngle('GRAD')" class="px-2 py-0.5 rounded ${cwState.angleUnit==='GRAD'?'bg-indigo-600 text-white':'bg-slate-800'}">Grad (G)</button>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span>Number Format:</span>
+                    <div class="flex gap-1">
+                        <button onclick="cwSetFormat('Norm1')" class="px-2 py-0.5 rounded ${cwState.numFormat==='Norm1'?'bg-indigo-600 text-white':'bg-slate-800'}">Norm1</button>
+                        <button onclick="cwSetFormat('Fix3')" class="px-2 py-0.5 rounded ${cwState.numFormat==='Fix3'?'bg-indigo-600 text-white':'bg-slate-800'}">Fix 3</button>
+                        <button onclick="cwSetFormat('Sci4')" class="px-2 py-0.5 rounded ${cwState.numFormat==='Sci4'?'bg-indigo-600 text-white':'bg-slate-800'}">Sci 4</button>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span>LCD Display Style:</span>
+                    <div class="flex gap-1">
+                        <button onclick="cwSetLcd('paper')" class="px-2 py-0.5 rounded ${cwState.lcdTheme==='paper'?'bg-emerald-600 text-white':'bg-slate-800'}">Paper</button>
+                        <button onclick="cwSetLcd('cyber')" class="px-2 py-0.5 rounded ${cwState.lcdTheme==='cyber'?'bg-emerald-600 text-white':'bg-slate-800'}">Cyber</button>
+                        <button onclick="cwSetLcd('amber')" class="px-2 py-0.5 rounded ${cwState.lcdTheme==='amber'?'bg-emerald-600 text-white':'bg-slate-800'}">Amber</button>
+                    </div>
+                </div>
+            </div>
+        `;
+    } else if (menuType === 'CATALOG') {
+        overlay.innerHTML = `
+            <div class="flex items-center justify-between border-b border-slate-700 pb-1 mb-1">
+                <span class="font-bold text-indigo-400">📚 SCIENTIFIC CONSTANTS & CATALOG</span>
+                <button onclick="document.getElementById('cw-screen-overlay').classList.add('hidden')" class="text-rose-400 font-bold px-1">✕</button>
+            </div>
+            <div class="grid grid-cols-2 gap-1 text-[10px]">
+                <button onclick="cwInsertConst('g','9.80665')" class="p-1 bg-slate-800 hover:bg-indigo-600 rounded text-left">g = 9.80665 m/s²</button>
+                <button onclick="cwInsertConst('c','299792458')" class="p-1 bg-slate-800 hover:bg-indigo-600 rounded text-left">c = 2.998×10⁸ m/s</button>
+                <button onclick="cwInsertConst('h','6.62607015e-34')" class="p-1 bg-slate-800 hover:bg-indigo-600 rounded text-left">h = 6.626×10⁻³⁴ J·s</button>
+                <button onclick="cwInsertConst('G','6.67430e-11')" class="p-1 bg-slate-800 hover:bg-indigo-600 rounded text-left">G = 6.674×10⁻¹¹</button>
+                <button onclick="cwInsertConst('Nₐ','6.02214076e23')" class="p-1 bg-slate-800 hover:bg-indigo-600 rounded text-left">Nₐ = 6.022×10²³</button>
+                <button onclick="cwInsertConst('qₑ','1.60217663e-19')" class="p-1 bg-slate-800 hover:bg-indigo-600 rounded text-left">e = 1.602×10⁻¹⁹ C</button>
+            </div>
+        `;
+    } else {
+        overlay.innerHTML = `
+            <div class="flex items-center justify-between border-b border-slate-700 pb-1 mb-1">
+                <span class="font-bold text-pink-400">🏠 CLASSWIZ APPS (HOME)</span>
+                <button onclick="document.getElementById('cw-screen-overlay').classList.add('hidden')" class="text-rose-400 font-bold px-1">✕</button>
+            </div>
+            <div class="grid grid-cols-2 gap-1.5 text-[10.5px]">
+                <button onclick="document.getElementById('cw-screen-overlay').classList.add('hidden')" class="p-1.5 bg-indigo-600/40 border border-indigo-500 rounded text-left font-bold">1: Calculate (Math√□)</button>
+                <button onclick="document.getElementById('cw-screen-overlay').classList.add('hidden'); document.getElementById('cw-eq-type').focus();" class="p-1.5 bg-slate-800 hover:bg-pink-600/40 rounded text-left">2: Equation Solver →</button>
+                <button onclick="switchTab('converter-tab')" class="p-1.5 bg-slate-800 hover:bg-emerald-600/40 rounded text-left">3: Base-N Converter</button>
+                <button onclick="cwOpenMenu('SETTINGS')" class="p-1.5 bg-slate-800 hover:bg-amber-600/40 rounded text-left">4: Setup & Settings</button>
+            </div>
+        `;
+    }
+}
+
+function cwSetAngle(u) { cwState.angleUnit = u; cwRenderDisplay(); cwOpenMenu('SETTINGS'); }
+function cwSetFormat(f) { cwState.numFormat = f; cwRenderDisplay(); cwOpenMenu('SETTINGS'); }
+function cwSetLcd(theme) {
+    cwState.lcdTheme = theme;
+    const lcd = document.getElementById('casio-lcd');
+    lcd.classList.remove('lcd-cyber', 'lcd-amber');
+    if (theme === 'cyber') lcd.classList.add('lcd-cyber');
+    if (theme === 'amber') lcd.classList.add('lcd-amber');
+    cwOpenMenu('SETTINGS');
+}
+function cwInsertConst(sym, val) {
+    document.getElementById('cw-screen-overlay').classList.add('hidden');
+    cwInsertText(sym, val);
+    cwRenderDisplay();
+}
+
+function renderCwHistory() {
+    const listEl = document.getElementById('cw-history-list');
+    if (!listEl) return;
+    if (cwState.history.length === 0) {
+        listEl.innerHTML = `<div class="text-slate-500 text-xs">${currentLang === 'en' ? 'No calculations yet.' : 'এখনো কোনো হিসাব করা হয়নি।'}</div>`;
+        return;
+    }
+    listEl.innerHTML = cwState.history.map(item => `
+        <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 flex items-center justify-between gap-2">
+            <span class="text-slate-400 truncate">${item.expr}</span>
+            <strong class="text-emerald-400 shrink-0">= ${item.res}</strong>
+        </div>
+    `).join('');
+}
+
+function clearCwHistory() {
+    cwState.history = [];
+    renderCwHistory();
+}
+
+// Optional Mobile Phone Keyboard Toggle
+function toggleCasioMobileKeyboard() {
+    playTone(500, 'sine', 0.05);
+    cwState.mobileKbEnabled = !cwState.mobileKbEnabled;
+    const box = document.getElementById('cw-mobile-kb-box');
+    const txt = document.getElementById('cw-kb-toggle-text');
+    const btn = document.getElementById('cw-kb-toggle-btn');
+
+    if (cwState.mobileKbEnabled) {
+        box.classList.remove('hidden');
+        txt.innerText = t('cw_kb_on');
+        txt.setAttribute('data-key', 'cw_kb_on');
+        btn.className = "px-3 py-1.5 rounded-xl text-[11px] font-bold bg-indigo-600 text-white border border-indigo-400 flex items-center gap-1.5 transition-all shadow";
+        setTimeout(() => document.getElementById('cw-mobile-kb-input').focus(), 80);
+    } else {
+        box.classList.add('hidden');
+        txt.innerText = t('cw_kb_off');
+        txt.setAttribute('data-key', 'cw_kb_off');
+        btn.className = "px-3 py-1.5 rounded-xl text-[11px] font-bold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 flex items-center gap-1.5 transition-all";
+    }
+}
+
+function evalFromMobileKbInput() {
+    const inp = document.getElementById('cw-mobile-kb-input');
+    const raw = inp.value.trim();
+    if (!raw) return;
+    cwRootList = [{ type: 'text', val: raw, eval: raw.replace(/sin\(/g,'cwSin(').replace(/cos\(/g,'cwCos(').replace(/tan\(/g,'cwTan(').replace(/sqrt\(/g,'Math.sqrt(').replace(/log\(/g,'Math.log10(').replace(/ln\(/g,'Math.log(').replace(/\^/g,'**').replace(/pi/gi,'Math.PI') }];
+    cwCursor = { list: cwRootList, index: 1 };
+    cwRenderDisplay();
+    cwEvaluateCurrent();
+}
+
+// Built-in Equation Solver (Quadratic, Cubic, 2x2 Linear)
+function renderCwEquationInputs() {
+    const type = document.getElementById('cw-eq-type').value;
+    const container = document.getElementById('cw-eq-inputs');
+    if (!container) return;
+    if (type === 'quad') {
+        container.className = "grid grid-cols-3 gap-2.5 mb-3";
+        container.innerHTML = `
+            <div><label class="text-[10px] text-slate-400 font-bold">a (x²)</label><input id="eq-a" type="number" inputmode="decimal" value="1" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-sm font-bold text-white code-font" /></div>
+            <div><label class="text-[10px] text-slate-400 font-bold">b (x)</label><input id="eq-b" type="number" inputmode="decimal" value="-5" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-sm font-bold text-white code-font" /></div>
+            <div><label class="text-[10px] text-slate-400 font-bold">c (const)</label><input id="eq-c" type="number" inputmode="decimal" value="6" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-sm font-bold text-white code-font" /></div>
+        `;
+    } else if (type === 'cubic') {
+        container.className = "grid grid-cols-4 gap-2 mb-3";
+        container.innerHTML = `
+            <div><label class="text-[10px] text-slate-400 font-bold">a (x³)</label><input id="eq-a" type="number" inputmode="decimal" value="1" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2 py-1.5 text-sm font-bold text-white code-font" /></div>
+            <div><label class="text-[10px] text-slate-400 font-bold">b (x²)</label><input id="eq-b" type="number" inputmode="decimal" value="-6" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2 py-1.5 text-sm font-bold text-white code-font" /></div>
+            <div><label class="text-[10px] text-slate-400 font-bold">c (x)</label><input id="eq-c" type="number" inputmode="decimal" value="11" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2 py-1.5 text-sm font-bold text-white code-font" /></div>
+            <div><label class="text-[10px] text-slate-400 font-bold">d</label><input id="eq-d" type="number" inputmode="decimal" value="-6" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2 py-1.5 text-sm font-bold text-white code-font" /></div>
+        `;
+    } else {
+        container.className = "grid grid-cols-3 gap-2 mb-3";
+        container.innerHTML = `
+            <div><label class="text-[10px] text-slate-400 font-bold">a₁x</label><input id="eq-a1" type="number" inputmode="decimal" value="2" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2 py-1.5 text-xs font-bold text-white code-font" /></div>
+            <div><label class="text-[10px] text-slate-400 font-bold">b₁y</label><input id="eq-b1" type="number" inputmode="decimal" value="3" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2 py-1.5 text-xs font-bold text-white code-font" /></div>
+            <div><label class="text-[10px] text-slate-400 font-bold">= c₁</label><input id="eq-c1" type="number" inputmode="decimal" value="13" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2 py-1.5 text-xs font-bold text-white code-font" /></div>
+            <div><label class="text-[10px] text-slate-400 font-bold">a₂x</label><input id="eq-a2" type="number" inputmode="decimal" value="1" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2 py-1.5 text-xs font-bold text-white code-font" /></div>
+            <div><label class="text-[10px] text-slate-400 font-bold">b₂y</label><input id="eq-b2" type="number" inputmode="decimal" value="-1" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2 py-1.5 text-xs font-bold text-white code-font" /></div>
+            <div><label class="text-[10px] text-slate-400 font-bold">= c₂</label><input id="eq-c2" type="number" inputmode="decimal" value="1" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2 py-1.5 text-xs font-bold text-white code-font" /></div>
+        `;
+    }
+}
+
+function solveCwEquation() {
+    playTone(740, 'sine', 0.08);
+    const type = document.getElementById('cw-eq-type').value;
+    const outEl = document.getElementById('cw-eq-result');
+    if (type === 'quad') {
+        const a = parseFloat(document.getElementById('eq-a').value) || 0;
+        const b = parseFloat(document.getElementById('eq-b').value) || 0;
+        const c = parseFloat(document.getElementById('eq-c').value) || 0;
+        if (a === 0) { outEl.innerText = "Error: a cannot be 0"; return; }
+        const disc = b * b - 4 * a * c;
+        const vertexX = Number((-b / (2 * a)).toPrecision(8));
+        const vertexY = Number((a * vertexX * vertexX + b * vertexX + c).toPrecision(8));
+        if (disc >= 0) {
+            const x1 = Number(((-b + Math.sqrt(disc)) / (2 * a)).toPrecision(8));
+            const x2 = Number(((-b - Math.sqrt(disc)) / (2 * a)).toPrecision(8));
+            outEl.innerHTML = `x₁ = <b>${x1}</b> &nbsp;|&nbsp; x₂ = <b>${x2}</b><br><span class="text-slate-400">Min/Max Vertex: (${vertexX}, ${vertexY})</span>`;
+        } else {
+            const real = Number((-b / (2 * a)).toPrecision(6));
+            const imag = Number((Math.sqrt(-disc) / (2 * a)).toPrecision(6));
+            outEl.innerHTML = `x₁ = <b>${real} + ${imag}i</b> &nbsp;|&nbsp; x₂ = <b>${real} - ${imag}i</b> (Complex Roots)`;
+        }
+    } else if (type === 'cubic') {
+        const a = parseFloat(document.getElementById('eq-a').value) || 1;
+        const b = (parseFloat(document.getElementById('eq-b').value) || 0) / a;
+        const c = (parseFloat(document.getElementById('eq-c').value) || 0) / a;
+        const d = (parseFloat(document.getElementById('eq-d').value) || 0) / a;
+        const p = c - (b * b) / 3;
+        const q = (2 * b * b * b) / 27 - (b * c) / 3 + d;
+        const disc = (q * q) / 4 + (p * p * p) / 27;
+        if (disc > 1e-12) {
+            const u = Math.cbrt(-q / 2 + Math.sqrt(disc));
+            const v = Math.cbrt(-q / 2 - Math.sqrt(disc));
+            const x1 = Number((u + v - b / 3).toPrecision(7));
+            outEl.innerHTML = `Real Root x₁ = <b>${x1}</b> (Plus 2 Complex Conjugate Roots)`;
+        } else {
+            const r = Math.sqrt(Math.max(0, -(p * p * p) / 27));
+            const phi = Math.acos(Math.max(-1, Math.min(1, -q / (2 * (r || 1)))));
+            const m = 2 * Math.cbrt(r);
+            const x1 = Number((m * Math.cos(phi / 3) - b / 3).toPrecision(7));
+            const x2 = Number((m * Math.cos((phi + 2 * Math.PI) / 3) - b / 3).toPrecision(7));
+            const x3 = Number((m * Math.cos((phi + 4 * Math.PI) / 3) - b / 3).toPrecision(7));
+            outEl.innerHTML = `x₁ = <b>${x1}</b> &nbsp;|&nbsp; x₂ = <b>${x2}</b> &nbsp;|&nbsp; x₃ = <b>${x3}</b>`;
+        }
+    } else {
+        const a1 = parseFloat(document.getElementById('eq-a1').value) || 0;
+        const b1 = parseFloat(document.getElementById('eq-b1').value) || 0;
+        const c1 = parseFloat(document.getElementById('eq-c1').value) || 0;
+        const a2 = parseFloat(document.getElementById('eq-a2').value) || 0;
+        const b2 = parseFloat(document.getElementById('eq-b2').value) || 0;
+        const c2 = parseFloat(document.getElementById('eq-c2').value) || 0;
+        const det = a1 * b2 - a2 * b1;
+        if (Math.abs(det) < 1e-12) { outEl.innerText = "No unique solution (Determinant = 0)"; return; }
+        const x = Number(((c1 * b2 - c2 * b1) / det).toPrecision(8));
+        const y = Number(((a1 * c2 - a2 * c1) / det).toPrecision(8));
+        outEl.innerHTML = `x = <b>${x}</b> &nbsp;&nbsp;|&nbsp;&nbsp; y = <b>${y}</b>`;
+    }
+}
+
+// Laptop / Desktop Physical Keyboard Shortcuts for Casio fx-991CW
+document.addEventListener('keydown', (e) => {
+    if (currentActiveTab !== 'scientific-tab') return;
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+
+    const k = e.key;
+    if (/^[0-9\.\+\-\*\/\(\)]$/.test(k)) { e.preventDefault(); cwPress(k); }
+    else if (k === 'Enter' || k === '=') { e.preventDefault(); cwPress('='); }
+    else if (k === 'Backspace') { e.preventDefault(); cwPress('DEL'); }
+    else if (k === 'Escape') { e.preventDefault(); cwPress('AC'); }
+    else if (k === 'ArrowLeft') { e.preventDefault(); cwMoveCursor('LEFT'); }
+    else if (k === 'ArrowRight') { e.preventDefault(); cwMoveCursor('RIGHT'); }
+    else if (k === 'ArrowUp') { e.preventDefault(); cwMoveCursor('UP'); }
+    else if (k === 'ArrowDown') { e.preventDefault(); cwMoveCursor('DOWN'); }
+    else if (k.toLowerCase() === 'f') { e.preventDefault(); cwPress('FRAC'); }
+    else if (k.toLowerCase() === 'r') { e.preventDefault(); cwPress('SQRT'); }
+    else if (k === '^') { e.preventDefault(); cwPress('POW'); }
+    else if (k.toLowerCase() === 's') { e.preventDefault(); cwPress('SIN'); }
+    else if (k.toLowerCase() === 'c') { e.preventDefault(); cwPress('COS'); }
+    else if (k.toLowerCase() === 't') { e.preventDefault(); cwPress('TAN'); }
+    else if (k.toLowerCase() === 'l') { e.preventDefault(); cwPress('LOG'); }
+    else if (k.toLowerCase() === 'n') { e.preventDefault(); cwPress('LN'); }
+    else if (k.toLowerCase() === 'p') { e.preventDefault(); cwState.shift = true; cwPress('EXP'); }
+    else if (k === '!') { e.preventDefault(); cwState.shift = true; cwPress('INV'); }
+    else if (k === 'Tab') { e.preventDefault(); cwPress('SD'); }
+});
+
+// ==================== SMART DEVICE-AWARE MANUAL (Mobile vs Laptop/Desktop in EN & BN) ====================
+let manualDeviceMode = (window.innerWidth < 768 || ('ontouchstart' in window && window.innerWidth < 1024)) ? 'mobile' : 'desktop';
+
+function setManualDeviceMode(mode) {
+    playTone(480, 'sine', 0.05);
+    manualDeviceMode = mode;
+    renderCasioManual();
+}
+
+function renderCasioManual() {
+    const contentEl = document.getElementById('cw-manual-content');
+    const headEl = document.getElementById('cw-manual-heading');
+    const subEl = document.getElementById('cw-manual-subheading');
+    const btnMob = document.getElementById('btn-man-mobile');
+    const btnDesk = document.getElementById('btn-man-desktop');
+    if (!contentEl) return;
+
+    if (btnMob && btnDesk) {
+        btnMob.className = manualDeviceMode === 'mobile'
+            ? "px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 text-white flex items-center gap-1.5 shadow"
+            : "px-3 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white flex items-center gap-1.5";
+        btnDesk.className = manualDeviceMode === 'desktop'
+            ? "px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 text-white flex items-center gap-1.5 shadow"
+            : "px-3 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white flex items-center gap-1.5";
+    }
+
+    if (manualDeviceMode === 'mobile') {
+        if (currentLang === 'en') {
+            headEl.innerText = "📱 Casio fx-991CW Mobile Touch Manual";
+            subEl.innerText = "Optimized for Smartphone Touchscreens (Default: On-Screen Casio Keys Active)";
+            contentEl.innerHTML = `
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                    <h4 class="font-bold text-indigo-400 uppercase">1. 2D Fractions & Cursor D-Pad</h4>
+                    <p class="text-slate-300">Tap <b class="text-white">믐</b> to insert a real stacked fraction <span class="code-font">□/□</span>. Type the numerator, then tap <b class="text-amber-400">▼</b> or <b class="text-amber-400">▶</b> on the center circular D-Pad to move into the denominator! Use <b class="text-amber-400">◀ ▶ ▲ ▼</b> anytime to edit inside roots (<span class="code-font">√□</span>), powers (<span class="code-font">x□</span>), or integrals (<span class="code-font">∫dx</span>).</p>
+                </div>
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                    <h4 class="font-bold text-emerald-400 uppercase">2. SHIFT, ALPHA & S⇔D Format</h4>
+                    <p class="text-slate-300">Tap <b class="text-amber-400">SHIFT</b> to access gold functions above keys (e.g., <span class="code-font">SHIFT + sin = sin⁻¹</span>, <span class="code-font">SHIFT + ×10ˣ = π</span>, <span class="code-font">SHIFT + x⁻¹ = x!</span>). Tap <b class="text-indigo-300">S⇔D</b> to switch answers between Exact Fraction, Mixed Fraction, π form, and Decimal.</p>
+                </div>
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                    <h4 class="font-bold text-pink-400 uppercase">3. Settings (⚙️) & Phone Keyboard</h4>
+                    <p class="text-slate-300">By default, your phone's keyboard stays off so it never blocks the calculator buttons. If you want to type with your phone keyboard, tap <b class="text-white">Phone Keyboard: OFF</b> at the top! Tap <b class="text-white">⚙️ SET</b> to switch Deg/Rad/Grad or LCD themes.</p>
+                </div>
+            `;
+        } else {
+            headEl.innerText = "📱 ক্যাসিও fx-991CW মোবাইল ব্যবহার নির্দেশিকা (ম্যানুয়াল)";
+            subEl.innerText = "স্মার্টফোনের টাচস্ক্রিনের জন্য বিশেষভাবে সাজানো (ডিফল্ট: ক্যালকুলেটরের নিজস্ব বাটন সক্রিয়)";
+            contentEl.innerHTML = `
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                    <h4 class="font-bold text-indigo-400 uppercase">১. ভগ্নাংশ (믐) ও কার্সর সরানোর নিয়ম</h4>
+                    <p class="text-slate-300">ভগ্নাংশ তোলার জন্য <b class="text-white">믐</b> বাটনে চাপ দিন। উপরে লব লেখার পর মাঝখানের গোল বাটনের <b class="text-amber-400">▼</b> বা <b class="text-amber-400">▶</b> চেপে নিচে হরে কার্সর নিয়ে যান! একইভাবে বর্গমূল (<span class="code-font">√□</span>), ঘাত (<span class="code-font">x□</span>) ও ক্যালকুলাসের (<span class="code-font">∫dx</span>) ভেতরে <b class="text-amber-400">◀ ▶ ▲ ▼</b> চেপে কার্সর সরানো যাবে।</p>
+                </div>
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                    <h4 class="font-bold text-emerald-400 uppercase">২. SHIFT, ALPHA এবং ভগ্নাংশ-দশমিক (S⇔D)</h4>
+                    <p class="text-slate-300">বাটনের উপরের সোনালি ফাংশনগুলোর জন্য আগে <b class="text-amber-400">SHIFT</b> চাপুন (যেমন: <span class="code-font">SHIFT + sin = sin⁻¹</span>, <span class="code-font">SHIFT + ×10ˣ = π</span>, <span class="code-font">SHIFT + x⁻¹ = x!</span>)। আর উত্তর ভগ্নাংশ বা দশমিকে বদলাতে <b class="text-indigo-300">S⇔D</b> বাটনে চাপ দিন।</p>
+                </div>
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                    <h4 class="font-bold text-pink-400 uppercase">৩. সেটিংস (⚙️) ও ফোনের কিবোর্ড অপশন</h4>
+                    <p class="text-slate-300">ফোনে বাটন টিপতে সুবিধার জন্য ডিফল্ট অবস্থায় ফোনের নিজস্ব কিবোর্ড বন্ধ রাখা হয়েছে। তবে আপনি চাইলে উপরে <b class="text-white">ফোনের কিবোর্ড: বন্ধ</b> বাটনে চাপ দিয়ে ফোনের কিবোর্ডও চালু করতে পারবেন! আর <b class="text-white">⚙️ SET</b> চেপে Degree/Radian ও ডিসপ্লে থিম বদলানো যাবে।</p>
+                </div>
+            `;
+        }
+    } else {
+        if (currentLang === 'en') {
+            headEl.innerText = "💻 Casio fx-991CW Laptop / Desktop Keyboard Shortcuts & Manual";
+            subEl.innerText = "Full Physical Keyboard Shortcut Support + On-Screen Natural Textbook Controls";
+            contentEl.innerHTML = `
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                    <h4 class="font-bold text-indigo-400 uppercase">⌨️ Math & Function Keyboard Shortcuts</h4>
+                    <ul class="space-y-1 text-slate-300 code-font">
+                        <li><b class="text-emerald-400">f</b> ➜ Insert 2D Stacked Fraction (믐)</li>
+                        <li><b class="text-emerald-400">r</b> ➜ Square Root (√□) &nbsp;|&nbsp; <b class="text-emerald-400">^</b> ➜ Power (x□)</li>
+                        <li><b class="text-emerald-400">s / c / t</b> ➜ sin( / cos( / tan(</li>
+                        <li><b class="text-emerald-400">l / n</b> ➜ log( / ln(</li>
+                        <li><b class="text-emerald-400">p</b> ➜ π (Pi) &nbsp;|&nbsp; <b class="text-emerald-400">!</b> ➜ Factorial (x!)</li>
+                    </ul>
+                </div>
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                    <h4 class="font-bold text-amber-400 uppercase">🧭 Navigation & Execution Keys</h4>
+                    <ul class="space-y-1 text-slate-300 code-font">
+                        <li><b class="text-amber-300">Arrow Keys (◀ ▲ ▼ ▶)</b> ➜ Move cursor across 2D fractions & exponents</li>
+                        <li><b class="text-amber-300">Enter / =</b> ➜ Calculate Result (=)</li>
+                        <li><b class="text-amber-300">Backspace</b> ➜ Delete (DEL) &nbsp;|&nbsp; <b class="text-amber-300">Esc</b> ➜ All Clear (AC)</li>
+                        <li><b class="text-amber-300">Tab</b> ➜ Toggle S⇔D (Fraction ⇔ Decimal)</li>
+                    </ul>
+                </div>
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                    <h4 class="font-bold text-pink-400 uppercase">📐 Calculus, Constants & Solver</h4>
+                    <p class="text-slate-300">Use <b class="text-white">∫dx</b> for definite integrals, <b class="text-white">d/dx</b> for derivatives, and <b class="text-white">∑x</b> for summations. Click <b class="text-white">CATLG</b> for physical constants ($c, g, h, G, N_A$) and use the right panel for Quadratic, Cubic & Simultaneous Equation solving.</p>
+                </div>
+            `;
+        } else {
+            headEl.innerText = "💻 ক্যাসিও fx-991CW ল্যাপটপ / ডেক্সটপ কিবোর্ড শর্টকাট ও ম্যানুয়াল";
+            subEl.innerText = "ল্যাপটপের কিবোর্ড দিয়ে দ্রুত অংক করার শর্টকাট তালিকা এবং সম্পূর্ণ নিয়মাবলি";
+            contentEl.innerHTML = `
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                    <h4 class="font-bold text-indigo-400 uppercase">⌨️ বৈজ্ঞানিক ফাংশনের কিবোর্ড শর্টকাট</h4>
+                    <ul class="space-y-1 text-slate-300 code-font">
+                        <li><b class="text-emerald-400">f</b> ➜ ভগ্নাংশ (믐) তৈরি করবে</li>
+                        <li><b class="text-emerald-400">r</b> ➜ বর্গমূল (√□) &nbsp;|&nbsp; <b class="text-emerald-400">^</b> ➜ পাওয়ার/ঘাত (x□)</li>
+                        <li><b class="text-emerald-400">s / c / t</b> ➜ sin( / cos( / tan(</li>
+                        <li><b class="text-emerald-400">l / n</b> ➜ log( / ln(</li>
+                        <li><b class="text-emerald-400">p</b> ➜ π (পাই) &nbsp;|&nbsp; <b class="text-emerald-400">!</b> ➜ ফ্যাক্টোরিয়াল (x!)</li>
+                    </ul>
+                </div>
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                    <h4 class="font-bold text-amber-400 uppercase">🧭 কার্সর ও কন্ট্রোল শর্টকাট কি</h4>
+                    <ul class="space-y-1 text-slate-300 code-font">
+                        <li><b class="text-amber-300">Arrow Keys (◀ ▲ ▼ ▶)</b> ➜ ভগ্নাংশের লব/হর ও ঘাতের ভেতরে কার্সর সরানো</li>
+                        <li><b class="text-amber-300">Enter / =</b> ➜ ফলাফল নির্ণয় (=)</li>
+                        <li><b class="text-amber-300">Backspace</b> ➜ ১টি অক্ষর মোছা (DEL) &nbsp;|&nbsp; <b class="text-amber-300">Esc</b> ➜ সব মোছা (AC)</li>
+                        <li><b class="text-amber-300">Tab</b> ➜ ভগ্নাংশ ও দশমিক পরিবর্তন (S⇔D)</li>
+                    </ul>
+                </div>
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                    <h4 class="font-bold text-pink-400 uppercase">📐 ক্যালকুলাস, ধ্রুবক ও সমীকরণ সমাধান</h4>
+                    <p class="text-slate-300">যোগজীকরণের জন্য <b class="text-white">∫dx</b>, অন্তরীকরণের জন্য <b class="text-white">d/dx</b> এবং ধারার যোগফলের জন্য <b class="text-white">∑x</b> ব্যবহার করুন। <b class="text-white">CATLG</b> বাটনে বৈজ্ঞানিক ধ্রুবক ($c, g, h, G, N_A$) এবং ডান পাশের প্যানেলে দ্বিঘাত ও ত্রিঘাত সমীকরণ সমাধান পাবেন।</p>
+                </div>
+            `;
+        }
+    }
+}
+
+// Re-render manual on language toggle
+const _origToggleLanguage = toggleLanguage;
+toggleLanguage = function() {
+    _origToggleLanguage();
+    renderCasioManual();
+    renderCwHistory();
+};
+
+// Matrix Binary Rain Background Engine (Enhanced Visibility for Mobile & Desktop)
 function initMatrixRain() {
   const canvas = document.getElementById('matrix-bg');
   if (!canvas) return;
@@ -3070,15 +5319,14 @@ function initMatrixRain() {
   
   function draw() {
     const isLight = document.body.classList.contains('theme-light');
-    // লাইট মোডে হালকা নীল/ইন্ডিগো এবং ডার্ক মোডে সবুজ রঙের ট্রেইল ইফেক্ট
-const trailColor = isLight ? 'rgba(209, 213, 219, 0.4)' : 'rgba(3, 7, 18, 0.08)';
-const textColor = isLight ? 'rgba(67, 56, 202, 0.85)' : 'rgba(16, 185, 129, 0.7)';
+    const trailColor = isLight ? 'rgba(241, 245, 249, 0.25)' : 'rgba(3, 7, 18, 0.07)';
+    const textColor = isLight ? 'rgba(67, 56, 202, 0.9)' : 'rgba(16, 185, 129, 0.88)';
     
     ctx.fillStyle = trailColor;
     ctx.fillRect(0, 0, width, height);
     
     ctx.fillStyle = textColor;
-    ctx.font = fontSize + "px 'Fira Code', monospace";
+    ctx.font = "bold " + fontSize + "px 'Fira Code', monospace";
     
     for (let i = 0; i < drops.length; i++) {
       const text = chars[Math.floor(Math.random() * chars.length)];
@@ -3094,18 +5342,17 @@ const textColor = isLight ? 'rgba(67, 56, 202, 0.85)' : 'rgba(16, 185, 129, 0.7)
     }
   }
   
-  setInterval(draw, 50);
+  setInterval(draw, 45);
 }
 
 window.onload = function() {
-  initLoadingRain(); // লোডিং অ্যানিমেশন চালু করা
-  initMatrixRain(); // পেজ লোড হওয়ার সাথে সাথে ব্যাকগ্রাউন্ড চালু করা
+  initLoadingRain();
+  initMatrixRain();
   setSourceBase(10);
   setTargetBase(2);
   updateBitBoardUI();
   renderCalculatorRows();
   
-  // Initial calculator state without triggering the reset toast
   document.getElementById('calc-out-dec').innerText = '0';
   document.getElementById('calc-out-bin').innerText = '0';
   document.getElementById('calc-out-oct').innerText = '0';
@@ -3115,6 +5362,13 @@ window.onload = function() {
   triggerWaveformDrawing();
   showDefaultSolutionNote();
   updateScoreDisplay();
+
+  // Initialize Casio fx-991CW Scientific Calculator & Smart Manual
+  cwRenderDisplay();
+  renderCwEquationInputs();
+  renderCwHistory();
+  renderCasioManual();
+
   lucide.createIcons();
 };
 // ==================== SECURITY & INTERACTION RESTRICTIONS ====================
