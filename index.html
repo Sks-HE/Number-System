@@ -622,7 +622,131 @@ body:not(.theme-light) #header-tabs-bar {
   max-height: 3.6rem;
   overflow-y: auto;
 }
-
+/* ==================== CUSTOM BASE-AWARE VIRTUAL KEYBOARD (MOBILE ONLY) ==================== */
+#custom-num-kb {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9995;
+  background: rgba(11, 15, 25, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1.5px solid rgba(99, 102, 241, 0.35);
+  box-shadow: 0 -12px 32px rgba(0, 0, 0, 0.6);
+  transform: translateY(105%);
+  transition: transform 0.25s cubic-bezier(0.32, 0.72, 0, 1);
+  padding: 10px 10px calc(12px + env(safe-area-inset-bottom, 0px));
+  user-select: none;
+}
+#custom-num-kb.active {
+  transform: translateY(0);
+}
+.theme-light #custom-num-kb {
+  background: rgba(241, 245, 249, 0.98);
+  border-top: 1.5px solid #cbd5e1;
+  box-shadow: 0 -10px 30px rgba(15, 23, 42, 0.14);
+}
+.ckb-container {
+  max-width: 420px;
+  margin: 0 auto;
+}
+.ckb-body {
+  height: 176px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.ckb-main-area {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 3fr 1.35fr;
+  gap: 6px;
+}
+.ckb-num-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.ckb-action-col {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 5px;
+}
+.ckb-row {
+  flex: 1;
+  display: grid;
+  gap: 5px;
+}
+.ckb-key {
+  border-radius: 10px;
+  font-family: 'Fira Code', monospace;
+  font-weight: 700;
+  font-size: 0.98rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+  border: 1px solid #334155;
+  color: #f8fafc !important;
+  box-shadow: 0 2.5px 0 #020617;
+  cursor: pointer;
+  transition: transform 0.06s ease, background 0.12s ease;
+}
+.ckb-key:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #020617;
+  background: #4f46e5 !important;
+  border-color: #818cf8 !important;
+  color: #ffffff !important;
+}
+.theme-light .ckb-key {
+  background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+  border: 1px solid #cbd5e1;
+  color: #0f172a !important;
+  box-shadow: 0 2.5px 0 #94a3b8;
+}
+.ckb-key-hex {
+  background: linear-gradient(180deg, #311042 0%, #1f092b 100%);
+  border-color: rgba(236, 72, 153, 0.4);
+  color: #f472b6 !important;
+  font-size: 0.9rem;
+}
+.theme-light .ckb-key-hex {
+  background: linear-gradient(180deg, #fdf2f8 0%, #fce7f3 100%);
+  border-color: #f9a8d4;
+  color: #be185d !important;
+}
+.ckb-key-dot {
+  color: #34d399 !important;
+  font-size: 1.2rem;
+}
+.theme-light .ckb-key-dot {
+  color: #059669 !important;
+}
+.ckb-key-bs {
+  background: linear-gradient(180deg, #7f1d1d 0%, #450a0a 100%);
+  border-color: rgba(244, 63, 94, 0.45);
+  color: #fda4af !important;
+  font-size: 1.1rem;
+}
+.theme-light .ckb-key-bs {
+  background: linear-gradient(180deg, #ffe4e6 0%, #fecdd3 100%);
+  border-color: #fda4af;
+  color: #be123c !important;
+}
+.ckb-key-enter {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  border-color: #818cf8;
+  color: #ffffff !important;
+  font-family: 'Poppins', 'Hind Siliguri', sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+}
+.theme-light .ckb-key-enter {
+  background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+  color: #ffffff !important;
+}
 @media (max-width: 768px) {
   header, main, footer { position: relative; z-index: 10; }
   header { padding: 0.75rem 0.85rem; }
@@ -886,29 +1010,11 @@ input, textarea, [contenteditable="true"] {
                             <label for="main-input" id="main-input-label" class="block text-xs font-semibold text-indigo-400 uppercase tracking-wider" data-key="enter_number">Enter Your Number</label>
                             <span id="validation-tip" class="text-[10px] text-slate-400 font-mono bg-slate-900 px-2 py-0.5 rounded border border-slate-800">Allowed: 0-9 and .</span>
                         </div>
-                        <div class="relative">
-                            <input id="main-input" type="text" inputmode="decimal" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false" placeholder="Decimal Number... (e.g. 45.625)" class="w-full bg-slate-950 border-2 border-slate-700/90 rounded-xl pl-4 pr-10 py-3.5 text-base sm:text-lg font-bold text-white tracking-wider focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 transition-all code-font uppercase shadow-inner" />
+                     <div class="relative">
+                            <input id="main-input" type="text" onclick="openCustomKeyboard('main')" onfocus="openCustomKeyboard('main')" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false" placeholder="Decimal Number... (e.g. 45.625)" class="w-full bg-slate-950 border-2 border-slate-700/90 rounded-xl pl-4 pr-10 py-3.5 text-base sm:text-lg font-bold text-white tracking-wider focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 transition-all code-font uppercase shadow-inner" />
                             <button id="btn-clear" class="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-slate-400 hover:text-rose-400 transition-colors" title="Clear">
                                 <i data-lucide="x-circle" class="w-5 h-5"></i>
                             </button>
-                        </div>
-
-                        <!-- Quick Hex & Fractional Keypad (Helps phone users type A-F and . while keeping Numeric Keyboard!) -->
-                        <div id="hex-quick-pad" class="hidden mt-2.5 p-2 bg-slate-950/90 border border-pink-500/30 rounded-xl">
-                            <div class="text-[10px] text-pink-400 font-semibold mb-1.5 flex items-center justify-between">
-                                <span data-key="hex_keypad_title">Quick Hex Digits (Tap to insert):</span>
-                                <span class="font-mono text-slate-400">A=10 ... F=15</span>
-                            </div>
-                            <div class="grid grid-cols-8 gap-1.5">
-                                <button type="button" onclick="insertMainInputChar('A')" class="py-1.5 bg-slate-800 hover:bg-indigo-600 text-white font-bold rounded-lg text-xs code-font border border-slate-700 transition-all">A</button>
-                                <button type="button" onclick="insertMainInputChar('B')" class="py-1.5 bg-slate-800 hover:bg-indigo-600 text-white font-bold rounded-lg text-xs code-font border border-slate-700 transition-all">B</button>
-                                <button type="button" onclick="insertMainInputChar('C')" class="py-1.5 bg-slate-800 hover:bg-indigo-600 text-white font-bold rounded-lg text-xs code-font border border-slate-700 transition-all">C</button>
-                                <button type="button" onclick="insertMainInputChar('D')" class="py-1.5 bg-slate-800 hover:bg-indigo-600 text-white font-bold rounded-lg text-xs code-font border border-slate-700 transition-all">D</button>
-                                <button type="button" onclick="insertMainInputChar('E')" class="py-1.5 bg-slate-800 hover:bg-indigo-600 text-white font-bold rounded-lg text-xs code-font border border-slate-700 transition-all">E</button>
-                                <button type="button" onclick="insertMainInputChar('F')" class="py-1.5 bg-slate-800 hover:bg-indigo-600 text-white font-bold rounded-lg text-xs code-font border border-slate-700 transition-all">F</button>
-                                <button type="button" onclick="insertMainInputChar('.')" class="py-1.5 bg-slate-800 hover:bg-emerald-600 text-emerald-400 hover:text-white font-bold rounded-lg text-xs code-font border border-slate-700 transition-all">.</button>
-                                <button type="button" onclick="backspaceMainInput()" class="py-1.5 bg-slate-800 hover:bg-rose-600 text-rose-400 hover:text-white font-bold rounded-lg text-xs code-font border border-slate-700 transition-all">⌫</button>
-                            </div>
                         </div>
                     </div>
 
@@ -1965,19 +2071,22 @@ input, textarea, [contenteditable="true"] {
                     16: "অনুমোদিত: 0-9, A-F এবং ."
                 }
             };
-
-            if (inputField) {
+if (inputField) {
                 inputField.placeholder = placeholders[currentLang][sourceBase];
-                // Always open phone's numeric/decimal keyboard directly!
-                inputField.setAttribute('inputmode', 'decimal');
+                const isMob = (window.innerWidth <= 768) || ('ontouchstart' in window && navigator.maxTouchPoints > 0 && window.innerWidth <= 1024);
+                if (isMob) {
+                    inputField.setAttribute('inputmode', 'none');
+                    inputField.readOnly = true;
+                } else {
+                    inputField.removeAttribute('inputmode');
+                    inputField.readOnly = false;
+                }
             }
             if (labelEl) labelEl.innerText = labels[currentLang][sourceBase];
             if (tipEl) tipEl.innerText = tips[currentLang][sourceBase];
 
-            // Show Quick Hex Pad when Hexadecimal (16) is active so phone users can tap A-F while keeping numeric keypad
-            if (hexPad) {
-                if (sourceBase === 16) hexPad.classList.remove('hidden');
-                else hexPad.classList.add('hidden');
+            if (typeof refreshCustomKeyboardIfOpen === 'function') {
+                refreshCustomKeyboardIfOpen('main');
             }
         }
 
@@ -3272,10 +3381,10 @@ input, textarea, [contenteditable="true"] {
                         </div>
                         <span class="text-[9px] text-slate-500 font-mono">${baseTips[row.base]}</span>
                     </div>
-
+                    
                     <!-- Input Box -->
                     <div class="relative mt-1">
-                       <input oninput="updateRowValue(${index}, this.value)" type="text" inputmode="${row.base === 16 ? 'text' : 'decimal'}" autocomplete="off" value="${row.value}" placeholder="${currentLang === 'en' ? (row.base === 10 ? 'Decimal number... (e.g. 25.5)' : row.base === 2 ? 'Binary number... (e.g. 1011)' : row.base === 8 ? 'Octal number... (e.g. 37)' : 'Hexadecimal... (e.g. 1F)') : (row.base === 10 ? 'ডেসিমাল সংখ্যা... (যেমন: 25.5)' : row.base === 2 ? 'বাইনারি সংখ্যা... (যেমন: 1011)' : row.base === 8 ? 'অক্টাল সংখ্যা... (যেমন: 37)' : 'হেক্সাডেসিমাল... (যেমন: 1F)')}" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2.5 text-sm font-bold text-slate-100 focus:outline-none focus:border-indigo-500 tracking-wider code-font uppercase" />
+                       <input id="calc-row-input-${index}" onclick="openCustomKeyboard('calc', ${index})" onfocus="openCustomKeyboard('calc', ${index})" oninput="updateRowValue(${index}, this.value)" type="text" ${isCustomKbMobile() ? 'inputmode="none" readonly' : ''} autocomplete="off" value="${row.value}" placeholder="${currentLang === 'en' ? (row.base === 10 ? 'Decimal number... (e.g. 25.5)' : row.base === 2 ? 'Binary number... (e.g. 1011)' : row.base === 8 ? 'Octal number... (e.g. 37)' : 'Hexadecimal... (e.g. 1F)') : (row.base === 10 ? 'ডেসিমাল সংখ্যা... (যেমন: 25.5)' : row.base === 2 ? 'বাইনারি সংখ্যা... (যেমন: 1011)' : row.base === 8 ? 'অক্টাল সংখ্যা... (যেমন: 37)' : 'হেক্সাডেসিমাল... (যেমন: 1F)')}" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2.5 text-sm font-bold text-slate-100 focus:outline-none focus:border-indigo-500 tracking-wider code-font uppercase" />
                     </div>
                 `;
 
@@ -3289,8 +3398,280 @@ input, textarea, [contenteditable="true"] {
         function updateRowBase(index, base) {
             playTone(400, 'sine', 0.05);
             calculatorRows[index].base = base;
+            const allowed = base === 2 ? /[^01.]/g : base === 8 ? /[^0-7.]/g : base === 10 ? /[^0-9.]/g : /[^0-9A-Fa-f.]/g;
+            calculatorRows[index].value = (calculatorRows[index].value || '').replace(allowed, '');
             renderCalculatorRows();
+            if (customKbState.open && customKbState.targetType === 'calc' && customKbState.rowIndex === index) {
+                openCustomKeyboard('calc', index);
+            }
         }
+
+        // ==================== CUSTOM BASE-AWARE KEYBOARD ENGINE (MOBILE ONLY) ====================
+        let customKbState = {
+            open: false,
+            targetType: null, // 'main' or 'calc'
+            rowIndex: -1
+        };
+
+        function isCustomKbMobile() {
+            return (window.innerWidth <= 768) || ('ontouchstart' in window && navigator.maxTouchPoints > 0 && window.innerWidth <= 1024);
+        }
+
+        function ensureCustomKeyboardDOM() {
+            if (document.getElementById('custom-num-kb')) return;
+            const kb = document.createElement('div');
+            kb.id = 'custom-num-kb';
+            kb.innerHTML = `
+                <div class="ckb-container">
+                    <div id="ckb-body" class="ckb-body"></div>
+                </div>
+            `;
+            document.body.appendChild(kb);
+        }
+
+        function getActiveCustomKbBase() {
+            if (customKbState.targetType === 'main') return sourceBase;
+            if (customKbState.targetType === 'calc' && calculatorRows[customKbState.rowIndex]) {
+                return calculatorRows[customKbState.rowIndex].base;
+            }
+            return 10;
+        }
+
+        function getActiveCustomKbInput() {
+            if (customKbState.targetType === 'main') return document.getElementById('main-input');
+            if (customKbState.targetType === 'calc') return document.getElementById(`calc-row-input-${customKbState.rowIndex}`);
+            return null;
+        }
+
+        function makeKeyBtnHTML(label, action, extraClass = '') {
+            return `<button type="button" onmousedown="event.preventDefault()" onclick="handleCustomKbKey('${action}')" class="ckb-key ${extraClass}">${label}</button>`;
+        }
+
+        function renderCustomKeyboardLayout() {
+            ensureCustomKeyboardDOM();
+            const base = getActiveCustomKbBase();
+            const bodyEl = document.getElementById('ckb-body');
+            const enterLabel = currentLang === 'en' ? 'Enter ↵' : 'এন্টার ↵';
+
+            if (base === 2) {
+                bodyEl.innerHTML = `
+                    <div class="ckb-main-area">
+                        <div class="ckb-num-grid">
+                            <div class="ckb-row grid-cols-2">
+                                ${makeKeyBtnHTML('1', '1')}
+                                ${makeKeyBtnHTML('0', '0')}
+                            </div>
+                            <div class="ckb-row grid-cols-1">
+                                ${makeKeyBtnHTML('.', '.', 'ckb-key-dot')}
+                            </div>
+                        </div>
+                        <div class="ckb-action-col">
+                            ${makeKeyBtnHTML('⌫', 'BS', 'ckb-key-bs')}
+                            ${makeKeyBtnHTML(enterLabel, 'ENTER', 'ckb-key-enter')}
+                        </div>
+                    </div>
+                `;
+            } else if (base === 8) {
+                bodyEl.innerHTML = `
+                    <div class="ckb-main-area">
+                        <div class="ckb-num-grid">
+                            <div class="ckb-row grid-cols-3">
+                                ${makeKeyBtnHTML('1', '1')}
+                                ${makeKeyBtnHTML('2', '2')}
+                                ${makeKeyBtnHTML('3', '3')}
+                            </div>
+                            <div class="ckb-row grid-cols-3">
+                                ${makeKeyBtnHTML('4', '4')}
+                                ${makeKeyBtnHTML('5', '5')}
+                                ${makeKeyBtnHTML('6', '6')}
+                            </div>
+                            <div class="ckb-row grid-cols-3">
+                                ${makeKeyBtnHTML('7', '7')}
+                                ${makeKeyBtnHTML('0', '0')}
+                                ${makeKeyBtnHTML('.', '.', 'ckb-key-dot')}
+                            </div>
+                        </div>
+                        <div class="ckb-action-col">
+                            ${makeKeyBtnHTML('⌫', 'BS', 'ckb-key-bs')}
+                            ${makeKeyBtnHTML(enterLabel, 'ENTER', 'ckb-key-enter')}
+                        </div>
+                    </div>
+                `;
+            } else if (base === 10) {
+                bodyEl.innerHTML = `
+                    <div class="ckb-main-area">
+                        <div class="ckb-num-grid">
+                            <div class="ckb-row grid-cols-3">
+                                ${makeKeyBtnHTML('1', '1')}
+                                ${makeKeyBtnHTML('2', '2')}
+                                ${makeKeyBtnHTML('3', '3')}
+                            </div>
+                            <div class="ckb-row grid-cols-3">
+                                ${makeKeyBtnHTML('4', '4')}
+                                ${makeKeyBtnHTML('5', '5')}
+                                ${makeKeyBtnHTML('6', '6')}
+                            </div>
+                            <div class="ckb-row grid-cols-3">
+                                ${makeKeyBtnHTML('7', '7')}
+                                ${makeKeyBtnHTML('8', '8')}
+                                ${makeKeyBtnHTML('9', '9')}
+                            </div>
+                            <div class="ckb-row grid-cols-3">
+                                ${makeKeyBtnHTML('0', '0', 'col-span-2')}
+                                ${makeKeyBtnHTML('.', '.', 'ckb-key-dot')}
+                            </div>
+                        </div>
+                        <div class="ckb-action-col">
+                            ${makeKeyBtnHTML('⌫', 'BS', 'ckb-key-bs')}
+                            ${makeKeyBtnHTML(enterLabel, 'ENTER', 'ckb-key-enter')}
+                        </div>
+                    </div>
+                `;
+            } else if (base === 16) {
+                bodyEl.innerHTML = `
+                    <div class="ckb-row grid-cols-6" style="max-height: 36px;">
+                        ${makeKeyBtnHTML('A', 'A', 'ckb-key-hex')}
+                        ${makeKeyBtnHTML('B', 'B', 'ckb-key-hex')}
+                        ${makeKeyBtnHTML('C', 'C', 'ckb-key-hex')}
+                        ${makeKeyBtnHTML('D', 'D', 'ckb-key-hex')}
+                        ${makeKeyBtnHTML('E', 'E', 'ckb-key-hex')}
+                        ${makeKeyBtnHTML('F', 'F', 'ckb-key-hex')}
+                    </div>
+                    <div class="ckb-main-area">
+                        <div class="ckb-num-grid">
+                            <div class="ckb-row grid-cols-3">
+                                ${makeKeyBtnHTML('1', '1')}
+                                ${makeKeyBtnHTML('2', '2')}
+                                ${makeKeyBtnHTML('3', '3')}
+                            </div>
+                            <div class="ckb-row grid-cols-3">
+                                ${makeKeyBtnHTML('4', '4')}
+                                ${makeKeyBtnHTML('5', '5')}
+                                ${makeKeyBtnHTML('6', '6')}
+                            </div>
+                            <div class="ckb-row grid-cols-4">
+                                ${makeKeyBtnHTML('7', '7')}
+                                ${makeKeyBtnHTML('8', '8')}
+                                ${makeKeyBtnHTML('9', '9')}
+                                ${makeKeyBtnHTML('0', '0')}
+                            </div>
+                            <div class="ckb-row grid-cols-1">
+                                ${makeKeyBtnHTML('.', '.', 'ckb-key-dot')}
+                            </div>
+                        </div>
+                        <div class="ckb-action-col">
+                            ${makeKeyBtnHTML('⌫', 'BS', 'ckb-key-bs')}
+                            ${makeKeyBtnHTML(enterLabel, 'ENTER', 'ckb-key-enter')}
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function openCustomKeyboard(targetType, rowIndex = -1) {
+            if (!isCustomKbMobile()) {
+                closeCustomKeyboard();
+                return;
+            }
+            ensureCustomKeyboardDOM();
+            customKbState.open = true;
+            customKbState.targetType = targetType;
+            customKbState.rowIndex = rowIndex;
+            renderCustomKeyboardLayout();
+
+            const kb = document.getElementById('custom-num-kb');
+            if (kb) kb.classList.add('active');
+            document.body.style.paddingBottom = '210px';
+
+            document.querySelectorAll('#main-input, [id^="calc-row-input-"]').forEach(el => {
+                el.classList.remove('ring-2', 'ring-indigo-500', 'border-indigo-500');
+            });
+            const activeInp = getActiveCustomKbInput();
+            if (activeInp) {
+                activeInp.classList.add('ring-2', 'ring-indigo-500', 'border-indigo-500');
+                setTimeout(() => {
+                    activeInp.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            }
+        }
+
+        function closeCustomKeyboard() {
+            customKbState.open = false;
+            const kb = document.getElementById('custom-num-kb');
+            if (kb) kb.classList.remove('active');
+            document.body.style.paddingBottom = '';
+            document.querySelectorAll('#main-input, [id^="calc-row-input-"]').forEach(el => {
+                el.classList.remove('ring-2', 'ring-indigo-500', 'border-indigo-500');
+            });
+        }
+
+        function refreshCustomKeyboardIfOpen(targetType) {
+            if (customKbState.open && customKbState.targetType === targetType) {
+                renderCustomKeyboardLayout();
+            }
+        }
+
+        function handleCustomKbKey(key) {
+            const activeInp = getActiveCustomKbInput();
+            if (!activeInp) return;
+
+            if (key === 'ENTER') {
+                playTone(680, 'sine', 0.08);
+                if (customKbState.targetType === 'main') {
+                    validateAndCalculate();
+                } else if (customKbState.targetType === 'calc') {
+                    const allFilled = calculatorRows.every(r => r.value.trim() !== '');
+                    if (allFilled) runArithmetic();
+                }
+                closeCustomKeyboard();
+                return;
+            }
+
+            if (key === 'BS') {
+                playTone(320, 'sine', 0.04);
+                activeInp.value = activeInp.value.slice(0, -1);
+            } else if (key === '.') {
+                if (activeInp.value.includes('.')) {
+                    playTone(220, 'sawtooth', 0.08);
+                    return;
+                }
+                playTone(540, 'sine', 0.04);
+                activeInp.value += '.';
+            } else {
+                playTone(520, 'sine', 0.04);
+                activeInp.value += key;
+            }
+
+            if (customKbState.targetType === 'main') {
+                validateAndCalculate();
+            } else if (customKbState.targetType === 'calc') {
+                updateRowValue(customKbState.rowIndex, activeInp.value);
+            }
+        }
+
+        // Close custom keyboard when clicking outside inputs/keyboard or switching tabs
+        document.addEventListener('pointerdown', (e) => {
+            if (!customKbState.open) return;
+            const kb = document.getElementById('custom-num-kb');
+            const isInput = e.target.closest('#main-input') || e.target.closest('[id^="calc-row-input-"]');
+            const isBaseBtn = e.target.closest('.base-btn-src') || e.target.closest('#operands-container button');
+            const isClearBtn = e.target.closest('#btn-clear');
+            if ((kb && kb.contains(e.target)) || isInput || isBaseBtn || isClearBtn) return;
+            closeCustomKeyboard();
+        });
+
+        window.addEventListener('resize', () => {
+            updateInputUIForBase();
+            if (!isCustomKbMobile() && customKbState.open) {
+                closeCustomKeyboard();
+            }
+        });
+
+        const _origSwitchTabForKb = switchTab;
+        switchTab = function(tabId) {
+            closeCustomKeyboard();
+            _origSwitchTabForKb(tabId);
+        };
 
         function updateRowValue(index, val) {
             calculatorRows[index].value = val.trim();
